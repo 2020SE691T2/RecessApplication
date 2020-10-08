@@ -1,5 +1,11 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Quick Start
+
+Makes ure you have Node.js installed on your machine.
+In the RecessApplication/gui directory run npm start or yarn start from the command line.
+Website will be available at http://localhost:3000
+
 ## Available Scripts
 
 In the project directory, you can run:
