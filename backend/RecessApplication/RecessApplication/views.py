@@ -1,8 +1,20 @@
 from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
+
+from rest_framework import generics, viewsets
+
 from RecessApplication.serializers import UserSerializer, GroupSerializer, SnippetSerializer
 from RecessApplication.models import Snippet
 
+# View overview
+# CreateAPIView - POST
+# ListAPIView - GET collection
+# RetrieveAPIView - GET single
+# DestroyAPIView - DELETE
+# UpdateAPIView - PUT and POST single
+# ListCreateAPIView - GET and POST
+# RetrieveUpdateAPIView - GET and PUT and PATCH single
+# RetrieveDestroyAPIView - GET and DELETE single
+# RetrieveUpdateDestroyAPIView - GET and PUT and PATCH and DELETE single
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -19,10 +31,11 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
 
+class SnippetList(generics.ListCreateAPIView):
+    queryset = Snippet.objects.all()
+    serializer_class = SnippetSerializer
 
-class SnippetViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows snippets to be viewed or edited.
-    """
+
+class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Snippet.objects.all()
     serializer_class = SnippetSerializer
