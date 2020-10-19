@@ -81,15 +81,17 @@ WSGI_APPLICATION = 'RecessApplication.wsgi.application'
 DATABASE_URL = 'postgres://ljmrlkjefffgho:48c2221ac6354c10c3e8a7adc39a255eee9c9f1247c06f2dc588995f15c4ccf8@ec2-3-210-255-177.compute-1.amazonaws.com:5432/d93q92rm3c3apf'
 
 DATABASES = {
+    # Connects to the production DB
     'default' : dj_database_url.config(default=DATABASE_URL, conn_max_age=600, ssl_require=True),
-    'defaults': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd93q92rm3c3apf',
-        'USER': 'ljmrlkjefffgho',
-        'PASSWORD': '48c2221ac6354c10c3e8a7adc39a255eee9c9f1247c06f2dc588995f15c4ccf8',
-        'HOST': 'ec2-3-210-255-177.compute-1.amazonaws.com',
-        'PORT': '5432',
-    }
+    # Uncomment below for local DB
+    #'defaults': {
+    #    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #    'NAME': 'd93q92rm3c3apf',
+    #    'USER': 'ljmrlkjefffgho',
+    #    'PASSWORD': '48c2221ac6354c10c3e8a7adc39a255eee9c9f1247c06f2dc588995f15c4ccf8',
+    #    'HOST': 'ec2-3-210-255-177.compute-1.amazonaws.com',
+    #    'PORT': '5432',
+    #}
 }
 
 

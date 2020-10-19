@@ -1,8 +1,7 @@
 from django.contrib.auth.models import User, Group
 from django.contrib.auth import get_user_model
 from rest_framework import generics, viewsets
-from RecessApplication.serializers import CustomUserSerializer, GroupSerializer, SnippetSerializer
-from RecessApplication.models import Snippet
+from RecessApplication.serializers import CustomUserSerializer, GroupSerializer
 
 User = get_user_model()
 
@@ -31,12 +30,3 @@ class GroupViewSet(viewsets.ModelViewSet):
     """
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
-
-class SnippetList(generics.ListCreateAPIView):
-    queryset = Snippet.objects.all()
-    serializer_class = SnippetSerializer
-
-
-class SnippetDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Snippet.objects.all()
-    serializer_class = SnippetSerializer

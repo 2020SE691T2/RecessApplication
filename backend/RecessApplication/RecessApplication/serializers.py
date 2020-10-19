@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from RecessApplication.models import Snippet, CustomUser
+from RecessApplication.models import CustomUser
 from django.contrib.auth import authenticate
 
 class CustomUserSerializer(serializers.HyperlinkedModelSerializer):
@@ -23,9 +23,3 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
         fields = ['url', 'name']
-
-
-class SnippetSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Snippet
-        fields = ['id', 'title', 'code', 'linenos']

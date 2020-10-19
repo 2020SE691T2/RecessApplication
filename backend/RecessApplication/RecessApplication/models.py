@@ -5,15 +5,6 @@ from django.contrib.auth import get_user_model
 
 from .managers import CustomUserManager
 
-class Snippet(models.Model):
-    created = models.DateTimeField(auto_now_add=True)
-    title = models.CharField(max_length=100, blank=True, default='')
-    code = models.TextField()
-    linenos = models.BooleanField(default=False)
-
-    class Meta:
-        ordering = ['created']
-
 class CustomUser(AbstractBaseUser):
     last_login = None
 
