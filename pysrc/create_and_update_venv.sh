@@ -30,17 +30,5 @@ python -m pip install --upgrade pip
 pip install -r requirements.txt
 
 # set vars
-host_env_var=$(awk -F "=" '/^host=/ {print $2}' envvars.txt)
-user_env_var=$(awk -F "=" '/^user=/ {print $2}' envvars.txt)
-password_env_var=$(awk -F "=" '/^password=/ {print $2}' envvars.txt)
-database_env_var=$(awk -F "=" '/^database=/ {print $2}' envvars.txt)
-PGHOST_env_var=$(awk -F "=" '/^PGHOST=/ {print $2}' envvars.txt)
-
-export host_env_var
-export user_env_var
-export password_env_var
-export database_env_var
-export PGHOST_env_var
-
-database_url="postgres://${user_env_var}:${password_env_var}@${host_env_var}/${database_env_var}"
-export database_url
+database_uri=$(awk -F "=" '/^database_uri=/ {print $2}' envvars.txt)
+export database_uri

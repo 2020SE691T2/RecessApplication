@@ -83,6 +83,6 @@ class Build_DB:
         self the environment variables from terminal
         '''
         environ = {
-            'dbname' : os.getenv("database_url")
+            'dbname' : os.getenv("database_uri")
         }
         return(environ)

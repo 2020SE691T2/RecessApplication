@@ -18,23 +18,15 @@ python3 gen_mock_data.py
 ## Create Environment in Terminal to Build Database
 **The following variables will need to be set in the environment:**
 ```console
-host
-user
-password
-database
-PGHOST
+database_uri
 ```
 Save these variables in a file ```envvars.txt``` in the same directory as ```create_and_update_venv.sh```, in the format:
 ```console
-host=<somestring.amazonaws.com>
-user=<somestring>
-password=<somestring>
-database=<somestring>
-PGHOST=/var/run/postgrsql
+database_uri=<somestring>
 ```
 **DO NOT USE " "**\
 \
-The appropriate values for these variables can be found by going to [Database Credentials: View Credentials...](https://data.heroku.com/datastores/016518f2-8a2b-4645-96e9-3ce4ef69f60d#administration).
+The appropriate values for database_url can be found by going to [Database Credentials: View Credentials...](https://data.heroku.com/datastores/016518f2-8a2b-4645-96e9-3ce4ef69f60d#administration) and copying URI.
 
 In the terminal, run
 ```console
