@@ -1,4 +1,0 @@
-name: recess_db
-dependencies:
-    - pandas
-    - psycopg2
