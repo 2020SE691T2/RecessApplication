@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import * as serviceWorker from "/Users/pinkdove/RecessApplication/gui/src/serviceWorker.js";
+import * as serviceWorker from "./serviceWorker.js";
 import Recess from "./components/recess";
 ReactDOM.render(<Recess />, document.getElementById("root"));
 

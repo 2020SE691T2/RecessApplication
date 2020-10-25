@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "/Users/pinkdove/RecessApplication/gui/src/LoginApp.css";
+import "../LoginApp.css";
 
 
 class Recess2 extends Component {
