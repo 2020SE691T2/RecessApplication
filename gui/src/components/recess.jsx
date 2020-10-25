@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import "/Users/pinkdove/recess2-app/src/App.css";
-import axios from 'axios';
+import "/Users/pinkdove/RecessApplication/gui/src/LoginApp.css";
+
 
 class Recess2 extends Component {
 
@@ -17,6 +17,7 @@ onChange = (e) =>{
 this.setState({ [e.target.name]: e.target.value});
 }
 
+/*
 onSubmit = (e) => {
   e.preventDefault();
   //get form data out of state
@@ -26,7 +27,7 @@ onSubmit = (e) => {
   .then((response)) => {
 
   });
-}
+}*/
 
   render() {
 
