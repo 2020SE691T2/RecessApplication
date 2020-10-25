@@ -1,4 +1,3 @@
 node_modules/
 /gui/node_modules/
-node_modules/.bin/ansi-html
 .DS_Store
