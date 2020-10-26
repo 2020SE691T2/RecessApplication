@@ -10,7 +10,7 @@
 }
 
 .background {
-  background-image: url(/Recess_Login2.jpg);
+  background-image: url(../Resources/background.jpg);
   background-repeat: no-repeat;
   background-size: 100%;
   min-height: 100vh;
