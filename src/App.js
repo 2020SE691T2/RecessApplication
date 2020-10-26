@@ -6,29 +6,27 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-import ProfilePage from "./components/ProfilePage"
-import LoginPage from "./components/recess"
+import ProfilePage from "./Components/ProfilePage"
+import LoginPage from "./Components/LoginPage"
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <BrowserRouter>
-          <Switch>
-            <Route
-              exact
-              path="/"
-              render={() => {
-                return (
-                  <Redirect to="/login" />
-                )
-              }}
-            />
-            <Route exact path="/login" component={LoginPage} />
-            <Route exact path="/Profile" component={ProfilePage} />
-          </Switch>
-        </BrowserRouter>
-      </header>
+      <BrowserRouter>
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => {
+              return (
+                <Redirect to="/login" />
+              )
+            }}
+          />
+          <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/Profile" component={ProfilePage} />
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }
