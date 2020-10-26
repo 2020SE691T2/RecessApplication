@@ -6,8 +6,8 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
-import ProfilePage from "./Components/ProfilePage"
-import LoginPage from "./Components/recess"
+import ProfilePage from "./components/ProfilePage"
+import LoginPage from "./components/recess"
 
 function App() {
   return (
