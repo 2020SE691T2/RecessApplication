@@ -1,43 +1,69 @@
 import React, { Component } from "react";
-import "/Users/pinkdove/RecessApplication/gui/src/LoginApp.css";
-import axios from "axios";
+import "../LoginApp.css";
+
 
 class Recess2 extends Component {
 
-  constructor(){
+  constructor() {
     super();
-  this.state = {
-    username: '',
-    password: '',
-  };
+    this.state = {
+      username: '',
+      password: '',
+    };
 
-}
+    this.loginClicked = this.loginClicked.bind(this);
+  }
 
-onChange = (e) =>{
-this.setState({ [e.target.name]: e.target.value});
-}
+  onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  }
 
-
-onSubmit = (e) => {
-  e.preventDefault();
-
-
-  const{ username, password } = this.state;
+  loginClicked() {
+    console.log("in loginClicked");
+    const { username, password } = this.state;
 
 
-  axios({
-    method: 'post',
-    url: 'https://recess-api.herokuapp.com/api-auth/auth/',
-    data: {
-      email_address: username,
-      password: password
+    console.log(this.state.username);
+    console.log(this.state.password);
+
+    try {
+      var url = "https://recess-api.herokuapp.com/api-auth/auth/";
+      fetch(url, {
+        method: "POST",
+        body: JSON.stringify({
+          email_address: this.state.username,
+          password: this.state.password
+        }),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json"
+        }
+      })
+        .then((resp) => resp.json())
+        .then((results) => {
+          //go to the profilepage
+        });
+    } catch (e) {
+      console.log(e);
+      console.log("--------------------------");
     }
-  });
+  }
 
-  //get form data out of state
 
- 
-}
+  // onSubmit = (e) => {
+  //   e.preventDefault();
+  //   const { username, password } = this.state;
+  //   axios({
+  //     method: 'post',
+  //     url: 'https://recess-api.herokuapp.com/api-auth/auth/',
+  //     data: {
+  //       email_address: username,
+  //       password: password
+  //     }
+  //   });
+  //   //get form data out of state
+  //   return false;
+  // }
 
 
 
@@ -46,7 +72,7 @@ onSubmit = (e) => {
 
   render() {
 
-    const {username, password} = this.state;
+    const { username, password } = this.state;
     return (
       <div className="container">
         <body className="background">
@@ -54,7 +80,7 @@ onSubmit = (e) => {
             <input
               className="username"
               type="text"
-              name = "username"
+              name="username"
               value={username}
               onChange={this.onChange}
             />
@@ -62,11 +88,13 @@ onSubmit = (e) => {
             <input
               className="password"
               type="password"
-              name = "password"
+              name="password"
               value={password}
               onChange={this.onChange}
             />
-            <input className="Submit" type="submit" value="" />
+            {/* <input className="Submit" type="submit" value="" /> */}
+            <button className="Submit" type="button" onClick={this.loginClicked} />
+
           </form>
 
           <p>
