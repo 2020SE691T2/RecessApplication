@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import "../LoginApp.css";
-
+import "/Users/pinkdove/RecessApplication/gui/src/LoginApp.css";
+import axios from "axios";
 
 class Recess2 extends Component {
 
@@ -17,17 +17,32 @@ onChange = (e) =>{
 this.setState({ [e.target.name]: e.target.value});
 }
 
-/*
+
 onSubmit = (e) => {
   e.preventDefault();
-  //get form data out of state
+
+
   const{ username, password } = this.state;
 
-  axios.post('https://localhost:8000/', { username, password })
-  .then((response)) => {
 
+  axios({
+    method: 'post',
+    url: 'https://recess-api.herokuapp.com/api-auth/auth/',
+    data: {
+      email_address: username,
+      password: password
+    }
   });
-}*/
+
+  //get form data out of state
+
+ 
+}
+
+
+
+
+
 
   render() {
 
