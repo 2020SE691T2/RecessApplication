@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import "../LoginApp.css";
 
-
-class Recess2 extends Component {
+class LoginPage extends Component {
 
   constructor() {
     super();
     this.state = {
       username: '',
-      password: '',
+      password: ''
     };
 
     this.loginClicked = this.loginClicked.bind(this);
@@ -19,12 +18,7 @@ class Recess2 extends Component {
   }
 
   loginClicked() {
-    console.log("in loginClicked");
     const { username, password } = this.state;
-
-
-    console.log(this.state.username);
-    console.log(this.state.password);
 
     try {
       var url = "https://recess-api.herokuapp.com/api-auth/auth/";
@@ -41,34 +35,18 @@ class Recess2 extends Component {
       })
         .then((resp) => resp.json())
         .then((results) => {
-          //go to the profilepage
+          if (results.user.email_address) {
+            this.props.history.push({
+              pathname: '/Profile',
+              state: { email: results.user.email_address }
+            })
+          }
         });
     } catch (e) {
       console.log(e);
       console.log("--------------------------");
     }
   }
-
-
-  // onSubmit = (e) => {
-  //   e.preventDefault();
-  //   const { username, password } = this.state;
-  //   axios({
-  //     method: 'post',
-  //     url: 'https://recess-api.herokuapp.com/api-auth/auth/',
-  //     data: {
-  //       email_address: username,
-  //       password: password
-  //     }
-  //   });
-  //   //get form data out of state
-  //   return false;
-  // }
-
-
-
-
-
 
   render() {
 
@@ -92,7 +70,6 @@ class Recess2 extends Component {
               value={password}
               onChange={this.onChange}
             />
-            {/* <input className="Submit" type="submit" value="" /> */}
             <button className="Submit" type="button" onClick={this.loginClicked} />
 
           </form>
@@ -107,14 +84,4 @@ class Recess2 extends Component {
     );
   }
 }
-export default Recess2;
-
-/*
-
-
-
-
-
-
-
-*/
+export default LoginPage;

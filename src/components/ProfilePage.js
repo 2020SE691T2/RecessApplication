@@ -4,10 +4,6 @@ import './ProfilePage.css'
 class ProfilePage extends Component {
     constructor() {
         super();
-
-        //pull the profile info from the api and set that as the 
-        //initial values
-
         this.state = {
             disabled: true,
             firstName: "",
@@ -28,6 +24,30 @@ class ProfilePage extends Component {
         this.editIdNum = this.editIdNum.bind(this);
     }
 
+    componentDidMount() {
+        console.log(this.props.location.state.email);
+        try {
+            var url = "https://recess-api.herokuapp.com/users/" + this.props.location.state.email + "/";
+            fetch(url, {
+                method: "GET"
+            })
+                .then((resp) => resp.json())
+                .then((results) => {
+                    this.setState({
+                        firstName: results.first_name,
+                        lastName: results.last_name,
+                        preferedName: results.preferred_name,
+                        email: results.email_address,
+                        dob: results.dob,
+                        idNum: results.physical_id_num,
+                    });
+                });
+        } catch (e) {
+            console.log(e);
+            console.log("--------------------------");
+        }
+    }
+
     onEditProfileButtonClicked() {
         this.setState({
             disabled: false
@@ -38,7 +58,39 @@ class ProfilePage extends Component {
         this.setState({
             disabled: true
         });
-        //call the put method to update the db with the updated profile info
+
+        // try {
+        //     var url = "https://recess-api.herokuapp.com/users/gtkzzwmewi.jugdsisti@schoolmail.com/";
+        //     fetch(url, {
+        //         method: "PUT",
+        //         body: JSON.stringify({
+        //             first_name: this.state.firstName,
+        //             last_name: this.state.lastName,
+        //             preferred_name: this.state.preferedName,
+        //             email_address: this.state.email,
+        //             dob: this.state.dob,
+        //             physical_id_num: this.state.idNum
+        //         }),
+        //         headers: {
+        //             Accept: "application/json",
+        //             "Content-Type": "application/json"
+        //         }
+        //     })
+        //         .then((resp) => resp.json())
+        //         .then((results) => {
+        //             this.setState({
+        //                 firstName: results.first_name,
+        //                 lastName: results.last_name,
+        //                 preferedName: results.preferred_name,
+        //                 email: results.email_address,
+        //                 dob: results.dob,
+        //                 idNum: results.physical_id_num,
+        //             });
+        //         });
+        // } catch (e) {
+        //     console.log(e);
+        //     console.log("--------------------------");
+        // }
     }
 
     editFirstName(event) {
