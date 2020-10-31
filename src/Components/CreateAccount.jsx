@@ -109,7 +109,7 @@ class CreateAccount extends Component {
             />
 
             <input
-              className="password"
+              className="password_CA"
               type="password"
               placeholder="Password:"
               value={this.state.password}
@@ -117,7 +117,7 @@ class CreateAccount extends Component {
             />
             <p></p>
             <p></p>
-            <input className="Submit" type="submit" value="" />
+            <input className="Submit_CA" type="submit" value="" />
 
           </form>
 
