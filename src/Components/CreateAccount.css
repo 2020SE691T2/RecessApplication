@@ -18,7 +18,7 @@
   max-width: 100%;
 }
 
-.background {
+.background_CA {
   background-image: url(/createaccountbackground.jpg);
   background-color: blue;
   background-repeat: no-repeat;
@@ -122,7 +122,7 @@
   margin-top: 50px;
 }
 
-.password {
+.password_CA {
   width: 28%;
   text-align: left;
   font-size: 15px;
@@ -138,7 +138,7 @@
   margin-top: 50px;
 }
 
-.Submit {
+.Submit_CA {
   display: inline-block;
   width: 56%;
   height: 63px;
