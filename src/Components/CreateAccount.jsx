@@ -37,7 +37,7 @@ class CreateAccount extends Component {
     const { firstName, lastName, email, birthday, prefferedName, password } = this.state;
     return (
       <div className="container">
-        <body className="background">
+        <body className="background_CA">
 
 
 
