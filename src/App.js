@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import ProfilePage from "./Components/ProfilePage"
 import LoginPage from "./Components/LoginPage"
-import CreateAccount from './components/CreateAccount';
+import CreateAccount from './Components/CreateAccount';
 
 function App() {
   return (
