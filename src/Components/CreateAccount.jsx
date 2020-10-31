@@ -14,23 +14,42 @@ class CreateAccount extends Component {
       password: ''
     };
 
-    this.handleChange = this.handleChange.bind(this);
+    this.changefirstName = this.changefirstName.bind(this);
+    this.changeLastName = this.changeLastName.bind(this);
+    this.changePreferredName = this.changePreferredName.bind(this);
+    this.changeEmail = this.changeEmail.bind(this);
+    this.changeBirthday = this.changeBirthday.bind(this);
+    this.changePassword = this.changePassword.bind(this);
     this.creatAccount = this.creatAccount.bind(this);
 
   }
 
-  handleChange(event) {
-    this.setState({ firstName: event.target.firstName })
-    this.setState({ lastName: event.target.lastName })
-    this.setState({ prefferedName: event.target.preferredName })
-    this.setState({ email: event.target.email })
-    this.setState({ birthday: event.target.birthday })
-    this.setState({ password: event.target.password })
+  changefirstName(event) {
+    this.setState({ firstName: event.target.value });
+  }
+
+  changeLastName(event) {
+    this.setState({ lastName: event.target.value });
+  }
+
+  changePreferredName(event) {
+    this.setState({ preferredName: event.target.value });
+  }
+
+  changeEmail(event) {
+    this.setState({ email: event.target.value });
+  }
+
+  changeBirthday(event) {
+    this.setState({ birthday: event.target.value });
+  }
+
+  changePassword(event) {
+    this.setState({ password: event.target.value });
   }
 
   creatAccount(event) {
     event.preventDefault();
-    console.log(this.state);
     var json = JSON.stringify({
       "email_address": this.state.email,
       "first_name": this.state.firstName,
@@ -41,7 +60,6 @@ class CreateAccount extends Component {
       "dob": this.state.birthday,
       "role": "Teacher"
     });
-    console.log(json);
     try {
       fetch("https://recess-api.herokuapp.com/users/", {
         method: "POST",
@@ -51,10 +69,11 @@ class CreateAccount extends Component {
         }
       }).then((resp) => resp.json())
         .then((results) => {
-          if (results.user.email_address) {
+          console.log(results);
+          if (results.email_address) {
             this.props.history.push({
               pathname: '/Profile',
-              state: { email: results.user.email_address }
+              state: { email: results.email_address }
             })
           }
         });
@@ -74,7 +93,7 @@ class CreateAccount extends Component {
 
 
           <div className="header">
-            <p> <a href="https://recess-prototype.herokuapp.com/" target="_blank"> <img src="./Recess_logo.png" /></a>
+            <p> <a href="/"> <img src="./Recess_logo.png" /></a>
             </p>
 
           </div>
@@ -97,7 +116,7 @@ class CreateAccount extends Component {
               type="text"
               placeholder="First Name:"
               value={this.state.firstName}
-              onChange={this.handleChange}
+              onChange={this.changefirstName}
             />
 
 
@@ -106,7 +125,7 @@ class CreateAccount extends Component {
               type="text"
               placeholder="Last Name:"
               value={this.state.lastName}
-              onChange={this.handleChange}
+              onChange={this.changeLastName}
             />
 
             <p></p>
@@ -118,7 +137,7 @@ class CreateAccount extends Component {
               type="text"
               placeholder="Email:"
               value={this.state.email}
-              onChange={this.handleChange}
+              onChange={this.changeEmail}
             />
 
             <input
@@ -126,7 +145,7 @@ class CreateAccount extends Component {
               type="text"
               placeholder="Preffered Name:"
               value={this.state.prefferedName}
-              onChange={this.handleChange}
+              onChange={this.changePreferredName}
             />
             <p></p>
             <p></p>
@@ -136,7 +155,7 @@ class CreateAccount extends Component {
               type="text"
               placeholder="Date of Birth"
               value={this.state.birthday}
-              onChange={this.handleChange}
+              onChange={this.changeBirthday}
             />
 
             <input
@@ -144,7 +163,7 @@ class CreateAccount extends Component {
               type="password"
               placeholder="Password:"
               value={this.state.password}
-              onChange={this.handleChange}
+              onChange={this.changePassword}
             />
             <p></p>
             <p></p>
