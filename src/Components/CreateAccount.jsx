@@ -15,7 +15,7 @@ class CreateAccount extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.creatAccount = this.creatAccount.bind(this);
 
   }
 
@@ -28,8 +28,39 @@ class CreateAccount extends Component {
     this.setState({ password: event.target.password })
   }
 
-  handleSubmit(event) {
+  creatAccount(event) {
     event.preventDefault();
+    console.log(this.state);
+    var json = JSON.stringify({
+      "email_address": this.state.email,
+      "first_name": this.state.firstName,
+      "last_name": this.state.lastName,
+      "preferred_name": this.state.preferredName,
+      "password": this.state.password,
+      "physical_id_num": "1",
+      "dob": this.state.birthday,
+      "role": "Teacher"
+    });
+    console.log(json);
+    try {
+      fetch("https://recess-api.herokuapp.com/users/", {
+        method: "POST",
+        body: json,
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then((resp) => resp.json())
+        .then((results) => {
+          if (results.user.email_address) {
+            this.props.history.push({
+              pathname: '/Profile',
+              state: { email: results.user.email_address }
+            })
+          }
+        });
+    } catch (e) {
+      console.log(e);
+    }
   }
 
   render() {
@@ -56,7 +87,7 @@ class CreateAccount extends Component {
 
 
 
-          <form>
+          <form onSubmit={this.creatAccount}>
 
 
 
