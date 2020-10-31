@@ -10,11 +10,12 @@
 }
 
 .background {
-  background-image: url(../Resources/background.jpg);
+  background-image: url(/Recess_Login2.jpg);
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: cover;
   min-height: 100vh;
   background-color: #6a6a73;
+  background-attachment: fixed;
 }
 
 .username2 {
@@ -65,15 +66,18 @@
 }
 
 .forgotPassword {
-  display: inline-block;
   color: white;
   text-shadow: 1px 2px black;
   font-size: 25px;
   font-family: "Times New Roman", Times, serif;
   font-weight: bold;
   position: absolute;
-  left: 435px;
-  top: 580px;
+  /*left: 435px;
+  top: 580px;*/
+  padding-left: 50px;
+  margin-top: 5%;
+  margin-left: -23%;
+  margin-right: 27%;
 }
 
 .Submit {
