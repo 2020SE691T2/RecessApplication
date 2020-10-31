@@ -17,7 +17,8 @@ class LoginPage extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
-  loginClicked() {
+  loginClicked(e) {
+    e.preventDefault();
     const { username, password } = this.state;
 
     try {
@@ -54,7 +55,7 @@ class LoginPage extends Component {
     return (
       <div className="container">
         <body className="background">
-          <form>
+          <form onSubmit={this.loginClicked}>
             <input
               className="username"
               type="text"
@@ -70,7 +71,7 @@ class LoginPage extends Component {
               value={password}
               onChange={this.onChange}
             />
-            <button className="Submit" type="button" onClick={this.loginClicked} />
+            <input type="submit" className="Submit" />
 
           </form>
 

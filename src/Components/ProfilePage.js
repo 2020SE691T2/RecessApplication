@@ -14,18 +14,16 @@ class ProfilePage extends Component {
             idNum: ""
         };
 
-        this.onEditProfileButtonClicked = this.onEditProfileButtonClicked.bind(this);
-        this.onSaveProfileButtonClicked = this.onSaveProfileButtonClicked.bind(this);
         this.editFirstName = this.editFirstName.bind(this);
         this.editLastName = this.editLastName.bind(this);
         this.editPreferedName = this.editPreferedName.bind(this);
         this.editEmail = this.editEmail.bind(this);
         this.editDoB = this.editDoB.bind(this);
         this.editIdNum = this.editIdNum.bind(this);
+        this.onFormSubmitted = this.onFormSubmitted.bind(this);
     }
 
     componentDidMount() {
-        console.log(this.props.location.state.email);
         try {
             var url = "https://recess-api.herokuapp.com/users/" + this.props.location.state.email + "/";
             fetch(url, {
@@ -48,49 +46,55 @@ class ProfilePage extends Component {
         }
     }
 
-    onEditProfileButtonClicked() {
-        this.setState({
-            disabled: false
-        });
-    }
+    onFormSubmitted(e) {
+        e.preventDefault();
+        if (this.state.disabled) {
+            this.setState({
+                disabled: false
+            });
+            document.getElementById("editButton").style.visibility = "hidden";
+            document.getElementById("saveButton").style.visibility = "visible";
+        }
+        else {
+            this.setState({
+                disabled: true
+            });
+            document.getElementById("editButton").style.visibility = "visible";
+            document.getElementById("saveButton").style.visibility = "hidden";
 
-    onSaveProfileButtonClicked() {
-        this.setState({
-            disabled: true
-        });
-
-        // try {
-        //     var url = "https://recess-api.herokuapp.com/users/gtkzzwmewi.jugdsisti@schoolmail.com/";
-        //     fetch(url, {
-        //         method: "PUT",
-        //         body: JSON.stringify({
-        //             first_name: this.state.firstName,
-        //             last_name: this.state.lastName,
-        //             preferred_name: this.state.preferedName,
-        //             email_address: this.state.email,
-        //             dob: this.state.dob,
-        //             physical_id_num: this.state.idNum
-        //         }),
-        //         headers: {
-        //             Accept: "application/json",
-        //             "Content-Type": "application/json"
-        //         }
-        //     })
-        //         .then((resp) => resp.json())
-        //         .then((results) => {
-        //             this.setState({
-        //                 firstName: results.first_name,
-        //                 lastName: results.last_name,
-        //                 preferedName: results.preferred_name,
-        //                 email: results.email_address,
-        //                 dob: results.dob,
-        //                 idNum: results.physical_id_num,
-        //             });
-        //         });
-        // } catch (e) {
-        //     console.log(e);
-        //     console.log("--------------------------");
-        // }
+            // try {
+            //     var url = "https://recess-api.herokuapp.com/users/gtkzzwmewi.jugdsisti@schoolmail.com/";
+            //     fetch(url, {
+            //         method: "PUT",
+            //         body: JSON.stringify({
+            //             first_name: this.state.firstName,
+            //             last_name: this.state.lastName,
+            //             preferred_name: this.state.preferedName,
+            //             email_address: this.state.email,
+            //             dob: this.state.dob,
+            //             physical_id_num: this.state.idNum
+            //         }),
+            //         headers: {
+            //             Accept: "application/json",
+            //             "Content-Type": "application/json"
+            //         }
+            //     })
+            //         .then((resp) => resp.json())
+            //         .then((results) => {
+            //             this.setState({
+            //                 firstName: results.first_name,
+            //                 lastName: results.last_name,
+            //                 preferedName: results.preferred_name,
+            //                 email: results.email_address,
+            //                 dob: results.dob,
+            //                 idNum: results.physical_id_num,
+            //             });
+            //         });
+            // } catch (e) {
+            //     console.log(e);
+            //     console.log("--------------------------");
+            // }
+        }
     }
 
     editFirstName(event) {
@@ -122,7 +126,7 @@ class ProfilePage extends Component {
             <body className="background">
                 <div className="viewSpace">
                     <img style={{ margin: "10px", width: "180px", height: "180px", borderRadius: "90px", backgroundColor: "black" }}></img>
-                    <form>
+                    <form onSubmit={this.onFormSubmitted}>
                         <label className="textLabel">First Name:
                         </label>
                         <input type="text" name="firstNameInput" disabled={this.state.disabled} value={this.state.firstName} onChange={this.editFirstName} />
@@ -153,8 +157,8 @@ class ProfilePage extends Component {
                         <input type="text" name="idNumInput" disabled={this.state.disabled} value={this.state.idNum} onChange={this.editIdNum} />
                         <br />
                         <br />
-                        <button type="button" disabled={!this.state.disabled} onClick={this.onEditProfileButtonClicked}>Edit Profile</button>
-                        <button type="button" disabled={this.state.disabled} onClick={this.onSaveProfileButtonClicked}>Save Profile</button>
+                        <input id="editButton" type="submit" value="Edit Profile" style={{ visibility: "visible" }} />
+                        <input id="saveButton" type="submit" value="Save Profile" style={{ visibility: "hidden" }} />
                     </form>
                 </div>
             </body >
