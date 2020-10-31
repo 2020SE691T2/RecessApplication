@@ -83,34 +83,15 @@ class CreateAccount extends Component {
   }
 
   render() {
-
-    const { firstName, lastName, email, birthday, prefferedName, password } = this.state;
     return (
       <div className="container">
         <body className="background_CA">
-
-
-
-
           <div className="header">
             <p> <a href="/"> <img src="./Recess_logo.png" /></a>
             </p>
-
           </div>
-
-
-
           <div className="banner"> <p> <img src="./signupbanner.png" /></p> </div>
-
-
-
-
-
           <form onSubmit={this.creatAccount}>
-
-
-
-
             <input
               className="firstName"
               type="text"
@@ -118,8 +99,6 @@ class CreateAccount extends Component {
               value={this.state.firstName}
               onChange={this.changefirstName}
             />
-
-
             <input
               className="lastName"
               type="text"
@@ -127,11 +106,8 @@ class CreateAccount extends Component {
               value={this.state.lastName}
               onChange={this.changeLastName}
             />
-
             <p></p>
             <p></p>
-
-
             <input
               className="email"
               type="text"
@@ -139,7 +115,6 @@ class CreateAccount extends Component {
               value={this.state.email}
               onChange={this.changeEmail}
             />
-
             <input
               className="preferredName"
               type="text"
@@ -149,7 +124,6 @@ class CreateAccount extends Component {
             />
             <p></p>
             <p></p>
-
             <input
               className="birthday"
               type="text"
@@ -157,7 +131,6 @@ class CreateAccount extends Component {
               value={this.state.birthday}
               onChange={this.changeBirthday}
             />
-
             <input
               className="password_CA"
               type="password"
@@ -168,19 +141,10 @@ class CreateAccount extends Component {
             <p></p>
             <p></p>
             <input className="Submit_CA" type="submit" value="" />
-
           </form>
-
-
-
-
-
-
         </body>
       </div>
     );
   }
 }
 export default CreateAccount;
-
-
