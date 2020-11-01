@@ -43,7 +43,7 @@
   color: white;
 }
 
-.firstName {
+.textInput {
   width: 28%;
   text-align: left;
   font-size: 15px;
@@ -55,70 +55,6 @@
 
   margin-top: 3%;
   margin-right: 1%;
-}
-
-.lastName {
-  width: 28%;
-  text-align: left;
-  font-size: 15px;
-  border: 1px solid #bdbdbd;
-  border-radius: 5px;
-  padding: 33px 11px 10px 30px;
-  box-shadow: 10px 5px 10px black;
-  background-position: -73px -41px;
-  background-size: 100%;
-  background-repeat: no-repeat;
-
-  margin-right: 1%;
-  margin-top: 50px;
-}
-
-.email {
-  width: 28%;
-  text-align: left;
-  font-size: 15px;
-  border: 1px solid #bdbdbd;
-  border-radius: 5px;
-  padding: 33px 11px 10px 30px;
-  box-shadow: 10px 5px 10px black;
-  background-position: -73px -41px;
-  background-size: 100%;
-  background-repeat: no-repeat;
-
-  margin-right: 1%;
-  margin-top: 50px;
-}
-
-.preferredName {
-  width: 28%;
-  text-align: left;
-  font-size: 15px;
-  border: 1px solid #bdbdbd;
-  border-radius: 5px;
-  padding: 33px 11px 10px 30px;
-  box-shadow: 10px 5px 10px black;
-  background-position: -73px -41px;
-  background-size: 100%;
-  background-repeat: no-repeat;
-
-  margin-right: 1%;
-  margin-top: 50px;
-}
-
-.birthday {
-  width: 28%;
-  text-align: left;
-  font-size: 15px;
-  border: 1px solid #bdbdbd;
-  border-radius: 5px;
-  padding: 33px 11px 10px 30px;
-  box-shadow: 10px 5px 10px black;
-  background-position: -73px -41px;
-  background-size: 100%;
-  background-repeat: no-repeat;
-
-  margin-right: 1%;
-  margin-top: 50px;
 }
 
 .password_CA {
