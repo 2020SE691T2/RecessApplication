@@ -11,7 +11,8 @@ class ProfilePage extends Component {
             preferedName: "",
             email: "",
             dob: "",
-            idNum: ""
+            idNum: "",
+            photo: ""
         };
 
         this.editFirstName = this.editFirstName.bind(this);
@@ -38,6 +39,7 @@ class ProfilePage extends Component {
                         email: results.email_address,
                         dob: results.dob,
                         idNum: results.physical_id_num,
+                        photo: results.photo
                     });
                 });
         } catch (e) {
@@ -125,7 +127,7 @@ class ProfilePage extends Component {
         return (
             <body className="background">
                 <div className="viewSpace">
-                    <img style={{ margin: "10px", width: "180px", height: "180px", borderRadius: "90px", backgroundColor: "black" }}></img>
+                    <img style={{ margin: "10px", width: "180px", height: "180px", borderRadius: "90px", backgroundColor: "black" }} src={this.state.photo}></img>
                     <form onSubmit={this.onFormSubmitted}>
                         <label className="textLabel">First Name:
                         </label>
