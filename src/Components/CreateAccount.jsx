@@ -11,7 +11,8 @@ class CreateAccount extends Component {
       preferredName: '',
       email: '',
       birthday: '',
-      password: ''
+      password: '',
+      role: ''
     };
 
     this.changefirstName = this.changefirstName.bind(this);
@@ -21,7 +22,7 @@ class CreateAccount extends Component {
     this.changeBirthday = this.changeBirthday.bind(this);
     this.changePassword = this.changePassword.bind(this);
     this.creatAccount = this.creatAccount.bind(this);
-
+    this.changeRole = this.changeRole.bind(this);
   }
 
   changefirstName(event) {
@@ -48,6 +49,10 @@ class CreateAccount extends Component {
     this.setState({ password: event.target.value });
   }
 
+  changeRole(event) {
+    this.setState({ role: event.target.value });
+  }
+
   creatAccount(event) {
     event.preventDefault();
     var json = JSON.stringify({
@@ -58,7 +63,7 @@ class CreateAccount extends Component {
       "password": this.state.password,
       "physical_id_num": "1",
       "dob": this.state.birthday,
-      "role": "Teacher"
+      "role": this.state.role
     });
     fetch("https://recess-api.herokuapp.com/users/", {
       method: "POST",
@@ -89,14 +94,14 @@ class CreateAccount extends Component {
           <div className="banner"> <p> <img src="./signupbanner.png" /></p> </div>
           <form onSubmit={this.creatAccount}>
             <input
-              className="firstName"
+              className="textInput"
               type="text"
               placeholder="First Name:"
               value={this.state.firstName}
               onChange={this.changefirstName}
             />
             <input
-              className="lastName"
+              className="textInput"
               type="text"
               placeholder="Last Name:"
               value={this.state.lastName}
@@ -105,14 +110,14 @@ class CreateAccount extends Component {
             <p></p>
             <p></p>
             <input
-              className="email"
+              className="textInput"
               type="text"
               placeholder="Email:"
               value={this.state.email}
               onChange={this.changeEmail}
             />
             <input
-              className="preferredName"
+              className="textInput"
               type="text"
               placeholder="Preffered Name:"
               value={this.state.prefferedName}
@@ -121,7 +126,7 @@ class CreateAccount extends Component {
             <p></p>
             <p></p>
             <input
-              className="birthday"
+              className="textInput"
               type="text"
               placeholder="Date of Birth"
               value={this.state.birthday}
@@ -136,6 +141,19 @@ class CreateAccount extends Component {
             />
             <p></p>
             <p></p>
+            <select
+              className="textInput"
+              type="text"
+              value={this.state.role}
+              onChange={this.changeRole}
+            >
+              <option value="Teacher">Teacher</option>
+              <option value="Student">Student</option>
+              <option value="Parent">Parent</option>
+            </select>
+            <p></p>
+            <p></p>
+
             <input className="Submit_CA" type="submit" value="" />
           </form>
         </body>
