@@ -60,26 +60,22 @@ class CreateAccount extends Component {
       "dob": this.state.birthday,
       "role": "Teacher"
     });
-    try {
-      fetch("https://recess-api.herokuapp.com/users/", {
-        method: "POST",
-        body: json,
-        headers: {
-          "Content-Type": "application/json"
+    fetch("https://recess-api.herokuapp.com/users/", {
+      method: "POST",
+      body: json,
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then((resp) => resp.json())
+      .then((results) => {
+        console.log(results);
+        if (results.email_address) {
+          this.props.history.push({
+            pathname: '/Profile',
+            state: { email: results.email_address }
+          })
         }
-      }).then((resp) => resp.json())
-        .then((results) => {
-          console.log(results);
-          if (results.email_address) {
-            this.props.history.push({
-              pathname: '/Profile',
-              state: { email: results.email_address }
-            })
-          }
-        });
-    } catch (e) {
-      console.log(e);
-    }
+      });
   }
 
   render() {
