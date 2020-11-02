@@ -12,24 +12,16 @@
     background-color: white;
 }
 
-#bar left {
+.leftAlign{
     float: left; 
 }
 
-#bar right {
+.rightAlign{
     float: right; 
 }
 
-#bar left a {
+#bar li a {
 	display: block;
-	padding: 8px 15px;
-	text-decoration: none;
-	font-weight: bold;
-	color:#d38d5c;
-    border-right: 1px solid #80e46a; 
-}
-#bar right a {
-    display: block;
 	padding: 8px 15px;
 	text-decoration: none;
 	font-weight: bold;
