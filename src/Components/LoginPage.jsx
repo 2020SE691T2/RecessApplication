@@ -71,7 +71,7 @@ class LoginPage extends Component {
               value={password}
               onChange={this.onChange}
             />
-            <input type="submit" className="Submit" />
+            <input type="submit" className="Submit_Login" value="" />
 
           </form>
 

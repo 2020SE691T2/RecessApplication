@@ -10,7 +10,7 @@
 }
 
 .background {
-  background-image: url(../Resources/background.jpg);
+  background-image: url(/Recess_Login2.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 100vh;
@@ -80,7 +80,7 @@
   margin-right: 27%;
 }
 
-.Submit {
+.Submit_Login {
   display: inline-block;
   width: 162px;
   height: 63px;
