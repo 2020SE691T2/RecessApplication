@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./LoginApp.css";
+import Menubar from "./MenuBar"
 
 class LoginPage extends Component {
 
@@ -53,33 +54,36 @@ class LoginPage extends Component {
 
     const { username, password } = this.state;
     return (
-      <body className="background">
-        <form onSubmit={this.loginClicked}>
-          <input
-            className="username"
-            type="text"
-            name="username"
-            value={username}
-            onChange={this.onChange}
-          />
+      <div>
+        <Menubar />
+        <body className="background">
+          <form onSubmit={this.loginClicked}>
+            <input
+              className="username"
+              type="text"
+              name="username"
+              value={username}
+              onChange={this.onChange}
+            />
 
-          <input
-            className="password"
-            type="password"
-            name="password"
-            value={password}
-            onChange={this.onChange}
-          />
-          <input type="submit" className="Submit_Login" value="" />
+            <input
+              className="password"
+              type="password"
+              name="password"
+              value={password}
+              onChange={this.onChange}
+            />
+            <input type="submit" className="Submit_Login" value="" />
 
-        </form>
+          </form>
 
-        <p>
-          <a href="#" className="forgotPassword">
-            "Forgot your password?"
+          <p>
+            <a href="#" className="forgotPassword">
+              "Forgot your password?"
             </a>
-        </p>
-      </body >
+          </p>
+        </body >
+      </div>
     );
   }
 }

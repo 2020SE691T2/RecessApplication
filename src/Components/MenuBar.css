@@ -3,7 +3,7 @@
     width: 100%;
 }
 
-#nav {
+#bar {
 	width: 100%;
 	float: left;
 	margin: 0 0 3em 0;
@@ -12,27 +12,27 @@
     background-color: white;
 }
 
-#nav left {
+#bar left {
     float: left; 
 }
 
-#nav right {
+#bar right {
     float: right; 
 }
 
-#nav left a {
+#bar left a {
 	display: block;
 	padding: 8px 15px;
 	text-decoration: none;
 	font-weight: bold;
-	color: #069;
-    border-right: 1px solid #ccc; 
+	color:#d38d5c;
+    border-right: 1px solid #80e46a; 
 }
-#nav right a {
+#bar right a {
     display: block;
 	padding: 8px 15px;
 	text-decoration: none;
 	font-weight: bold;
-	color: #069;
-    border-right: 1px solid #ccc; 
+	color:#d38d5c;
+    border-right: 1px solid #80e46a; 
 }

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./CreateAccount.css";
+import Menubar from "./MenuBar"
 
 class CreateAccount extends Component {
 
@@ -85,7 +86,8 @@ class CreateAccount extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div>
+        <Menubar />
         <body className="background_CA">
           <div className="header">
             <p> <a href="/"> <img src="./Recess_logo.png" /></a>
