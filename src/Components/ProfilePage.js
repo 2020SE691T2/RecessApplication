@@ -27,7 +27,7 @@ class ProfilePage extends Component {
 
     componentDidMount() {
         try {
-            var url = "https://recess-api.herokuapp.com/users/" + this.props.location.state.email + "/";
+            var url = "https://recess-api.herokuapp.com/users/" + this.props.location.state.email;
             fetch(url, {
                 method: "GET"
             })
