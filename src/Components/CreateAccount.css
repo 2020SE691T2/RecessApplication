@@ -20,12 +20,11 @@
 
 .background_CA {
   background-image: url(/createaccountbackground.jpg);
-  background-color: blue;
   background-repeat: no-repeat;
-  background-size: 100%;
+  background-size: cover;
+  background-attachment: scroll;
+  border: 1px solid;
   min-height: 100vh;
-  background-position: cover;
-  background-attachment: fixed;
 }
 
 .button {

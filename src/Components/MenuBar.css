@@ -1,0 +1,30 @@
+.menuBar{
+    position: fixed;
+    width: 100%;
+}
+
+#bar {
+	width: 100%;
+	float: left;
+	margin: 0 0 3em 0;
+	padding: 0;
+    list-style: none; 
+    background-color: white;
+}
+
+.leftAlign{
+    float: left; 
+}
+
+.rightAlign{
+    float: right; 
+}
+
+#bar li a {
+	display: block;
+	padding: 8px 15px;
+	text-decoration: none;
+	font-weight: bold;
+	color:#d38d5c;
+    border-right: 1px solid #80e46a; 
+}

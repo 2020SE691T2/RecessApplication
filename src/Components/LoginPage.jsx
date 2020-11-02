@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./LoginApp.css";
+import Menubar from "./MenuBar"
 
 class LoginPage extends Component {
 
@@ -53,7 +54,8 @@ class LoginPage extends Component {
 
     const { username, password } = this.state;
     return (
-      <div className="container">
+      <div>
+        <Menubar />
         <body className="background">
           <form onSubmit={this.loginClicked}>
             <input
@@ -80,7 +82,7 @@ class LoginPage extends Component {
               "Forgot your password?"
             </a>
           </p>
-        </body>
+        </body >
       </div>
     );
   }
