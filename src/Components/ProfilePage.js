@@ -125,7 +125,7 @@ class ProfilePage extends Component {
     }
     render() {
         return (
-            <body className="background">
+            <body className="backgroundProfilePage">
                 <div className="viewSpace">
                     <img style={{ margin: "10px", width: "180px", height: "180px", borderRadius: "90px", backgroundColor: "black" }} src={this.state.photo}></img>
                     <form onSubmit={this.onFormSubmitted}>

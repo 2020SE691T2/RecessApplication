@@ -1,9 +1,3 @@
-.background1 {
-  height: 100%;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
 
 .container {
   text-align: center;
@@ -72,8 +66,6 @@
   font-family: "Times New Roman", Times, serif;
   font-weight: bold;
   position: absolute;
-  /*left: 435px;
-  top: 580px;*/
   padding-left: 50px;
   margin-top: 5%;
   margin-left: -23%;
