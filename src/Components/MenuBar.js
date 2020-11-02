@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import "./MenuBar.css"
 
 class Menubar extends React.Component {
