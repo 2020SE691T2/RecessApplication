@@ -7,8 +7,6 @@
   background-image: url(../Resources/background.jpg);
   background-repeat: no-repeat;
   background-size:cover;
-  min-height: 100vh;
-  background-attachment: fixed;
   background-color: #6a6a73;
 }
 

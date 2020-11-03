@@ -24,10 +24,6 @@
   background-position: -73px -41px;
   background-size: 100%;
   background-repeat: no-repeat;
-  padding-left: 50px;
-  margin-top: 25%;
-  margin-left: 3%;
-  margin-right: 27%;
 }
 
 .password {
@@ -43,10 +39,6 @@
   background-position: -73px -41px;
   background-size: 100%;
   background-repeat: no-repeat;
-  padding-left: 50px;
-  margin-top: 5%;
-  margin-left: 3%;
-  margin-right: 27%;
 }
 
 .forgotPassword {
@@ -55,10 +47,6 @@
   font-size: 25px;
   font-family: "Times New Roman", Times, serif;
   font-weight: bold;
-  padding-left: 50px;
-  margin-top: 5%; 
-  margin-left: 3%;
-  margin-right: 27%;
 }
 
 .Submit_Login {
@@ -74,8 +62,4 @@
   background-position: -73px -41px;
   background-size: 290%;
   background-repeat: no-repeat;
-
-  margin-top: 5%;
-  margin-left: 7%;
-  margin-right: 27%;
 }

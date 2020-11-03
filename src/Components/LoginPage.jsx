@@ -2,6 +2,13 @@ import React, { Component } from "react";
 import "./LoginApp.css";
 import Menubar from "./MenuBar"
 
+// Bootstrap Components
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+
 class LoginPage extends Component {
 
   constructor() {
@@ -20,7 +27,6 @@ class LoginPage extends Component {
 
   loginClicked(e) {
     e.preventDefault();
-    const { username, password } = this.state;
 
     try {
       var url = "https://recess-api.herokuapp.com/api-auth/auth/";
@@ -56,33 +62,44 @@ class LoginPage extends Component {
     return (
       <div>
         <Menubar />
-        <body className="background">
-          <form onSubmit={this.loginClicked}>
-            <input
-              className="username"
-              type="text"
-              name="username"
-              value={username}
-              onChange={this.onChange}
-            />
-
-            <input
-              className="password"
-              type="password"
-              name="password"
-              value={password}
-              onChange={this.onChange}
-            />
-            <input type="submit" className="Submit_Login" value="" />
-
-          </form>
-
-          <p>
-            <a href="#" className="forgotPassword">
-              "Forgot your password?"
-            </a>
-          </p>
-        </body >
+        <Container className="background" fluid>
+            <Form onSubmit={this.loginClicked}>
+            <Row>
+              <Col>
+                <Form.Group controlId="emailFormGroup">
+                  <Form.Label>Email Address</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="username"
+                    value={username}
+                    className="username"
+                    onChange={this.onChange}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Form.Group controlId="passwordFormGroup">
+                  <Form.Label>Password</Form.Label>
+                  <Form.Control
+                    type="password"
+                    name="password"
+                    value={password}
+                    className="password"
+                    onChange={this.onChange}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Button variant="primary" className="Submit_Login" onClick={this.loginClicked}></Button>
+              </Col>
+            </Row>
+            </Form>
+            <Button variant="link" className="forgotPassword" href="#">"Forgot your password?"</Button>
+        </Container>
       </div>
     );
   }

@@ -86,79 +86,77 @@ class CreateAccount extends Component {
 
   render() {
     return (
-      <div>
+      <div className="background_CA">
         <Menubar />
-        <body className="background_CA">
-          <div className="header">
-            <p> <a href="/"> <img src="./Recess_logo.png" /></a>
-            </p>
-          </div>
-          <div className="banner"> <p> <img src="./signupbanner.png" /></p> </div>
-          <form onSubmit={this.creatAccount}>
-            <input
-              className="textInput"
-              type="text"
-              placeholder="First Name:"
-              value={this.state.firstName}
-              onChange={this.changefirstName}
-            />
-            <input
-              className="textInput"
-              type="text"
-              placeholder="Last Name:"
-              value={this.state.lastName}
-              onChange={this.changeLastName}
-            />
-            <p></p>
-            <p></p>
-            <input
-              className="textInput"
-              type="text"
-              placeholder="Email:"
-              value={this.state.email}
-              onChange={this.changeEmail}
-            />
-            <input
-              className="textInput"
-              type="text"
-              placeholder="Preffered Name:"
-              value={this.state.prefferedName}
-              onChange={this.changePreferredName}
-            />
-            <p></p>
-            <p></p>
-            <input
-              className="textInput"
-              type="text"
-              placeholder="Date of Birth"
-              value={this.state.birthday}
-              onChange={this.changeBirthday}
-            />
-            <input
-              className="password_CA"
-              type="password"
-              placeholder="Password:"
-              value={this.state.password}
-              onChange={this.changePassword}
-            />
-            <p></p>
-            <p></p>
-            <select
-              className="textInput"
-              type="text"
-              value={this.state.role}
-              onChange={this.changeRole}
-            >
-              <option value="Teacher">Teacher</option>
-              <option value="Student">Student</option>
-              <option value="Parent">Parent</option>
-            </select>
-            <p></p>
-            <p></p>
+        <div className="header">
+          <p> <a href="/"> <img src="./Recess_logo.png" alt={'Recess Logo'}/></a>
+          </p>
+        </div>
+        <div className="banner"> <p> <img src="./signupbanner.png" alt={'Create Account Banner'}/></p> </div>
+        <form onSubmit={this.creatAccount}>
+          <input
+            className="textInput"
+            type="text"
+            placeholder="First Name:"
+            value={this.state.firstName}
+            onChange={this.changefirstName}
+          />
+          <input
+            className="textInput"
+            type="text"
+            placeholder="Last Name:"
+            value={this.state.lastName}
+            onChange={this.changeLastName}
+          />
+          <p></p>
+          <p></p>
+          <input
+            className="textInput"
+            type="text"
+            placeholder="Email:"
+            value={this.state.email}
+            onChange={this.changeEmail}
+          />
+          <input
+            className="textInput"
+            type="text"
+            placeholder="Preffered Name:"
+            value={this.state.prefferedName}
+            onChange={this.changePreferredName}
+          />
+          <p></p>
+          <p></p>
+          <input
+            className="textInput"
+            type="date"
+            placeholder="Date of Birth"
+            value={this.state.birthday}
+            onChange={this.changeBirthday}
+          />
+          <input
+            className="password_CA"
+            type="password"
+            placeholder="Password:"
+            value={this.state.password}
+            onChange={this.changePassword}
+          />
+          <p></p>
+          <p></p>
+          <select
+            className="textInput"
+            type="text"
+            value={this.state.role}
+            onChange={this.changeRole}
+          >
+            <option value="Teacher">Teacher</option>
+            <option value="Student">Student</option>
+            <option value="Parent">Parent</option>
+          </select>
+          <p></p>
+          <p></p>
 
-            <input className="Submit_CA" type="submit" value="" />
-          </form>
-        </body>
+          <input className="Submit_CA" type="submit" value="" />
+        </form>
       </div>
     );
   }
