@@ -50,8 +50,8 @@ class LoginPage extends Component {
             })
           }
         });
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.log(error);
       console.log("--------------------------");
     }
   }
