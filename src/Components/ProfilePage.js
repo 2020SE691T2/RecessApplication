@@ -136,18 +136,18 @@ class ProfilePage extends Component {
                 <Container fluid className={'backgroundProfilePage'}>
                     <Row>
                         <Col>
-                            <Image src={this.state.photo} fluid alt={'Profile Picture'} />
+                            <Image src={this.state.photo} fluid alt={'Profile Picture'} style={{ height: '150px', width: '150px' }} />
                         </Col>
                     </Row>
                     <Form onSubmit={this.onFormSubmitted}>
                         <Row>
-                            <Col xs={12}>
+                            <Col xs={12} lg={6}>
                                 <Form.Group controlId="fnameFormGroup">
                                     <Form.Label className="textLabel">First Name:</Form.Label>
                                     <Form.Control type="text" name="firstNameInput" disabled={this.state.disabled} value={this.state.firstName} onChange={this.editFirstName} />
                                 </Form.Group>
                             </Col>
-                            <Col xs={12}>
+                            <Col xs={12} lg={6}>
                                 <Form.Group controlId="lnameFormGroup">
                                     <Form.Label className="textLabel">Last Name:</Form.Label>
                                     <Form.Control type="text" name="lastNameInput" disabled={this.state.disabled} value={this.state.lastName} onChange={this.editLastName} />
@@ -155,13 +155,13 @@ class ProfilePage extends Component {
                             </Col>
                         </Row>
                         <Row>
-                            <Col xs={12}>
+                            <Col xs={12} lg={6}>
                                 <Form.Group controlId="pnameFormGroup">
                                     <Form.Label className="textLabel">Prefered Name:</Form.Label>
                                     <Form.Control type="text" name="preferredNameInput" disabled={this.state.disabled} value={this.state.preferredName} onChange={this.editPreferredName} />
                                 </Form.Group>
                             </Col>
-                            <Col xs={12}>
+                            <Col xs={12} lg={6}>
                                 <Form.Group controlId="emailFormGroup">
                                     <Form.Label className="textLabel">Email Address:</Form.Label>
                                     <Form.Control type="text" name="emailInput" disabled={this.state.disabled} value={this.state.email} onChange={this.editEmail} />
@@ -169,13 +169,13 @@ class ProfilePage extends Component {
                             </Col>
                         </Row>
                         <Row>
-                            <Col xs={12}>
+                            <Col xs={12} lg={6}>
                                 <Form.Group controlId="dobFormGroup">
                                     <Form.Label className="textLabel">Date of Birth:</Form.Label>
                                     <Form.Control type="date" name="dobInput" disabled={this.state.disabled} value={this.state.dob} onChange={this.editDoB} />
                                 </Form.Group>
                             </Col>
-                            <Col xs={12}>
+                            <Col xs={12} lg={6}>
                                 <Form.Group controlId="idFormGroup">
                                     <Form.Label className="textLabel">Id Number:</Form.Label>
                                     <Form.Control type="text" name="idNumInput" disabled={this.state.disabled} value={this.state.idNum} onChange={this.editIdNum} />
