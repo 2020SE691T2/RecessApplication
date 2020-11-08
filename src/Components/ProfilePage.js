@@ -17,7 +17,7 @@ class ProfilePage extends Component {
             disabled: true,
             firstName: "",
             lastName: "",
-            preferedName: "",
+            preferredName: "",
             email: "",
             dob: "",
             idNum: "",
@@ -26,7 +26,7 @@ class ProfilePage extends Component {
 
         this.editFirstName = this.editFirstName.bind(this);
         this.editLastName = this.editLastName.bind(this);
-        this.editPreferedName = this.editPreferedName.bind(this);
+        this.editPreferredName = this.editPreferredName.bind(this);
         this.editEmail = this.editEmail.bind(this);
         this.editDoB = this.editDoB.bind(this);
         this.editIdNum = this.editIdNum.bind(this);
@@ -35,7 +35,7 @@ class ProfilePage extends Component {
 
     componentDidMount() {
         try {
-            var url = "https://recess-api.herokuapp.com/users/" + this.props.location.state.email;
+            var url = "http://127.0.0.1:8000/users/" + this.props.location.state.email;
             fetch(url, {
                 method: "GET"
             })
@@ -44,7 +44,7 @@ class ProfilePage extends Component {
                     this.setState({
                         firstName: results.first_name,
                         lastName: results.last_name,
-                        preferedName: results.preferred_name,
+                        preferredName: results.preferred_name,
                         email: results.email_address,
                         dob: results.dob,
                         idNum: results.physical_id_num,
@@ -73,38 +73,35 @@ class ProfilePage extends Component {
             document.getElementById("editButton").style.visibility = "visible";
             document.getElementById("saveButton").style.visibility = "hidden";
 
-            // try {
-            //     var url = "https://recess-api.herokuapp.com/users/gtkzzwmewi.jugdsisti@schoolmail.com/";
-            //     fetch(url, {
-            //         method: "PUT",
-            //         body: JSON.stringify({
-            //             first_name: this.state.firstName,
-            //             last_name: this.state.lastName,
-            //             preferred_name: this.state.preferedName,
-            //             email_address: this.state.email,
-            //             dob: this.state.dob,
-            //             physical_id_num: this.state.idNum
-            //         }),
-            //         headers: {
-            //             Accept: "application/json",
-            //             "Content-Type": "application/json"
-            //         }
-            //     })
-            //         .then((resp) => resp.json())
-            //         .then((results) => {
-            //             this.setState({
-            //                 firstName: results.first_name,
-            //                 lastName: results.last_name,
-            //                 preferedName: results.preferred_name,
-            //                 email: results.email_address,
-            //                 dob: results.dob,
-            //                 idNum: results.physical_id_num,
-            //             });
-            //         });
-            // } catch (e) {
-            //     console.log(e);
-            //     console.log("--------------------------");
-            // }
+            var json = JSON.stringify({
+                "email_address": this.state.email,
+                "first_name": this.state.firstName,
+                "last_name": this.state.lastName,
+                "preferred_name": this.state.preferredName,
+                "physical_id_num": this.state.idNum,
+                "dob": this.state.dob,
+                "photo": this.state.profilePicture,
+            });
+            var url = "http://127.0.0.1:8000/users/" + this.state.email;
+            console.log(json);
+            fetch(url, {
+                method: "PATCH",
+                body: json,
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            }).then((resp) => resp.json())
+                .then((results) => {
+                    this.setState({
+                        firstName: results.first_name,
+                        lastName: results.last_name,
+                        preferredName: results.preferred_name,
+                        email: results.email_address,
+                        dob: results.dob,
+                        idNum: results.physical_id_num,
+                        photo: results.photo
+                    });
+                });
         }
     }
 
@@ -116,8 +113,8 @@ class ProfilePage extends Component {
         this.setState({ lastName: event.target.value });
     }
 
-    editPreferedName(event) {
-        this.setState({ preferedName: event.target.value });
+    editPreferredName(event) {
+        this.setState({ preferredName: event.target.value });
     }
 
     editEmail(event) {
@@ -139,7 +136,7 @@ class ProfilePage extends Component {
                 <Container fluid className={'backgroundProfilePage'}>
                     <Row>
                         <Col>
-                            <Image src={this.state.photo} fluid alt={'Profile Picture'}/>
+                            <Image src={this.state.photo} fluid alt={'Profile Picture'} />
                         </Col>
                     </Row>
                     <Form onSubmit={this.onFormSubmitted}>
@@ -161,7 +158,7 @@ class ProfilePage extends Component {
                             <Col xs={12}>
                                 <Form.Group controlId="pnameFormGroup">
                                     <Form.Label className="textLabel">Prefered Name:</Form.Label>
-                                    <Form.Control type="text" name="preferedNameInput" disabled={this.state.disabled} value={this.state.preferedName} onChange={this.editPreferedName} />
+                                    <Form.Control type="text" name="preferredNameInput" disabled={this.state.disabled} value={this.state.preferredName} onChange={this.editPreferredName} />
                                 </Form.Group>
                             </Col>
                             <Col xs={12}>
