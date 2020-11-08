@@ -26,7 +26,6 @@
   background-repeat: no-repeat;
   margin-top: 10%;
   margin-left: 30%;
-  background-position: fixed;
 }
 
 .password {
@@ -39,7 +38,6 @@
   background-position: -75px -42px;
   background-repeat: no-repeat;
   margin-left: 30%;
-  background-position: fixed;
 }
 
 .forgotPassword {
@@ -57,7 +55,6 @@
 
   border: 1px solid #bdbdbd;
   border-radius: 5px;
-  background-position: fixed;
   box-shadow: 10px 5px 10px black;
   background-image: url(/enter.png);
   background-position: -75px -42px;
