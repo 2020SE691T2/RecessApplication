@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./CreateAccount.css";
 import Menubar from "./MenuBar"
-import Image from 'react-bootstrap/Image';
 
 // Bootstrap Components
 import Button from 'react-bootstrap/Button';
@@ -190,7 +189,7 @@ class CreateAccount extends Component {
                     className="textInput"
                     name="emailCA"
                     type="text"
-                    placeholder="Preffered Name:"
+                    placeholder="Prefered Name:"
                     value={this.state.prefferedName}
                     onChange={this.changePreferredName}
                     style={{ height: 64 }}
@@ -233,14 +232,9 @@ class CreateAccount extends Component {
 
               </Col>
             </Row>
-
             <div class="col-3 offset-4">
-
               <Row>
-
-
                 <Col  >
-
                   <Form.Group controlId="roleFormGroup">
                     <Form.Control as="select"
                       className="textInput_role"
@@ -255,6 +249,21 @@ class CreateAccount extends Component {
                     </Form.Control>
                   </Form.Group>
 
+                </Col>
+                <Col>
+                  <Image src={this.state.profilePicture} alt={'Profile Picture'} style={{ height: '75px', width: '75px' }} />
+                </Col>
+                <Col md={5}>
+                  <Form.Group controlId="pictureFormGroup">
+                    <Form.Control
+                      name="profilePicture"
+                      className="fileInput"
+                      id="file"
+                      type="file"
+                      accept="image/*"
+                      onChange={this.changeProfilePicture}
+                    />
+                  </Form.Group>
                 </Col>
               </Row>
             </div>
