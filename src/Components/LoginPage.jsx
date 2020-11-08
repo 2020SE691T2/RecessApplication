@@ -20,10 +20,18 @@ class LoginPage extends Component {
     };
 
     this.loginClicked = this.loginClicked.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   onChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
+  }
+
+  handleKeyPress(e) {
+    //13 is the char code for enter
+    if (e.charCode === 13) {
+      this.loginClicked(e);
+    }
   }
 
   loginClicked(e) {
@@ -34,8 +42,8 @@ class LoginPage extends Component {
       fetch(url, {
         method: "POST",
         body: JSON.stringify({
-          email_address: this.state.username,
-          password: this.state.password
+          "email_address": this.state.username,
+          "password": this.state.password
         }),
         headers: {
           Accept: "application/json",
@@ -64,20 +72,20 @@ class LoginPage extends Component {
       <div>
         <Menubar />
         <Container className="background" fluid>
-            <Form onSubmit={this.loginClicked}>
-<div className = "logo">
+          <Form onSubmit={this.loginClicked} onKeyPress={this.handleKeyPress}>
+            <div className="logo">
               <Row>
 
                 <Col >
 
-               <Image src = "/Recess_logo.png"  fluid/>
-                
+                  <Image src="/Recess_logo.png" fluid />
+
                 </Col>
               </Row>
-              </div>
+            </div>
 
             <Row >
-              <Col md = {5} xs = {8}   > 
+              <Col md={5} xs={8}   >
                 <Form.Group controlId="emailFormGroup">
                   <Form.Control
                     type="text"
@@ -85,16 +93,16 @@ class LoginPage extends Component {
                     value={username}
                     className="username"
                     onChange={this.onChange}
-                    style={{height:65}}
-                    
-              
-    
+                    style={{ height: 65 }}
+
+
+
                   />
                 </Form.Group>
               </Col>
             </Row>
             <Row >
-              <Col md = {5} xs = {8} >
+              <Col md={5} xs={8} >
                 <Form.Group controlId="passwordFormGroup">
                   <Form.Control
                     type="password"
@@ -102,7 +110,7 @@ class LoginPage extends Component {
                     value={password}
                     className="password"
                     onChange={this.onChange}
-                    style={{height:65}}
+                    style={{ height: 65 }}
                   />
                 </Form.Group>
               </Col>
@@ -112,8 +120,8 @@ class LoginPage extends Component {
                 <Button variant="primary" className="Submit_Login" onClick={this.loginClicked}></Button>
               </Col>
             </Row>
-            </Form>
-            <Button variant="link" className="forgotPassword" href="#">"Forgot your password?"</Button>
+          </Form>
+          <Button variant="link" className="forgotPassword" href="#">"Forgot your password?"</Button>
         </Container>
       </div>
     );
