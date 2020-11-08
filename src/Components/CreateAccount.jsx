@@ -83,7 +83,6 @@ class CreateAccount extends Component {
       "is_staff": false,
       "is_superuser": false
     });
-    console.log(json);
     fetch("https://recess-api.herokuapp.com/users/", {
       method: "POST",
       body: json,
@@ -92,7 +91,6 @@ class CreateAccount extends Component {
       }
     }).then((resp) => resp.json())
       .then((results) => {
-        console.log(results);
         if (results.email_address) {
           this.props.history.push({
             pathname: '/Profile',
