@@ -21,7 +21,7 @@
 .background_CA {
   background-image: url(/createaccountbackground.jpg);
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   background-attachment: scroll;
   border: 1px solid;
   min-height: 100vh;

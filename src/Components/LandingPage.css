@@ -1,0 +1,14 @@
+.header {
+  text-align: center;
+  width: 100%;
+}
+
+.background_LP {
+  background-size: 100%;
+  background-attachment: scroll;
+  border: 1px solid;
+  min-height: 100vh;
+  background-image: url(/LandingPageBackground.jpg);
+  background-repeat: no-repeat;
+  background-color: #749e5c;
+}

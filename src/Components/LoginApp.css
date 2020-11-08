@@ -9,34 +9,32 @@
   background-attachment: scroll;
   border: 1px solid;
   min-height: 100vh;
+  background-attachment: fixed;
 }
 
 .username {
-  width: 400px;
   text-align: right;
   font-size: 15px;
   border: 1px solid #bdbdbd;
   border-radius: 5px;
-  padding: 33px 11px 10px 30px;
   box-shadow: 10px 5px 10px black;
   background-image: url(/username.png);
-  background-position: -73px -41px;
-  background-size: 100%;
+  background-position: -75px -42px;
   background-repeat: no-repeat;
+  margin-top: 50%;
+  margin-left: 30%;
 }
 
 .password {
-  width: 400px;
   text-align: right;
   font-size: 15px;
   border: 1px solid #bdbdbd;
   border-radius: 5px;
-  padding: 33px 11px 10px 30px;
   box-shadow: 10px 5px 10px black;
   background-image: url(/password.png);
-  background-position: -73px -41px;
-  background-size: 100%;
+  background-position: -75px -42px;
   background-repeat: no-repeat;
+  margin-left: 33%;
 }
 
 .forgotPassword {
@@ -45,10 +43,10 @@
   font-size: 25px;
   font-family: "Times New Roman", Times, serif;
   font-weight: bold;
+  margin-right: 27%;
 }
 
 .Submit_Login {
-  display: inline-block;
   width: 162px;
   height: 63px;
 
@@ -57,7 +55,8 @@
 
   box-shadow: 10px 5px 10px black;
   background-image: url(/enter.png);
-  background-position: -73px -41px;
+  background-position: -75px -42px;
   background-size: 290%;
   background-repeat: no-repeat;
+  margin-right: 27%;
 }

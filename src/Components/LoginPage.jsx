@@ -64,30 +64,32 @@ class LoginPage extends Component {
         <Menubar />
         <Container className="background" fluid>
             <Form onSubmit={this.loginClicked}>
-            <Row>
-              <Col>
+            <Row >
+              <Col md = {{span: 5}} className = "ml-3" > 
                 <Form.Group controlId="emailFormGroup">
-                  <Form.Label>Email Address</Form.Label>
                   <Form.Control
                     type="text"
                     name="username"
                     value={username}
                     className="username"
                     onChange={this.onChange}
+                    style={{height:65}}
+              
+    
                   />
                 </Form.Group>
               </Col>
             </Row>
-            <Row>
-              <Col>
+            <Row >
+              <Col md = {5}>
                 <Form.Group controlId="passwordFormGroup">
-                  <Form.Label>Password</Form.Label>
                   <Form.Control
                     type="password"
                     name="password"
                     value={password}
                     className="password"
                     onChange={this.onChange}
+                    style={{height:65}}
                   />
                 </Form.Group>
               </Col>

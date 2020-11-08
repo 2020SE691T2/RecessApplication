@@ -129,9 +129,10 @@ class CreateAccount extends Component {
           <input
             className="textInput"
             type="date"
-            placeholder="Date of Birth"
+          
             value={this.state.birthday}
             onChange={this.changeBirthday}
+  placeholder="Date of Birth"
           />
           <input
             className="password_CA"
@@ -152,8 +153,7 @@ class CreateAccount extends Component {
             <option value="Student">Student</option>
             <option value="Parent">Parent</option>
           </select>
-          <p></p>
-          <p></p>
+        <p></p>
 
           <input className="Submit_CA" type="submit" value="" />
         </form>
