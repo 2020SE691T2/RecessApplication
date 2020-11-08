@@ -35,7 +35,7 @@ class ProfilePage extends Component {
 
     componentDidMount() {
         try {
-            var url = "http://127.0.0.1:8000/users/" + this.props.location.state.email;
+            var url = "https://recess-api.herokuapp.com/users/" + this.props.location.state.email;
             fetch(url, {
                 method: "GET"
             })
@@ -82,7 +82,7 @@ class ProfilePage extends Component {
                 "dob": this.state.dob,
                 "photo": this.state.profilePicture,
             });
-            var url = "http://127.0.0.1:8000/users/" + this.state.email;
+            var url = "https://recess-api.herokuapp.com/users/" + this.state.email;
             console.log(json);
             fetch(url, {
                 method: "PATCH",
