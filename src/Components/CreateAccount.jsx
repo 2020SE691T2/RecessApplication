@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./CreateAccount.css";
 import Menubar from "./MenuBar"
+import Image from 'react-bootstrap/Image';
 
 class CreateAccount extends Component {
 
@@ -166,10 +167,12 @@ class CreateAccount extends Component {
             <option value="Student">Student</option>
             <option value="Parent">Parent</option>
           </select>
+          <Image src={this.state.profilePicture} alt={'Profile Picture'} style={{ height: '75px', width: '75px' }} />
           <input
             className="fileInput"
             id="file"
             type="file"
+            accept="image/*"
             onChange={this.changeProfilePicture}
           />
           <p></p>
