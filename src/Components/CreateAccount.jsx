@@ -13,7 +13,8 @@ class CreateAccount extends Component {
       email: '',
       birthday: '',
       password: '',
-      role: ''
+      role: '',
+      profilePicture: ''
     };
 
     this.changefirstName = this.changefirstName.bind(this);
@@ -24,6 +25,7 @@ class CreateAccount extends Component {
     this.changePassword = this.changePassword.bind(this);
     this.creatAccount = this.creatAccount.bind(this);
     this.changeRole = this.changeRole.bind(this);
+    this.changeProfilePicture = this.changeProfilePicture.bind(this);
   }
 
   changefirstName(event) {
@@ -54,6 +56,17 @@ class CreateAccount extends Component {
     this.setState({ role: event.target.value });
   }
 
+  changeProfilePicture(event) {
+    var files = document.getElementById('file').files;
+    var reader = new FileReader();
+    reader.readAsDataURL(files[0]);
+
+    const scope = this;
+    reader.onload = function () {
+      scope.setState({ profilePicture: reader.result });
+    };
+  }
+
   creatAccount(event) {
     event.preventDefault();
     var json = JSON.stringify({
@@ -64,8 +77,11 @@ class CreateAccount extends Component {
       "password": this.state.password,
       "physical_id_num": "1",
       "dob": this.state.birthday,
-      "role": this.state.role
+      "role": this.state.role,
+      // "photo": this.state.profilePicture
+      "photo": ""
     });
+    console.log(json);
     fetch("https://recess-api.herokuapp.com/users/", {
       method: "POST",
       body: json,
@@ -89,10 +105,10 @@ class CreateAccount extends Component {
       <div className="background_CA">
         <Menubar />
         <div className="header">
-          <p> <a href="/"> <img src="./Recess_logo.png" alt={'Recess Logo'}/></a>
+          <p> <a href="/"> <img src="./Recess_logo.png" alt={'Recess Logo'} /></a>
           </p>
         </div>
-        <div className="banner"> <p> <img src="./signupbanner.png" alt={'Create Account Banner'}/></p> </div>
+        <div className="banner"> <p> <img src="./signupbanner.png" alt={'Create Account Banner'} /></p> </div>
         <form onSubmit={this.creatAccount}>
           <input
             className="textInput"
@@ -152,6 +168,12 @@ class CreateAccount extends Component {
             <option value="Student">Student</option>
             <option value="Parent">Parent</option>
           </select>
+          <input
+            // className="password_CA"
+            id="file"
+            type="file"
+            onChange={this.changeProfilePicture}
+          />
           <p></p>
           <p></p>
 
