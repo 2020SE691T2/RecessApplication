@@ -49,19 +49,13 @@
 }
 
 .fileInput {
-  width: 28%;
   text-align: left;
-  font-size: 15px;
-  border: 1px solid #bdbdbd;
+
   border-radius: 5px;
-  padding: 33px 11px 10px 30px;
-  box-shadow: 10px 5px 10px black;
-  background-repeat: no-repeat;
-  background-color: white;
+
   margin-top: 3%;
   margin-right: 1%;
 }
-
 
 .password_CA {
   width: 28%;

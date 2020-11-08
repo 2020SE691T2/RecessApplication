@@ -232,7 +232,7 @@ class CreateAccount extends Component {
 
               </Col>
             </Row>
-            <div class="col-3 offset-4">
+            <div class="col-6 offset-4">
               <Row>
                 <Col  >
                   <Form.Group controlId="roleFormGroup">
@@ -253,6 +253,7 @@ class CreateAccount extends Component {
                 <Col>
                   <Image src={this.state.profilePicture} alt={'Profile Picture'} style={{ height: '75px', width: '75px' }} />
                 </Col>
+
                 <Col md={5}>
                   <Form.Group controlId="pictureFormGroup">
                     <Form.Control
