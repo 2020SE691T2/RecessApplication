@@ -2,6 +2,14 @@ import React, { Component } from "react";
 import "./LoginApp.css";
 import Menubar from "./MenuBar"
 
+// Bootstrap Components
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Image from 'react-bootstrap/Image'
+
 class LoginPage extends Component {
 
   constructor() {
@@ -20,7 +28,6 @@ class LoginPage extends Component {
 
   loginClicked(e) {
     e.preventDefault();
-    const { username, password } = this.state;
 
     try {
       var url = "https://recess-api.herokuapp.com/api-auth/auth/";
@@ -44,8 +51,8 @@ class LoginPage extends Component {
             })
           }
         });
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.log(error);
       console.log("--------------------------");
     }
   }
@@ -56,33 +63,58 @@ class LoginPage extends Component {
     return (
       <div>
         <Menubar />
-        <body className="background">
-          <form onSubmit={this.loginClicked}>
-            <input
-              className="username"
-              type="text"
-              name="username"
-              value={username}
-              onChange={this.onChange}
-            />
+        <Container className="background" fluid>
+            <Form onSubmit={this.loginClicked}>
+<div className = "logo">
+              <Row>
 
-            <input
-              className="password"
-              type="password"
-              name="password"
-              value={password}
-              onChange={this.onChange}
-            />
-            <input type="submit" className="Submit_Login" value="" />
+                <Col >
 
-          </form>
+               <Image src = "/Recess_logo.png"  fluid/>
+                
+                </Col>
+              </Row>
+              </div>
 
-          <p>
-            <a href="#" className="forgotPassword">
-              "Forgot your password?"
-            </a>
-          </p>
-        </body >
+            <Row >
+              <Col md = {5} xs = {8}   > 
+                <Form.Group controlId="emailFormGroup">
+                  <Form.Control
+                    type="text"
+                    name="username"
+                    value={username}
+                    className="username"
+                    onChange={this.onChange}
+                    style={{height:65}}
+                    
+              
+    
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row >
+              <Col md = {5} xs = {8} >
+                <Form.Group controlId="passwordFormGroup">
+                  <Form.Control
+                    type="password"
+                    name="password"
+                    value={password}
+                    className="password"
+                    onChange={this.onChange}
+                    style={{height:65}}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <Button variant="primary" className="Submit_Login" onClick={this.loginClicked}></Button>
+              </Col>
+            </Row>
+            </Form>
+            <Button variant="link" className="forgotPassword" href="#">"Forgot your password?"</Button>
+        </Container>
       </div>
     );
   }
