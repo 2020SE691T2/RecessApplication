@@ -2,6 +2,14 @@ import React, { Component } from "react";
 import "./CreateAccount.css";
 import Menubar from "./MenuBar"
 
+// Bootstrap Components
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
+import Image from 'react-bootstrap/Image'
+
 class CreateAccount extends Component {
 
   constructor(props) {
@@ -86,78 +94,167 @@ class CreateAccount extends Component {
 
   render() {
     return (
-      <div className="background_CA">
+      <div>
         <Menubar />
+        <Container className="background_CA" fluid>
+        <Form onSubmit={this.creatAccount}>
+        
         <div className="header">
-          <p> <a href="/"> <img src="./Recess_logo.png" alt={'Recess Logo'}/></a>
-          </p>
+
+          <Row>
+            <Col>
+            <a href="/"> <Image src="./Recess_logo.png" alt={'Recess Logo'} fluid/></a> 
+            </Col>
+          </Row>
+          
         </div>
-        <div className="banner"> <p> <img src="./signupbanner.png" alt={'Create Account Banner'}/></p> </div>
-        <form onSubmit={this.creatAccount}>
-          <input
+        <Row>
+
+          <Col>
+          
+          <div className="banner"> <p> <img src="./signupbanner.png" alt={'Create Account Banner'} fluid/></p> </div>
+          
+          </Col>
+        </Row>
+
+      
+        <Row>
+
+          <Col md = {5}>
+          <Form.Group controlId = "firstNameFormGroup">
+          <Form.Control
             className="textInput"
+            name = "firstName"
             type="text"
             placeholder="First Name:"
             value={this.state.firstName}
             onChange={this.changefirstName}
+            style={{height:64}}
           />
-          <input
+          </Form.Group>
+          
+          </Col>
+
+          <Col md = {5}>
+          <Form.Group controlId = "lastNameFormGroup">
+          <Form.Control
             className="textInput"
             type="text"
+            name = "lastName"
             placeholder="Last Name:"
             value={this.state.lastName}
             onChange={this.changeLastName}
+            style={{height:64}}
           />
-          <p></p>
-          <p></p>
-          <input
+          
+          </Form.Group>
+          </Col>
+        </Row>
+          
+          
+          <Row>
+
+            <Col md = {5}>
+            <Form.Group controlId = "emailCAFormGroup">
+            <Form.Control
             className="textInput"
             type="text"
             placeholder="Email:"
             value={this.state.email}
             onChange={this.changeEmail}
+            style={{height:64}}
           />
-          <input
+            </Form.Group>
+            </Col>
+            
+
+            <Col md = {5}>
+            <Form.Group controlId = "preferredNameFormGroup">
+            <Form.Control
             className="textInput"
+            name = "emailCA"
             type="text"
             placeholder="Preffered Name:"
             value={this.state.prefferedName}
             onChange={this.changePreferredName}
+            style={{height:64}}
           />
-          <p></p>
-          <p></p>
-          <input
+            </Form.Group>
+            </Col>
+          </Row>
+          
+          
+          <Row>
+            <Col md = {5}>
+
+            <Form.Group controlId = "dateofbirthFormGroup">
+            <Form.Control
             className="textInput"
             type="date"
-          
+          name = "textInputCA"
             value={this.state.birthday}
             onChange={this.changeBirthday}
   placeholder="Date of Birth"
+  style={{height:64}}
           />
-          <input
-            className="password_CA"
+          </Form.Group>
+            </Col>
+
+
+            <Col md = {5}>
+            <Form.Group controlId = "passwordFormGroup">
+            
+            <Form.Control
+            className="textInput"
+            name = "passwordCA"
             type="password"
             placeholder="Password:"
             value={this.state.password}
             onChange={this.changePassword}
+            style={{height:64}}
           />
-          <p></p>
-          <p></p>
-          <select
-            className="textInput"
+            </Form.Group>
+            
+            </Col>
+          </Row>
+
+    <div class = "col-3 offset-4">      
+          
+          <Row>
+
+
+            <Col  >
+
+            <Form.Group controlId = "roleFormGroup">
+            <Form.Control as ="select"
+            className="textInput_role"
             type="text"
             value={this.state.role}
             onChange={this.changeRole}
-          >
+            style={{height:64}}
+        >
             <option value="Teacher">Teacher</option>
             <option value="Student">Student</option>
             <option value="Parent">Parent</option>
-          </select>
-        <p></p>
+          </Form.Control>
+          </Form.Group>
+            
+            </Col>
+          </Row>
+          </div>
+       
+<Row>
 
-          <input className="Submit_CA" type="submit" value="" />
-        </form>
-      </div>
+  <Col>
+  <input className="Submit_CA " type="submit" value="" />
+  
+  </Col>
+</Row>
+         
+        </Form>
+
+        </Container>
+        </div>
     );
   }
 }
