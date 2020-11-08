@@ -2,14 +2,17 @@
   text-align: center;
 }
 
+.logo {
+  margin-top: 10%;
+  margin-right: 38%;
+}
 .background {
-  background-image: url(/Recess_Login2.jpg);
+  background-image: url(/Recess_Bg.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: scroll;
   border: 1px solid;
   min-height: 100vh;
-  background-attachment: fixed;
 }
 
 .username {
@@ -21,8 +24,9 @@
   background-image: url(/username.png);
   background-position: -75px -42px;
   background-repeat: no-repeat;
-  margin-top: 50%;
+  margin-top: 10%;
   margin-left: 30%;
+  background-position: fixed;
 }
 
 .password {
@@ -34,7 +38,8 @@
   background-image: url(/password.png);
   background-position: -75px -42px;
   background-repeat: no-repeat;
-  margin-left: 33%;
+  margin-left: 30%;
+  background-position: fixed;
 }
 
 .forgotPassword {
@@ -52,7 +57,7 @@
 
   border: 1px solid #bdbdbd;
   border-radius: 5px;
-
+  background-position: fixed;
   box-shadow: 10px 5px 10px black;
   background-image: url(/enter.png);
   background-position: -75px -42px;

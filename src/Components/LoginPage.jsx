@@ -8,6 +8,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
+import Image from 'react-bootstrap/Image'
 
 class LoginPage extends Component {
 
@@ -64,8 +65,19 @@ class LoginPage extends Component {
         <Menubar />
         <Container className="background" fluid>
             <Form onSubmit={this.loginClicked}>
+<div className = "logo">
+              <Row>
+
+                <Col >
+
+               <Image src = "/Recess_logo.png"  fluid/>
+                
+                </Col>
+              </Row>
+              </div>
+
             <Row >
-              <Col md = {{span: 5}} className = "ml-3" > 
+              <Col md = {5} xs = {8}   > 
                 <Form.Group controlId="emailFormGroup">
                   <Form.Control
                     type="text"
@@ -74,6 +86,7 @@ class LoginPage extends Component {
                     className="username"
                     onChange={this.onChange}
                     style={{height:65}}
+                    
               
     
                   />
@@ -81,7 +94,7 @@ class LoginPage extends Component {
               </Col>
             </Row>
             <Row >
-              <Col md = {5}>
+              <Col md = {5} xs = {8} >
                 <Form.Group controlId="passwordFormGroup">
                   <Form.Control
                     type="password"
