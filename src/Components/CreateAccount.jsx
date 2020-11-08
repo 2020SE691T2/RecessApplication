@@ -78,8 +78,9 @@ class CreateAccount extends Component {
       "physical_id_num": "1",
       "dob": this.state.birthday,
       "role": this.state.role,
-      // "photo": this.state.profilePicture
-      "photo": ""
+      "photo": this.state.profilePicture,
+      "is_staff": false,
+      "is_superuser": false
     });
     console.log(json);
     fetch("https://recess-api.herokuapp.com/users/", {
@@ -125,7 +126,6 @@ class CreateAccount extends Component {
             onChange={this.changeLastName}
           />
           <p></p>
-          <p></p>
           <input
             className="textInput"
             type="text"
@@ -140,7 +140,6 @@ class CreateAccount extends Component {
             value={this.state.prefferedName}
             onChange={this.changePreferredName}
           />
-          <p></p>
           <p></p>
           <input
             className="textInput"
@@ -157,7 +156,6 @@ class CreateAccount extends Component {
             onChange={this.changePassword}
           />
           <p></p>
-          <p></p>
           <select
             className="textInput"
             type="text"
@@ -169,12 +167,11 @@ class CreateAccount extends Component {
             <option value="Parent">Parent</option>
           </select>
           <input
-            // className="password_CA"
+            className="fileInput"
             id="file"
             type="file"
             onChange={this.changeProfilePicture}
           />
-          <p></p>
           <p></p>
 
           <input className="Submit_CA" type="submit" value="" />
