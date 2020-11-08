@@ -9,11 +9,11 @@ class Menubar extends React.Component {
     render() {
         return (
             <Navbar bg="light" expand="lg" sticky="top">
-                <Navbar.Brand href="/LandingPage">Recess</Navbar.Brand>
+                <Navbar.Brand href="/">Recess</Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
-                        <Nav.Link href="#">Home</Nav.Link>
+                        <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="#">About</Nav.Link>
                         <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                             <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
