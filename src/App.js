@@ -3,8 +3,7 @@ import './App.css';
 import {
   BrowserRouter,
   Switch,
-  Route,
-  Redirect
+  Route
 } from "react-router-dom";
 import ProfilePage from "./Components/ProfilePage"
 import LoginPage from "./Components/LoginPage"
