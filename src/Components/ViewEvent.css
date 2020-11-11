@@ -1,0 +1,19 @@
+.viewSpace {
+  text-align: left;
+  margin-left: 10px;
+}
+
+.backgroundViewEvent {
+  background-image: url(../Resources/background.jpg);
+  background-repeat: no-repeat;
+  background-size:cover;
+  background-color: #6a6a73;
+  min-height: 100vh;
+}
+
+.textLabel {
+  background-color:  #d38d5c;
+  border-color: #80e46a;
+  border-width: thin;
+  border-style: solid;
+}
