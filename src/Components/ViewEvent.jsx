@@ -65,8 +65,8 @@ class ViewEvent extends Component {
             section: results.section
           });
         });
-    } catch (e) {
-      console.log(e);
+    } catch (error) {
+      console.log(error);
       console.log("--------------------------");
     }
   }
