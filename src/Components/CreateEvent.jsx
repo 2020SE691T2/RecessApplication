@@ -25,6 +25,7 @@ class CreateEvent extends Component {
     this.changeMeetingLink = this.changeMeetingLink.bind(this);
     this.changeYear = this.changeYear.bind(this);
     this.changeSection = this.changeSection.bind(this);
+    this.createEvent = this.createEvent.bind(this);
   }
 
   changeName(event) {
