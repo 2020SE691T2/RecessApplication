@@ -113,7 +113,7 @@ class LoginPage extends Component {
               </Col>
             </Row>
             </Form>
-            <Button variant="link" className="forgotPassword" href="#">"Forgot your password?"</Button>
+            <Button variant="link" className="forgotPassword" href="/ForgotPassword">"Forgot your password?"</Button>
         </Container>
       </div>
     );

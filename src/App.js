@@ -9,7 +9,8 @@ import {
 import ProfilePage from "./Components/ProfilePage"
 import LoginPage from "./Components/LoginPage"
 import LandingPage from "./Components/LandingPage"
-import CreateAccount from './Components/CreateAccount';
+import CreateAccount from './Components/CreateAccount'
+import ForgotPassword from './Components/ForgotPassword';
 
 function App() {
   return (
@@ -20,6 +21,8 @@ function App() {
           <Route exact path="/Profile" component={ProfilePage} />
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/CreateAccount" component={CreateAccount} />
+          <Route exact path="/ForgotPassword" component={ForgotPassword} />
+          
         </Switch>
       </BrowserRouter>
     </div>
