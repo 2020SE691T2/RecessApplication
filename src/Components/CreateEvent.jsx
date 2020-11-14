@@ -8,24 +8,30 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
-
+import Button from 'react-bootstrap/Button';
 
 class CreateEvent extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
+      id: '',
       name: '',
       meetingLink: '',
       year: '',
       section: ''
     };
 
+    this.changeId = this.changeId.bind(this);
     this.changeName = this.changeName.bind(this);
     this.changeMeetingLink = this.changeMeetingLink.bind(this);
     this.changeYear = this.changeYear.bind(this);
     this.changeSection = this.changeSection.bind(this);
     this.createEvent = this.createEvent.bind(this);
+  }
+
+  changeId(event) {
+    this.setState({ "id": event.target.value });
   }
 
   changeName(event) {
@@ -47,6 +53,7 @@ class CreateEvent extends Component {
   createEvent(event) {
     event.preventDefault();
     var json = JSON.stringify({
+      "class_id": this.state.id,
       "class_name": this.state.name,
       "meeting_link": this.state.meetingLink,
       "year": this.state.year,
@@ -60,7 +67,12 @@ class CreateEvent extends Component {
       }
     }).then((resp) => resp.json())
       .then((results) => {
-        console.log(results);
+        if (results.class_id) {
+          this.props.history.push({
+            pathname: '/ViewEvent/' + results.class_id,
+            state: { classId: results.class_id }
+          })
+        }
       });
     return false;
   }
@@ -79,6 +91,21 @@ class CreateEvent extends Component {
               </Row>
             </div>
             <Row>
+              <Col md={8}>
+                  <Form.Group controlId="idFormGroup">
+                    <Form.Control
+                      className="textInput"
+                      name="id"
+                      type="text"
+                      placeholder="ID:"
+                      value={this.state.id}
+                      onChange={this.changeId}
+                      style={{ height: 64 }}
+                    />
+                  </Form.Group>
+                </Col>
+            </Row>
+            <Row>
               <Col md={5}>
                 <Form.Group controlId="nameFormGroup">
                   <Form.Control
@@ -96,7 +123,7 @@ class CreateEvent extends Component {
                 <Form.Group controlId="meetingLinkFormGroup">
                   <Form.Control
                     className="textInput"
-                    type="text"
+                    type="url"
                     name="meetingLink"
                     placeholder="Meeting Link:"
                     value={this.state.meetingLink}
@@ -111,7 +138,7 @@ class CreateEvent extends Component {
                 <Form.Group controlId="yearFormGroup">
                   <Form.Control
                     className="textInput"
-                    type="text"
+                    type="number"
                     placeholder="Year:"
                     value={this.state.year}
                     onChange={this.changeYear}
@@ -135,7 +162,7 @@ class CreateEvent extends Component {
             </Row>
             <Row>
               <Col>
-                <input className="Submit_CA " type="submit" value="" />
+                <Button onClick={this.createEvent} variant="primary">Create New Class Event</Button>
               </Col>
             </Row >
           </Form >
