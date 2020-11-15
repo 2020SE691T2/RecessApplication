@@ -51,25 +51,20 @@ class ViewEvent extends Component {
   }
 
   componentDidMount() {
-    try {
-      var url = "https://recess-api.herokuapp.com/class_info/" + this.props.location.state.classId;
-      fetch(url, {
-        method: "GET"
-      })
-        .then((resp) => resp.json())
-        .then((results) => {
-          this.setState({
-            classId: results.class_id,
-            className: results.class_name,
-            meetingLink: results.meeting_link,
-            year: results.year,
-            section: results.section
-          });
+    var url = "https://recess-api.herokuapp.com/class_info/" + this.props.location.state.classId;
+    fetch(url, {
+      method: "GET"
+    })
+      .then((resp) => resp.json())
+      .then((results) => {
+        this.setState({
+          classId: results.class_id,
+          className: results.class_name,
+          meetingLink: results.meeting_link,
+          year: results.year,
+          section: results.section
         });
-    } catch (error) {
-      console.log(error);
-      console.log("--------------------------");
-    }
+      });
   }
 
   onFormSubmitted(event) {
