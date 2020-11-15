@@ -14,6 +14,7 @@ class ViewEvent extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      disabled: true,
       classId: '',
       className: '',
       meetingLink: '',
