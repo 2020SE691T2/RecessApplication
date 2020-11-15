@@ -150,10 +150,10 @@ class ViewEvent extends Component {
             </Row>
             <Row>
               <Col xs={12}>
-                <Button block id="editButton" style={{ visibility: "visible" }} onClick={this.onFormSubmitted}>Edit</Button>
+                <Button block id="editEventButton" style={{ visibility: "visible" }} onClick={this.onFormSubmitted}>Edit Event</Button>
               </Col>
               <Col xs={12}>
-                <Button block variant="success" id="saveButton" style={{ visibility: "hidden" }} onClick={this.onFormSubmitted}>Save</Button>
+                <Button block variant="success" id="saveventeButton" style={{ visibility: "hidden" }} onClick={this.onFormSubmitted}>Save Event</Button>
               </Col>
             </Row>
           </Form>
