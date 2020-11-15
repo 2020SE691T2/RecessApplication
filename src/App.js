@@ -10,6 +10,8 @@ import LoginPage from "./Components/LoginPage"
 import LandingPage from "./Components/LandingPage"
 import CreateAccount from './Components/CreateAccount';
 import ViewEvent from './Components/ViewEvent';
+import CreateEvent from './Components/CreateEvent';
+
 
 function App() {
   return (
@@ -21,6 +23,7 @@ function App() {
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/CreateAccount" component={CreateAccount} />
           <Route exact path="/ViewEvent" component={ViewEvent} />
+          <Route exact path="/CreateEvent" component={CreateEvent} />
         </Switch>
       </BrowserRouter>
     </div>
