@@ -11,9 +11,18 @@
   min-height: 100vh;
 }
 
-.textLabel {
+.pageTitle {
+  width: 100%;
+  font-size: 64pt;
+  margin-top: 2%;
+  color:  #d38d5c;
+}
+
+.rowStyle {
   background-color:  #d38d5c;
   border-color: #80e46a;
   border-width: thin;
   border-style: solid;
+  margin-top: 3%;
 }
+

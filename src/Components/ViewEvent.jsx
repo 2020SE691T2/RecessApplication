@@ -122,18 +122,18 @@ class ViewEvent extends Component {
         <Container fluid className={'backgroundViewEvent'}>
           <Form onSubmit={this.onFormSubmitted}>
             <Row>
-
+              <Form.Label className="pageTitle">View Event</Form.Label>
             </Row>
             <Row>
               <Col xs={12} lg={6}>
                 <Form.Group controlId="classIdFormGroup">
-                  <Form.Label className="textLabel">Class Id:</Form.Label>
+                  <Form.Label className="rowStyle">Class Id:</Form.Label>
                   <Form.Control type="text" name="classIdInput" disabled={this.state.disabled} value={this.state.classId} onChange={this.changeClassId} />
                 </Form.Group>
               </Col>
               <Col xs={12} lg={6}>
                 <Form.Group controlId="classNameFormGroup">
-                  <Form.Label className="textLabel">Class Name:</Form.Label>
+                  <Form.Label className="rowStyle">Class Name:</Form.Label>
                   <Form.Control type="text" name="classNameInput" disabled={this.state.disabled} value={this.state.className} onChange={this.changeClassName} />
                 </Form.Group>
               </Col>
@@ -141,13 +141,13 @@ class ViewEvent extends Component {
             <Row>
               <Col xs={12} lg={6}>
                 <Form.Group controlId="meetingLinkFormGroup">
-                  <Form.Label className="textLabel">Meeting Link:</Form.Label>
+                  <Form.Label className="rowStyle">Meeting Link:</Form.Label>
                   <Form.Control type="text" name="meetingLinkInput" disabled={this.state.disabled} value={this.state.meetingLink} onChange={this.changeMeetingLink} />
                 </Form.Group>
               </Col>
               <Col xs={12} lg={6}>
                 <Form.Group controlId="sectionFormGroup">
-                  <Form.Label className="textLabel">Section:</Form.Label>
+                  <Form.Label className="rowStyle">Section:</Form.Label>
                   <Form.Control type="text" name="sectionInput" disabled={this.state.disabled} value={this.state.section} onChange={this.changeSection} />
                 </Form.Group>
               </Col>
