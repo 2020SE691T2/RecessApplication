@@ -16,7 +16,7 @@ class Menubar extends React.Component {
                         <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="#">About</Nav.Link>
                         <NavDropdown title="Events" id="basic-nav-dropdown">
-                            <NavDropdown.Item href="#action/3.1">Create Event</NavDropdown.Item>
+                            <NavDropdown.Item href="/CreateEvent">Create Event</NavDropdown.Item>
                             <NavDropdown.Item href="/ViewEvent">View Event</NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
                             <NavDropdown.Divider />
