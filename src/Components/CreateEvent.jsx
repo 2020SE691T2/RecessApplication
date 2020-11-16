@@ -69,7 +69,7 @@ class CreateEvent extends Component {
       .then((results) => {
         if (results.class_id) {
           this.props.history.push({
-            pathname: '/ViewEvent/' + results.class_id,
+            pathname: '/ViewEvent',
             state: { classId: results.class_id }
           })
         }
@@ -86,24 +86,24 @@ class CreateEvent extends Component {
             <div className="header">
               <Row>
                 <Col>
-                  <a href="/"> <Image src="./Recess_logo.png" alt={'Recess Logo'} fluid/></a>
+                  <a href="/"> <Image src="./Recess_logo.png" alt={'Recess Logo'} fluid /></a>
                 </Col>
               </Row>
             </div>
             <Row>
               <Col md={8}>
-                  <Form.Group controlId="idFormGroup">
-                    <Form.Control
-                      className="textInput"
-                      name="id"
-                      type="text"
-                      placeholder="ID:"
-                      value={this.state.id}
-                      onChange={this.changeId}
-                      style={{ height: 64 }}
-                    />
-                  </Form.Group>
-                </Col>
+                <Form.Group controlId="idFormGroup">
+                  <Form.Control
+                    className="textInput"
+                    name="id"
+                    type="text"
+                    placeholder="ID:"
+                    value={this.state.id}
+                    onChange={this.changeId}
+                    style={{ height: 64 }}
+                  />
+                </Form.Group>
+              </Col>
             </Row>
             <Row>
               <Col md={5}>
