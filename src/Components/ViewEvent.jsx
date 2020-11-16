@@ -73,15 +73,15 @@ class ViewEvent extends Component {
       this.setState({
         disabled: false
       });
-      document.getElementById("editButton").style.visibility = "hidden";
-      document.getElementById("saveButton").style.visibility = "visible";
+      document.getElementById("editEventButton").style.visibility = "hidden";
+      document.getElementById("saveEventeButton").style.visibility = "visible";
     }
     else {
       this.setState({
         disabled: true
       });
-      document.getElementById("editButton").style.visibility = "visible";
-      document.getElementById("saveButton").style.visibility = "hidden";
+      document.getElementById("editEventButton").style.visibility = "visible";
+      document.getElementById("saveEventeButton").style.visibility = "hidden";
 
 
       var json = JSON.stringify({
@@ -153,7 +153,7 @@ class ViewEvent extends Component {
                 <Button block id="editEventButton" style={{ visibility: "visible" }} onClick={this.onFormSubmitted}>Edit Event</Button>
               </Col>
               <Col xs={12}>
-                <Button block variant="success" id="saveventeButton" style={{ visibility: "hidden" }} onClick={this.onFormSubmitted}>Save Event</Button>
+                <Button block variant="success" id="saveEventeButton" style={{ visibility: "hidden" }} onClick={this.onFormSubmitted}>Save Event</Button>
               </Col>
             </Row>
           </Form>
