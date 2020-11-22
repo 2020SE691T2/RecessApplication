@@ -26,6 +26,7 @@ class Menubar extends React.Component {
                     <Nav>
                         <Nav.Link href="/Profile">Profile</Nav.Link>
                         <Nav.Link href="/login">Login</Nav.Link>
+                        <Nav.Link href="/Logout">Logout</Nav.Link>
                         <Nav.Link href="/CreateAccount">Create Account</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
