@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import './ProfilePage.css'
 import Menubar from "./MenuBar"
-import doRefreshToken from "../RefreshToken"
+import RefreshToken from "../RefreshToken"
 
 // Bootstrap Components
 import Button from 'react-bootstrap/Button';
@@ -45,7 +45,7 @@ class ProfilePage extends Component {
             })
                 .then((resp) => resp.json())
                 .then((results) => {
-                    if (doRefreshToken(results)) {
+                    if (RefreshToken(results)) {
                         this.setState({
                             firstName: results.first_name,
                             lastName: results.last_name,
@@ -102,7 +102,7 @@ class ProfilePage extends Component {
                 }
             }).then((resp) => resp.json())
                 .then((results) => {
-                    if (doRefreshToken(results)) {
+                    if (RefreshToken(results)) {
                         this.setState({
                             firstName: results.first_name,
                             lastName: results.last_name,

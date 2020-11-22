@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./ViewEvent.css";
 import Menubar from "./MenuBar"
-import doRefreshToken from "../RefreshToken"
+import RefreshToken from "../RefreshToken"
 
 // Bootstrap Components
 import Container from 'react-bootstrap/Container';
@@ -61,7 +61,7 @@ class ViewEvent extends Component {
     })
       .then((resp) => resp.json())
       .then((results) => {
-        if (doRefreshToken(results)) {
+        if (RefreshToken(results)) {
           this.setState({
             classId: results.class_id,
             className: results.class_name,
@@ -110,7 +110,7 @@ class ViewEvent extends Component {
         }
       }).then((resp) => resp.json())
         .then((results) => {
-          if (doRefreshToken(results)) {
+          if (RefreshToken(results)) {
             this.setState({
               classId: results.class_id,
               className: results.class_name,

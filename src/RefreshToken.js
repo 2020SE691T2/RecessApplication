@@ -1,4 +1,4 @@
-function doRefreshToken(fetchResults) {
+function RefreshToken(fetchResults) {
     if ("code" in fetchResults && fetchResults.code === "token_not_valid") {
         var url = "https://recess-api.herokuapp.com/api/token/refresh/";
         fetch(url, {
@@ -25,4 +25,4 @@ function doRefreshToken(fetchResults) {
     return true;
 }
 
-export default doRefreshToken;
+export default RefreshToken;

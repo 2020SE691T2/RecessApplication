@@ -9,7 +9,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
-import doRefreshToken from "../RefreshToken";
+import RefreshToken from "../RefreshToken";
 
 class CreateEvent extends Component {
 
@@ -69,7 +69,7 @@ class CreateEvent extends Component {
       }
     }).then((resp) => resp.json())
       .then((results) => {
-        if (doRefreshToken(results)) {
+        if (RefreshToken(results)) {
           if (results.class_id) {
             this.props.history.push({
               pathname: '/ViewEvent',
