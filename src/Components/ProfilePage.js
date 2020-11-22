@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import './ProfilePage.css'
 import Menubar from "./MenuBar"
 
@@ -9,6 +9,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
+import { PencilSquare } from 'react-bootstrap-icons';
 
 class ProfilePage extends Component {
     constructor() {
@@ -24,13 +25,17 @@ class ProfilePage extends Component {
             photo: ""
         };
 
+        this.hiddenFileInput = createRef()
+
         this.editFirstName = this.editFirstName.bind(this);
         this.editLastName = this.editLastName.bind(this);
         this.editPreferredName = this.editPreferredName.bind(this);
         this.editEmail = this.editEmail.bind(this);
         this.editDoB = this.editDoB.bind(this);
         this.editIdNum = this.editIdNum.bind(this);
+        this.editProfilePicture = this.editProfilePicture.bind(this);
         this.onFormSubmitted = this.onFormSubmitted.bind(this);
+        this.onButtonClicked = this.onButtonClicked.bind(this);
     }
 
     componentDidMount() {
@@ -80,10 +85,9 @@ class ProfilePage extends Component {
                 "preferred_name": this.state.preferredName,
                 "physical_id_num": this.state.idNum,
                 "dob": this.state.dob,
-                "photo": this.state.profilePicture,
+                "photo": this.state.photo,
             });
             var url = "https://recess-api.herokuapp.com/users/" + this.state.email;
-            console.log(json);
             fetch(url, {
                 method: "PATCH",
                 body: json,
@@ -127,8 +131,23 @@ class ProfilePage extends Component {
 
     editIdNum(event) {
         this.setState({ idNum: event.target.value });
-
     }
+
+    onButtonClicked(event) {
+        this.hiddenFileInput.current.click();
+    }
+
+    editProfilePicture(event) {
+        var files = document.getElementById('file').files;
+        var reader = new FileReader();
+        reader.readAsDataURL(files[0]);
+
+        const scope = this;
+        reader.onload = function () {
+            scope.setState({ photo: reader.result });
+        };
+    }
+
     render() {
         return (
             <div>
@@ -137,6 +156,19 @@ class ProfilePage extends Component {
                     <Row>
                         <Col>
                             <Image src={this.state.photo} fluid alt={'Profile Picture'} style={{ height: '150px', width: '150px' }} />
+                            <Button className={this.state.disabled ? 'invisible' : 'visible'} onClick={this.onButtonClicked}>
+                                <PencilSquare />
+                                <Form.Control
+                                    name="profilePicture"
+                                    className="fileInput"
+                                    ref={this.hiddenFileInput}
+                                    id="file"
+                                    type="file"
+                                    accept="image/*"
+                                    style={{ display: 'none' }}
+                                    onChange={this.editProfilePicture}
+                                />
+                            </Button>
                         </Col>
                     </Row>
                     <Form onSubmit={this.onFormSubmitted}>
