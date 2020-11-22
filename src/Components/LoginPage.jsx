@@ -52,11 +52,20 @@ class LoginPage extends Component {
       })
         .then((resp) => resp.json())
         .then((results) => {
-          if (results.user.email_address) {
-            this.props.history.push({
-              pathname: '/Profile',
-              state: { email: results.user.email_address }
-            })
+          if ("tokens" in results) {
+            sessionStorage.setItem("refreshToken", results.tokens.refresh);
+            sessionStorage.setItem("accessToken", results.tokens.access);
+
+            if (results.user.email_address) {
+              sessionStorage.setItem("email", results.user.email_address);
+              this.props.history.push({
+                pathname: '/Profile',
+                state: { email: results.user.email_address }
+              })
+            }
+          }
+          else {
+            //TODO alert user of errors
           }
         });
     } catch (error) {

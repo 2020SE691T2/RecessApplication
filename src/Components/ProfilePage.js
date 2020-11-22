@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import './ProfilePage.css'
 import Menubar from "./MenuBar"
+import RefreshToken from "../RefreshToken"
 
 // Bootstrap Components
 import Button from 'react-bootstrap/Button';
@@ -35,21 +36,29 @@ class ProfilePage extends Component {
 
     componentDidMount() {
         try {
-            var url = "https://recess-api.herokuapp.com/users/" + this.props.location.state.email;
+            var url = "https://recess-api.herokuapp.com/users/" + sessionStorage.getItem("email");
             fetch(url, {
-                method: "GET"
+                method: "GET",
+                headers: new Headers({
+                    'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+                })
             })
                 .then((resp) => resp.json())
                 .then((results) => {
-                    this.setState({
-                        firstName: results.first_name,
-                        lastName: results.last_name,
-                        preferredName: results.preferred_name,
-                        email: results.email_address,
-                        dob: results.dob,
-                        idNum: results.physical_id_num,
-                        photo: results.photo
-                    });
+                    if (RefreshToken(results)) {
+                        this.setState({
+                            firstName: results.first_name,
+                            lastName: results.last_name,
+                            preferredName: results.preferred_name,
+                            email: results.email_address,
+                            dob: results.dob,
+                            idNum: results.physical_id_num,
+                            photo: results.photo
+                        });
+                    }
+                    else {
+                        //TODO alert user of errors
+                    }
                 });
         } catch (e) {
             console.log(e);
@@ -88,19 +97,25 @@ class ProfilePage extends Component {
                 method: "PATCH",
                 body: json,
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
                 }
             }).then((resp) => resp.json())
                 .then((results) => {
-                    this.setState({
-                        firstName: results.first_name,
-                        lastName: results.last_name,
-                        preferredName: results.preferred_name,
-                        email: results.email_address,
-                        dob: results.dob,
-                        idNum: results.physical_id_num,
-                        photo: results.photo
-                    });
+                    if (RefreshToken(results)) {
+                        this.setState({
+                            firstName: results.first_name,
+                            lastName: results.last_name,
+                            preferredName: results.preferred_name,
+                            email: results.email_address,
+                            dob: results.dob,
+                            idNum: results.physical_id_num,
+                            photo: results.photo
+                        });
+                    }
+                    else {
+                        //TODO alert users of errors
+                    }
                 });
         }
     }
