@@ -11,6 +11,7 @@ import LandingPage from "./Components/LandingPage"
 import CreateAccount from './Components/CreateAccount';
 import ViewEvent from './Components/ViewEvent';
 import CreateEvent from './Components/CreateEvent';
+import ClassCalendar from './Components/Calendar';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
           <Route exact path="/CreateAccount" component={CreateAccount} />
           <Route exact path="/ViewEvent" component={ViewEvent} />
           <Route exact path="/CreateEvent" component={CreateEvent} />
+          <Route exact path="/Calendar" component={ClassCalendar} />
         </Switch>
       </BrowserRouter>
     </div>
