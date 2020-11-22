@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./CreateAccount.css";
 import Menubar from "./MenuBar"
-import doRefreshToken from "../RefreshToken"
 
 // Bootstrap Components
 import Container from 'react-bootstrap/Container';
