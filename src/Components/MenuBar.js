@@ -15,19 +15,16 @@ class Menubar extends React.Component {
                     <Nav className="mr-auto">
                         <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="#">About</Nav.Link>
-                        <NavDropdown title="Events" id="basic-nav-dropdown">
+                        <NavDropdown title="Events" id="basic-nav-dropdown" hidden={sessionStorage.getItem("accessToken") === null ? true : false} >
                             <NavDropdown.Item href="/CreateEvent">Create Event</NavDropdown.Item>
                             <NavDropdown.Item href="/ViewEvent">View Event</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-                            <NavDropdown.Divider />
-                            <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>
                     <Nav>
-                        <Nav.Link href="/Profile">Profile</Nav.Link>
-                        <Nav.Link href="/login">Login</Nav.Link>
-                        <Nav.Link href="/Logout">Logout</Nav.Link>
-                        <Nav.Link href="/CreateAccount">Create Account</Nav.Link>
+                        <Nav.Link href="/Profile" hidden={sessionStorage.getItem("accessToken") === null ? true : false}>Profile</Nav.Link>
+                        <Nav.Link href="/login" hidden={sessionStorage.getItem("accessToken") === null ? false : true} >Login</Nav.Link>
+                        <Nav.Link href="/Logout" hidden={sessionStorage.getItem("accessToken") === null ? true : false} >Logout</Nav.Link>
+                        <Nav.Link href="/CreateAccount" hidden={sessionStorage.getItem("accessToken") === null ? false : true} >Create Account</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
