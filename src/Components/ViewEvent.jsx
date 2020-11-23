@@ -52,7 +52,7 @@ class ViewEvent extends Component {
   }
 
   componentDidMount() {
-    var url = "https://recess-api.herokuapp.com/class_info/" + this.props.location.state.classId;
+    var url = "http://127.0.0.1:8000/class_info/" + this.props.location.state.classId;
     fetch(url, {
       method: "GET",
       headers: new Headers({
@@ -153,7 +153,7 @@ class ViewEvent extends Component {
               <Col xs={12} lg={6}>
                 <Form.Group controlId="meetingLinkFormGroup">
                   <Form.Label className="rowStyle">Meeting Link:</Form.Label>
-                  <Form.Control type="text" name="meetingLinkInput" disabled={this.state.disabled} value={this.state.meetingLink} onChange={this.changeMeetingLink} />
+                  <Form.Control type="text" name="meetingLinkInput" disabled="true" value={this.state.meetingLink} onChange={this.changeMeetingLink} />
                 </Form.Group>
               </Col>
               <Col xs={12} lg={6}>

@@ -18,14 +18,12 @@ class CreateEvent extends Component {
     this.state = {
       id: '',
       name: '',
-      meetingLink: '',
       year: '',
       section: ''
     };
 
     this.changeId = this.changeId.bind(this);
     this.changeName = this.changeName.bind(this);
-    this.changeMeetingLink = this.changeMeetingLink.bind(this);
     this.changeYear = this.changeYear.bind(this);
     this.changeSection = this.changeSection.bind(this);
     this.createEvent = this.createEvent.bind(this);
@@ -37,10 +35,6 @@ class CreateEvent extends Component {
 
   changeName(event) {
     this.setState({ "name": event.target.value });
-  }
-
-  changeMeetingLink(event) {
-    this.setState({ "meetingLink": event.target.value });
   }
 
   changeYear(event) {
@@ -56,11 +50,10 @@ class CreateEvent extends Component {
     var json = JSON.stringify({
       "class_id": this.state.id,
       "class_name": this.state.name,
-      "meeting_link": this.state.meetingLink,
       "year": this.state.year,
       "section": this.state.section
     });
-    fetch("https://recess-api.herokuapp.com/class_info/", {
+    fetch("http://127.0.0.1:8000/class_info/", {
       method: "POST",
       body: json,
       headers: {
@@ -98,7 +91,7 @@ class CreateEvent extends Component {
               </Row>
             </div>
             <Row>
-              <Col md={8}>
+              <Col md={5}>
                 <Form.Group controlId="idFormGroup">
                   <Form.Control
                     className="textInput"
@@ -111,8 +104,6 @@ class CreateEvent extends Component {
                   />
                 </Form.Group>
               </Col>
-            </Row>
-            <Row>
               <Col md={5}>
                 <Form.Group controlId="nameFormGroup">
                   <Form.Control
@@ -122,19 +113,6 @@ class CreateEvent extends Component {
                     placeholder="Class Name:"
                     value={this.state.name}
                     onChange={this.changeName}
-                    style={{ height: 64 }}
-                  />
-                </Form.Group>
-              </Col>
-              <Col md={5}>
-                <Form.Group controlId="meetingLinkFormGroup">
-                  <Form.Control
-                    className="textInput"
-                    type="url"
-                    name="meetingLink"
-                    placeholder="Meeting Link:"
-                    value={this.state.meetingLink}
-                    onChange={this.changeMeetingLink}
                     style={{ height: 64 }}
                   />
                 </Form.Group>
