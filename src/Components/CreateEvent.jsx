@@ -53,7 +53,7 @@ class CreateEvent extends Component {
       "year": this.state.year,
       "section": this.state.section
     });
-    fetch("http://127.0.0.1:8000/class_info/", {
+    fetch("https://recess-api.herokuapp.com/class_info/", {
       method: "POST",
       body: json,
       headers: {

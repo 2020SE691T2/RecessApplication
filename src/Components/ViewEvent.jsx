@@ -52,7 +52,7 @@ class ViewEvent extends Component {
   }
 
   componentDidMount() {
-    var url = "http://127.0.0.1:8000/class_info/" + this.props.location.state.classId;
+    var url = "https://recess-api.herokuapp.com/class_info/" + this.props.location.state.classId;
     fetch(url, {
       method: "GET",
       headers: new Headers({
