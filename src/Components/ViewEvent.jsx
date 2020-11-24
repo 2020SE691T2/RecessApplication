@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./ViewEvent.css";
 import Menubar from "./MenuBar"
+import RefreshToken from "../RefreshToken"
 
 // Bootstrap Components
 import Container from 'react-bootstrap/Container';
@@ -53,17 +54,25 @@ class ViewEvent extends Component {
   componentDidMount() {
     var url = "https://recess-api.herokuapp.com/class_info/" + this.props.location.state.classId;
     fetch(url, {
-      method: "GET"
+      method: "GET",
+      headers: new Headers({
+        'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+      })
     })
       .then((resp) => resp.json())
       .then((results) => {
-        this.setState({
-          classId: results.class_id,
-          className: results.class_name,
-          meetingLink: results.meeting_link,
-          year: results.year,
-          section: results.section
-        });
+        if (RefreshToken(results)) {
+          this.setState({
+            classId: results.class_id,
+            className: results.class_name,
+            meetingLink: results.meeting_link,
+            year: results.year,
+            section: results.section
+          });
+        }
+        else {
+          //TODO alert user to errors
+        }
       });
   }
 
@@ -96,17 +105,23 @@ class ViewEvent extends Component {
         method: "PATCH",
         body: json,
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
         }
       }).then((resp) => resp.json())
         .then((results) => {
-          this.setState({
-            classId: results.class_id,
-            className: results.class_name,
-            meetingLink: results.meeting_link,
-            year: results.year,
-            section: results.section
-          });
+          if (RefreshToken(results)) {
+            this.setState({
+              classId: results.class_id,
+              className: results.class_name,
+              meetingLink: results.meeting_link,
+              year: results.year,
+              section: results.section
+            });
+          }
+          else {
+            //TODO alert user to errors
+          }
         });
     }
   }

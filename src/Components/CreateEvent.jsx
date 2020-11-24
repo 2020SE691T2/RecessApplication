@@ -9,6 +9,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
+import RefreshToken from "../RefreshToken";
 
 class CreateEvent extends Component {
 
@@ -63,15 +64,21 @@ class CreateEvent extends Component {
       method: "POST",
       body: json,
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
       }
     }).then((resp) => resp.json())
       .then((results) => {
-        if (results.class_id) {
-          this.props.history.push({
-            pathname: '/ViewEvent',
-            state: { classId: results.class_id }
-          })
+        if (RefreshToken(results)) {
+          if (results.class_id) {
+            this.props.history.push({
+              pathname: '/ViewEvent',
+              state: { classId: results.class_id }
+            })
+          }
+        }
+        else {
+          //TODO alert user of errors
         }
       });
     return false;
