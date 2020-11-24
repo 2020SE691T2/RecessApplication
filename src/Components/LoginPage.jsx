@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./LoginApp.css";
 import Menubar from "./MenuBar"
+import Environment from "./Environment";
+
 
 // Bootstrap Components
 import Button from 'react-bootstrap/Button';
@@ -12,6 +14,8 @@ import Image from 'react-bootstrap/Image'
 
 class LoginPage extends Component {
 
+  env;
+
   constructor() {
     super();
     this.state = {
@@ -21,6 +25,9 @@ class LoginPage extends Component {
 
     this.loginClicked = this.loginClicked.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
+
+    this.env = new Environment();
+
   }
 
   onChange = (e) => {
@@ -38,7 +45,7 @@ class LoginPage extends Component {
     e.preventDefault();
 
     try {
-      var url = "https://recess-api.herokuapp.com/api-auth/auth/";
+      var url = this.env.getRootUrl() + "/api-auth/auth/";
       fetch(url, {
         method: "POST",
         body: JSON.stringify({

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./ViewEvent.css";
 import Menubar from "./MenuBar"
 import RefreshToken from "../RefreshToken"
+import Environment from "./Environment";
 
 // Bootstrap Components
 import Container from 'react-bootstrap/Container';
@@ -11,6 +12,8 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button'
 
 class ViewEvent extends Component {
+
+  env;
 
   constructor(props) {
     super(props);
@@ -29,6 +32,9 @@ class ViewEvent extends Component {
     this.changeYear = this.changeYear.bind(this);
     this.changeSection = this.changeSection.bind(this);
     this.onFormSubmitted = this.onFormSubmitted.bind(this);
+
+    this.env = new Environment();
+
   }
 
   changeClassId(event) {
@@ -52,7 +58,7 @@ class ViewEvent extends Component {
   }
 
   componentDidMount() {
-    var url = "https://recess-api.herokuapp.com/class_info/" + this.props.location.state.classId;
+    var url = this.env.getRootUrl() + "/class_info/" + this.props.location.state.classId;
     fetch(url, {
       method: "GET",
       headers: new Headers({
@@ -100,7 +106,7 @@ class ViewEvent extends Component {
         "year": this.state.year,
         "section": this.state.section
       });
-      var url = "https://recess-api.herokuapp.com/class_info/" + this.state.classId;
+      var url = this.env.getRootUrl() + "/class_info/" + this.state.classId;
       fetch(url, {
         method: "PATCH",
         body: json,

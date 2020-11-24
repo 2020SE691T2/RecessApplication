@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./CreateEvent.css";
 import Menubar from "./MenuBar"
+import Environment from "./Environment";
 
 // Bootstrap Components
 import Container from 'react-bootstrap/Container';
@@ -12,6 +13,8 @@ import Button from 'react-bootstrap/Button';
 import RefreshToken from "../RefreshToken";
 
 class CreateEvent extends Component {
+
+  env;
 
   constructor(props) {
     super(props);
@@ -29,6 +32,9 @@ class CreateEvent extends Component {
     this.changeYear = this.changeYear.bind(this);
     this.changeSection = this.changeSection.bind(this);
     this.createEvent = this.createEvent.bind(this);
+
+    this.env = new Environment();
+
   }
 
   changeId(event) {
@@ -60,7 +66,7 @@ class CreateEvent extends Component {
       "year": this.state.year,
       "section": this.state.section
     });
-    fetch("https://recess-api.herokuapp.com/class_info/", {
+    fetch(this.env.getRootUrl() + "/class_info/", {
       method: "POST",
       body: json,
       headers: {
