@@ -78,7 +78,7 @@ class CreateEvent extends Component {
           }
         }
         else {
-          //TODO alert user of errors
+          alert("Failed to create event.\nPlease enter all information.")
         }
       });
     return false;

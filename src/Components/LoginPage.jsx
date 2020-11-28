@@ -8,7 +8,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import Image from 'react-bootstrap/Image'
+import Image from 'react-bootstrap/Image';
 
 class LoginPage extends Component {
 
@@ -65,7 +65,7 @@ class LoginPage extends Component {
             }
           }
           else {
-            //TODO alert user of errors
+            alert("Incorrect username or password.\nPlease try again.");
           }
         });
     } catch (error) {

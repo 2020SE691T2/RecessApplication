@@ -71,7 +71,7 @@ class ViewEvent extends Component {
           });
         }
         else {
-          //TODO alert user to errors
+          alert("Failed to get event.  Please verify event id.");
         }
       });
   }
@@ -120,7 +120,7 @@ class ViewEvent extends Component {
             });
           }
           else {
-            //TODO alert user to errors
+            alert("Failed to update event.  Please try again.");
           }
         });
     }

@@ -109,7 +109,7 @@ class CreateAccount extends Component {
           }
         }
         else {
-          //TODO alert user of errors
+          alert("Failed to create account.\nPlease enter all information.")
         }
       });
   }

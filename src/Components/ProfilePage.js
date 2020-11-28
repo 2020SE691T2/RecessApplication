@@ -62,7 +62,7 @@ class ProfilePage extends Component {
                         });
                     }
                     else {
-                        //TODO alert user of errors
+                        alert("Failed to get profile.\nPlease log in again.")
                     }
                 });
         } catch (e) {
@@ -118,7 +118,7 @@ class ProfilePage extends Component {
                         });
                     }
                     else {
-                        //TODO alert users of errors
+                        alert("Failed to update profile.  Please try again.");
                     }
                 });
         }
