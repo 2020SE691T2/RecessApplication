@@ -52,28 +52,33 @@ class ViewEvent extends Component {
   }
 
   componentDidMount() {
-    var url = "https://recess-api.herokuapp.com/class_info/" + this.props.location.state.classId;
-    fetch(url, {
-      method: "GET",
-      headers: new Headers({
-        'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+    try {
+      var url = "https://recess-api.herokuapp.com/class_info/" + this.props.location.state.classId;
+      fetch(url, {
+        method: "GET",
+        headers: new Headers({
+          'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+        })
       })
-    })
-      .then((resp) => resp.json())
-      .then((results) => {
-        if (RefreshToken(results)) {
-          this.setState({
-            classId: results.class_id,
-            className: results.class_name,
-            meetingLink: results.meeting_link,
-            year: results.year,
-            section: results.section
-          });
-        }
-        else {
-          //TODO alert user to errors
-        }
-      });
+        .then((resp) => resp.json())
+        .then((results) => {
+          if (RefreshToken(results)) {
+            this.setState({
+              classId: results.class_id,
+              className: results.class_name,
+              meetingLink: results.meeting_link,
+              year: results.year,
+              section: results.section
+            });
+          }
+          else {
+            //TODO alert user to errors
+          }
+        });
+    } catch (e) {
+      console.log(e);
+      console.log("--------------------------");
+    }
   }
 
   onFormSubmitted(event) {
