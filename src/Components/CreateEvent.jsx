@@ -11,6 +11,8 @@ import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 import RefreshToken from "../RefreshToken";
+import { toastr } from 'react-redux-toastr'
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 
 class CreateEvent extends Component {
 
@@ -77,7 +79,7 @@ class CreateEvent extends Component {
           }
         }
         else {
-          //TODO alert user of errors
+          toastr.error('Error', "Failed to create event. Please enter all information.", "Error")
         }
       });
     return false;

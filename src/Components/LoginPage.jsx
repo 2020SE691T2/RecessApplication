@@ -10,7 +10,9 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import Image from 'react-bootstrap/Image'
+import Image from 'react-bootstrap/Image';
+import { toastr } from 'react-redux-toastr'
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 
 class LoginPage extends Component {
 
@@ -72,7 +74,7 @@ class LoginPage extends Component {
             }
           }
           else {
-            //TODO alert user of errors
+            toastr.error('Error', 'Incorrect username or password. Please try again.');
           }
         });
     } catch (error) {
