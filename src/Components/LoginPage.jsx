@@ -9,6 +9,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
+import toastr from 'toastr'
+import 'toastr/build/toastr.css'
 
 class LoginPage extends Component {
 
@@ -65,7 +67,24 @@ class LoginPage extends Component {
             }
           }
           else {
-            alert("Incorrect username or password.\nPlease try again.");
+            toastr.options = {
+              "closeButton": false,
+              "debug": false,
+              "newestOnTop": false,
+              "progressBar": false,
+              "positionClass": "toast-top-right",
+              "preventDuplicates": false,
+              "onclick": null,
+              "showDuration": "300",
+              "hideDuration": "1000",
+              "timeOut": "5000",
+              "extendedTimeOut": "1000",
+              "showEasing": "swing",
+              "hideEasing": "linear",
+              "showMethod": "fadeIn",
+              "hideMethod": "fadeOut"
+            }
+            toastr.error('Incorrect username or password.\nPlease try again.', 'Error');
           }
         });
     } catch (error) {
