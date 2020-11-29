@@ -153,7 +153,7 @@ class ViewEvent extends Component {
               <Col xs={12} lg={6}>
                 <Form.Group controlId="meetingLinkFormGroup">
                   <Form.Label className="rowStyle">Meeting Link:</Form.Label>
-                  <Form.Control type="text" name="meetingLinkInput" disabled={this.state.disabled} value={this.state.meetingLink} onChange={this.changeMeetingLink} />
+                  <Form.Control type="text" name="meetingLinkInput" disabled="true" value={this.state.meetingLink} onChange={this.changeMeetingLink} />
                 </Form.Group>
               </Col>
               <Col xs={12} lg={6}>
