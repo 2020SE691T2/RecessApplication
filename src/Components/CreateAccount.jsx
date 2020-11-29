@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./CreateAccount.css";
 import Menubar from "./MenuBar"
+import Environment from "./Environment";
 
 // Bootstrap Components
 import Container from 'react-bootstrap/Container';
@@ -10,6 +11,8 @@ import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image'
 
 class CreateAccount extends Component {
+
+  env;
 
   constructor(props) {
     super(props);
@@ -33,6 +36,9 @@ class CreateAccount extends Component {
     this.creatAccount = this.creatAccount.bind(this);
     this.changeRole = this.changeRole.bind(this);
     this.changeProfilePicture = this.changeProfilePicture.bind(this);
+
+    this.env = new Environment();
+
   }
 
   changefirstName(event) {
@@ -89,7 +95,7 @@ class CreateAccount extends Component {
       "is_staff": false,
       "is_superuser": false
     });
-    fetch("https://recess-api.herokuapp.com/users/", {
+    fetch(this.env.getRootUrl() + "/users/", {
       method: "POST",
       body: json,
       headers: {
