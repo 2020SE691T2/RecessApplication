@@ -84,7 +84,7 @@ class LoginPage extends Component {
               "showMethod": "fadeIn",
               "hideMethod": "fadeOut"
             }
-            toastr.error('Incorrect username or password.\nPlease try again.', 'Error');
+            toastr.error('Incorrect username or password. Please try again.', 'Error');
           }
         });
     } catch (error) {
