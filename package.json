@@ -13,9 +13,11 @@
     "react-bootstrap": "^1.4.0",
     "react-bootstrap-icons": "^1.1.0",
     "react-dom": "^16.13.1",
+    "react-redux": "^7.2.2",
+    "react-redux-toastr": "^7.6.5",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
-    "toastr": "^2.1.4"
+    "redux": "^4.0.5"
   },
   "scripts": {
     "start": "react-scripts start",

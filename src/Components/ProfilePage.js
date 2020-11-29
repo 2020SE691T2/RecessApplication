@@ -11,6 +11,8 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
 import { PencilSquare } from 'react-bootstrap-icons';
+import { toastr } from 'react-redux-toastr'
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 
 class ProfilePage extends Component {
     constructor() {
@@ -62,7 +64,7 @@ class ProfilePage extends Component {
                         });
                     }
                     else {
-                        alert("Failed to get profile.\nPlease log in again.")
+                        toastr.error('Error', "Failed to get profile.\nPlease log in again.")
                     }
                 });
         } catch (e) {
@@ -118,7 +120,7 @@ class ProfilePage extends Component {
                         });
                     }
                     else {
-                        alert("Failed to update profile.  Please try again.");
+                        toastr.error('Error', "Failed to update profile.  Please try again.");
                     }
                 });
         }

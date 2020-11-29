@@ -9,8 +9,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
-import toastr from 'toastr'
-import 'toastr/build/toastr.css'
+import { toastr } from 'react-redux-toastr'
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 
 class LoginPage extends Component {
 
@@ -67,10 +67,7 @@ class LoginPage extends Component {
             }
           }
           else {
-            toastr.options = {
-              "closeButton": true
-            }
-            toastr.error('Incorrect username or password. Please try again.', 'Error');
+            toastr.error('Error', 'Incorrect username or password. Please try again.');
           }
         });
     } catch (error) {

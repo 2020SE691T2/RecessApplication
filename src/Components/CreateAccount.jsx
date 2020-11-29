@@ -8,6 +8,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image'
+import { toastr } from 'react-redux-toastr'
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 
 class CreateAccount extends Component {
 
@@ -109,7 +111,7 @@ class CreateAccount extends Component {
           }
         }
         else {
-          alert("Failed to create account.\nPlease enter all information.")
+          toastr.error('Error', "Failed to create account.\nPlease enter all information.")
         }
       });
   }

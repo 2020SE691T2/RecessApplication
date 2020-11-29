@@ -9,6 +9,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button'
+import { toastr } from 'react-redux-toastr'
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 
 class ViewEvent extends Component {
 
@@ -71,7 +73,7 @@ class ViewEvent extends Component {
           });
         }
         else {
-          alert("Failed to get event.  Please verify event id.");
+          toastr.error('Error', "Failed to get event.  Please verify event id.");
         }
       });
   }
@@ -120,7 +122,7 @@ class ViewEvent extends Component {
             });
           }
           else {
-            alert("Failed to update event.  Please try again.");
+            toastr.error('Error', "Failed to update event.  Please try again.");
           }
         });
     }
