@@ -10,6 +10,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button'
+import Nav from 'react-bootstrap/Nav';
 import { toastr } from 'react-redux-toastr'
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 
@@ -161,7 +162,9 @@ class ViewEvent extends Component {
               <Col xs={12} lg={6}>
                 <Form.Group controlId="meetingLinkFormGroup">
                   <Form.Label className="rowStyle">Meeting Link:</Form.Label>
-                  <Form.Control type="text" name="meetingLinkInput" disabled="true" value={this.state.meetingLink} onChange={this.changeMeetingLink} />
+                  <Nav class="nav-link-color" variant="pills" activeKey="1">
+                    <Nav.Link eventKey="1" name="meetingLinkInput" href={this.state.meetingLink}>{this.state.meetingLink}</Nav.Link>
+                  </Nav>
                 </Form.Group>
               </Col>
               <Col xs={12} lg={6}>
