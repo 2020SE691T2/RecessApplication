@@ -60,7 +60,8 @@ class ViewEvent extends Component {
   }
 
   componentDidMount() {
-    if (typeof this.props.location.state !== 'undefined') {
+    if (typeof this.props.location.state !== 'undefined' &&
+      typeof this.props.location.state.classId !== 'undefined') {
       var url = this.env.getRootUrl() + "/class_info/" + this.props.location.state.classId;
       fetch(url, {
         method: "GET",
