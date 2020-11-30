@@ -31,7 +31,6 @@ class ViewEvent extends Component {
 
     this.changeClassId = this.changeClassId.bind(this);
     this.changeClassName = this.changeClassName.bind(this);
-    this.changeMeetingLink = this.changeMeetingLink.bind(this);
     this.changeYear = this.changeYear.bind(this);
     this.changeSection = this.changeSection.bind(this);
     this.onFormSubmitted = this.onFormSubmitted.bind(this);
@@ -46,10 +45,6 @@ class ViewEvent extends Component {
 
   changeClassName(event) {
     this.setState({ className: event.target.value });
-  }
-
-  changeMeetingLink(event) {
-    this.setState({ meetingLink: event.target.value });
   }
 
   changeYear(event) {
@@ -105,7 +100,6 @@ class ViewEvent extends Component {
       var json = JSON.stringify({
         "class_id": this.state.classId,
         "class_name": this.state.className,
-        "meeting_link": this.state.meetingLink,
         "year": this.state.year,
         "section": this.state.section
       });
