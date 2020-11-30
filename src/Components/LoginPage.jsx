@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./LoginApp.css";
 import Menubar from "./MenuBar"
+import Environment from "./Environment";
+
 
 // Bootstrap Components
 import Button from 'react-bootstrap/Button';
@@ -8,9 +10,13 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import Image from 'react-bootstrap/Image'
+import Image from 'react-bootstrap/Image';
+import { toastr } from 'react-redux-toastr'
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 
 class LoginPage extends Component {
+
+  env;
 
   constructor() {
     super();
@@ -21,6 +27,9 @@ class LoginPage extends Component {
 
     this.loginClicked = this.loginClicked.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
+
+    this.env = new Environment();
+
   }
 
   onChange = (e) => {
@@ -38,7 +47,7 @@ class LoginPage extends Component {
     e.preventDefault();
 
     try {
-      var url = "https://recess-api.herokuapp.com/api-auth/auth/";
+      var url = this.env.getRootUrl() + "/api-auth/auth/";
       fetch(url, {
         method: "POST",
         body: JSON.stringify({
@@ -65,7 +74,7 @@ class LoginPage extends Component {
             }
           }
           else {
-            //TODO alert user of errors
+            toastr.error('Error', 'Incorrect username or password. Please try again.');
           }
         });
     } catch (error) {

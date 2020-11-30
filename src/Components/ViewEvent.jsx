@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./ViewEvent.css";
 import Menubar from "./MenuBar"
 import RefreshToken from "../RefreshToken"
+import Environment from "./Environment";
 
 // Bootstrap Components
 import Container from 'react-bootstrap/Container';
@@ -9,8 +10,12 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button'
+import { toastr } from 'react-redux-toastr'
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 
 class ViewEvent extends Component {
+
+  env;
 
   constructor(props) {
     super(props);
@@ -29,6 +34,9 @@ class ViewEvent extends Component {
     this.changeYear = this.changeYear.bind(this);
     this.changeSection = this.changeSection.bind(this);
     this.onFormSubmitted = this.onFormSubmitted.bind(this);
+
+    this.env = new Environment();
+
   }
 
   changeClassId(event) {
@@ -52,33 +60,28 @@ class ViewEvent extends Component {
   }
 
   componentDidMount() {
-    try {
-      var url = "https://recess-api.herokuapp.com/class_info/" + this.props.location.state.classId;
-      fetch(url, {
-        method: "GET",
-        headers: new Headers({
-          'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
-        })
+    var url = this.env.getRootUrl() + "/class_info/" + this.props.location.state.classId;
+    fetch(url, {
+      method: "GET",
+      headers: new Headers({
+        'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
       })
-        .then((resp) => resp.json())
-        .then((results) => {
-          if (RefreshToken(results)) {
-            this.setState({
-              classId: results.class_id,
-              className: results.class_name,
-              meetingLink: results.meeting_link,
-              year: results.year,
-              section: results.section
-            });
-          }
-          else {
-            //TODO alert user to errors
-          }
-        });
-    } catch (e) {
-      console.log(e);
-      console.log("--------------------------");
-    }
+    })
+      .then((resp) => resp.json())
+      .then((results) => {
+        if (RefreshToken(results)) {
+          this.setState({
+            classId: results.class_id,
+            className: results.class_name,
+            meetingLink: results.meeting_link,
+            year: results.year,
+            section: results.section
+          });
+        }
+        else {
+          toastr.error('Error', "Failed to get event.  Please verify event id.");
+        }
+      });
   }
 
   onFormSubmitted(event) {
@@ -105,7 +108,7 @@ class ViewEvent extends Component {
         "year": this.state.year,
         "section": this.state.section
       });
-      var url = "https://recess-api.herokuapp.com/class_info/" + this.state.classId;
+      var url = this.env.getRootUrl() + "/class_info/" + this.state.classId;
       fetch(url, {
         method: "PATCH",
         body: json,
@@ -125,7 +128,7 @@ class ViewEvent extends Component {
             });
           }
           else {
-            //TODO alert user to errors
+            toastr.error('Error', "Failed to update event.  Please try again.");
           }
         });
     }
@@ -158,7 +161,7 @@ class ViewEvent extends Component {
               <Col xs={12} lg={6}>
                 <Form.Group controlId="meetingLinkFormGroup">
                   <Form.Label className="rowStyle">Meeting Link:</Form.Label>
-                  <Form.Control type="text" name="meetingLinkInput" disabled={this.state.disabled} value={this.state.meetingLink} onChange={this.changeMeetingLink} />
+                  <Form.Control type="text" name="meetingLinkInput" disabled="true" value={this.state.meetingLink} onChange={this.changeMeetingLink} />
                 </Form.Group>
               </Col>
               <Col xs={12} lg={6}>

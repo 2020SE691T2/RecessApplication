@@ -12,7 +12,16 @@ import CreateAccount from './Components/CreateAccount';
 import ViewEvent from './Components/ViewEvent';
 import CreateEvent from './Components/CreateEvent';
 import LogoutPage from "./Components/LogoutPage"
+import { Provider } from 'react-redux'
+import ReduxToastr from 'react-redux-toastr'
+import { createStore, combineReducers } from 'redux'
+import { reducer as toastrReducer } from 'react-redux-toastr'
 
+const reducers = {
+  toastr: toastrReducer
+}
+const reducer = combineReducers(reducers)
+const store = createStore(reducer)
 
 function App() {
   return (
@@ -28,6 +37,19 @@ function App() {
           <Route exact path="/Logout" component={LogoutPage} />
         </Switch>
       </BrowserRouter>
+      <Provider store={store}>
+        <div>
+          <ReduxToastr
+            timeOut={4000}
+            newestOnTop={false}
+            preventDuplicates
+            position="top-center"
+            getState={(state) => state.toastr} // This is the default
+            transitionIn="fadeIn"
+            transitionOut="fadeOut"
+            closeOnToastrClick />
+        </div>
+      </Provider>
     </div>
   );
 }

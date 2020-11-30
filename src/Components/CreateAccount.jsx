@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./CreateAccount.css";
 import Menubar from "./MenuBar"
+import Environment from "./Environment";
 
 // Bootstrap Components
 import Container from 'react-bootstrap/Container';
@@ -8,8 +9,12 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image'
+import { toastr } from 'react-redux-toastr'
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 
 class CreateAccount extends Component {
+
+  env;
 
   constructor(props) {
     super(props);
@@ -33,6 +38,9 @@ class CreateAccount extends Component {
     this.creatAccount = this.creatAccount.bind(this);
     this.changeRole = this.changeRole.bind(this);
     this.changeProfilePicture = this.changeProfilePicture.bind(this);
+
+    this.env = new Environment();
+
   }
 
   changefirstName(event) {
@@ -89,7 +97,7 @@ class CreateAccount extends Component {
       "is_staff": false,
       "is_superuser": false
     });
-    fetch("https://recess-api.herokuapp.com/users/", {
+    fetch(this.env.getRootUrl() + "/users/", {
       method: "POST",
       body: json,
       headers: {
@@ -109,7 +117,7 @@ class CreateAccount extends Component {
           }
         }
         else {
-          //TODO alert user of errors
+          toastr.error('Error', "Failed to create account.\nPlease enter all information.")
         }
       });
   }
