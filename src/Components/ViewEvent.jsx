@@ -60,28 +60,30 @@ class ViewEvent extends Component {
   }
 
   componentDidMount() {
-    var url = this.env.getRootUrl() + "/class_info/" + this.props.location.state.classId;
-    fetch(url, {
-      method: "GET",
-      headers: new Headers({
-        'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+    if (typeof this.props.location.state !== 'undefined') {
+      var url = this.env.getRootUrl() + "/class_info/" + this.props.location.state.classId;
+      fetch(url, {
+        method: "GET",
+        headers: new Headers({
+          'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+        })
       })
-    })
-      .then((resp) => resp.json())
-      .then((results) => {
-        if (RefreshToken(results)) {
-          this.setState({
-            classId: results.class_id,
-            className: results.class_name,
-            meetingLink: results.meeting_link,
-            year: results.year,
-            section: results.section
-          });
-        }
-        else {
-          toastr.error('Error', "Failed to get event.  Please verify event id.");
-        }
-      });
+        .then((resp) => resp.json())
+        .then((results) => {
+          if (RefreshToken(results)) {
+            this.setState({
+              classId: results.class_id,
+              className: results.class_name,
+              meetingLink: results.meeting_link,
+              year: results.year,
+              section: results.section
+            });
+          }
+          else {
+            toastr.error('Error', "Failed to get event.  Please verify event id.");
+          }
+        });
+    }
   }
 
   onFormSubmitted(event) {
