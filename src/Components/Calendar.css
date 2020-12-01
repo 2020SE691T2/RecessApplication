@@ -1,0 +1,28 @@
+.container {
+  background-image: url(/CalChalk.jpeg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: scroll;
+  border: 1px solid;
+  min-height: 100vh;
+  color: white;
+}
+
+.rbc-timeslot-group {
+  min-height: 40px;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.rbc-time-content {
+  border: 0px solid #ddd !important;
+}
+
+.rbc-toolbar button {
+  color: white !important;
+}
+
+.rbc-day-slot .rbc-time-slot {
+  border-top: none !important;
+  border-bottom: none !important;
+}
