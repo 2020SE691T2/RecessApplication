@@ -2,6 +2,7 @@ import React, { Component, createRef } from "react";
 import './ProfilePage.css'
 import Menubar from "./MenuBar"
 import RefreshToken from "../RefreshToken"
+import Environment from "./Environment";
 
 // Bootstrap Components
 import Button from 'react-bootstrap/Button';
@@ -11,8 +12,13 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
 import { PencilSquare } from 'react-bootstrap-icons';
+import { toastr } from 'react-redux-toastr'
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 
 class ProfilePage extends Component {
+
+    env;
+
     constructor() {
         super();
         this.state = {
@@ -37,11 +43,14 @@ class ProfilePage extends Component {
         this.editProfilePicture = this.editProfilePicture.bind(this);
         this.onFormSubmitted = this.onFormSubmitted.bind(this);
         this.onButtonClicked = this.onButtonClicked.bind(this);
+
+        this.env = new Environment();
+
     }
 
     componentDidMount() {
         try {
-            var url = "https://recess-api.herokuapp.com/users/" + sessionStorage.getItem("email");
+            var url = this.env.getRootUrl() + "/users/" + sessionStorage.getItem("email");
             fetch(url, {
                 method: "GET",
                 headers: new Headers({
@@ -62,7 +71,7 @@ class ProfilePage extends Component {
                         });
                     }
                     else {
-                        //TODO alert user of errors
+                        toastr.error('Error', "Failed to get profile.\nPlease log in again.")
                     }
                 });
         } catch (e) {
@@ -96,7 +105,7 @@ class ProfilePage extends Component {
                 "dob": this.state.dob,
                 "photo": this.state.photo,
             });
-            var url = "https://recess-api.herokuapp.com/users/" + this.state.email;
+            var url = this.env.getRootUrl() + "/users/" + this.state.email;
             fetch(url, {
                 method: "PATCH",
                 body: json,
@@ -118,7 +127,7 @@ class ProfilePage extends Component {
                         });
                     }
                     else {
-                        //TODO alert users of errors
+                        toastr.error('Error', "Failed to update profile.  Please try again.");
                     }
                 });
         }
