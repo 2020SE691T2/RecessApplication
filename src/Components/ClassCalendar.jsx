@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./Calendar.css";
+import "./ClassCalendar.css";
 import Menubar from "./MenuBar"
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import "react-big-calendar/lib/css/react-big-calendar.css"

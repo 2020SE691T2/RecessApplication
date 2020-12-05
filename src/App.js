@@ -11,7 +11,7 @@ import LandingPage from "./Components/LandingPage"
 import CreateAccount from './Components/CreateAccount';
 import ViewEvent from './Components/ViewEvent';
 import CreateEvent from './Components/CreateEvent';
-import ClassCalendar from './Components/Calendar';
+import ClassCalendar from './Components/ClassCalendar';
 import LogoutPage from "./Components/LogoutPage"
 import { Provider } from 'react-redux'
 import ReduxToastr from 'react-redux-toastr'
