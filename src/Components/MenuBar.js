@@ -17,7 +17,6 @@ class Menubar extends React.Component {
                         <Nav.Link href="#">About</Nav.Link>
                         <NavDropdown title="Events" id="basic-nav-dropdown" hidden={sessionStorage.getItem("accessToken") === null ? true : false} >
                             <NavDropdown.Item href="/CreateEvent">Create Event</NavDropdown.Item>
-                            <NavDropdown.Item href="/ViewEvent">View Event</NavDropdown.Item>
                             <NavDropdown.Item href="/Calendar">Calendar</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>

@@ -4,6 +4,10 @@ import Menubar from "./MenuBar"
 import { Calendar, momentLocalizer } from 'react-big-calendar'
 import "react-big-calendar/lib/css/react-big-calendar.css"
 import moment from 'moment'
+import RefreshToken from "../RefreshToken"
+import Environment from "./Environment";
+import { toastr } from 'react-redux-toastr'
+
 
 // Bootstrap Components
 import Container from 'react-bootstrap/Container';
@@ -15,34 +19,50 @@ const localizer = momentLocalizer(moment)
 
 class ClassCalendar extends Component {
 
-  classes = [
-    {
-      "classId": 1,
-      "title": "Class Test 1",
-      "start": new Date("2020-11-22T14:30:00Z"),
-      "end": new Date("2020-11-22T16:30:00Z")
-    }
-  ]
-
-  /*
-
-  */
+  classes = []
 
   constructor(props) {
     super(props);
+    this.env = new Environment();
     this.state = {
     };
 
-    this.navigateToClassDetail = this.navigateToClassDetail.bind(this);
+    var url = this.env.getRootUrl() + "/api/classes/";
+    fetch(url, {
+      method: "GET",
+      headers: new Headers({
+        'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+      })
+    })
+      .then((resp) => resp.json())
+      .then((results) => {
+        if (RefreshToken(results)) {
+          this.classes = results.schedules;
+          this.cleanup();
+          this.forceUpdate();
+        }
+        else {
+          toastr.error('Error', "Failed to retrieve calendar.");
+        }
+      });
 
+    this.navigateToClassDetail = this.navigateToClassDetail.bind(this);
+    this.cleanup = this.cleanup.bind(this);
+
+  }
+
+  cleanup() {
+    this.classes.forEach(cls => {
+      cls.start_time = new Date(cls.start_time);
+      cls.end_time = new Date(cls.end_time);
+    });
   }
 
 
   navigateToClassDetail(event) {
-    debugger;
     this.props.history.push({
       pathname: '/ViewEvent',
-      state: { classId: event.classId }
+      state: { classId: event.class_id }
     })
   }
 
@@ -50,7 +70,7 @@ class ClassCalendar extends Component {
     return (
       <div>
         <Menubar />
-        <Container>
+        <Container fluid>
           <Row>
             <Col>
               <h1>My Calendar</h1>
@@ -62,8 +82,11 @@ class ClassCalendar extends Component {
                 defaultView="week"
                 localizer={localizer}
                 events={this.classes}
-                startAccessor="start"
-                endAccessor="end"
+                startAccessor="start_time"
+                endAccessor="end_time"
+                titleAccessor="class_name"
+                min={new Date("2020-12-01T07:00:00")}
+                max={new Date("2020-12-01T17:00:00")}
                 onSelectEvent={this.navigateToClassDetail}
               />
             </Col>
