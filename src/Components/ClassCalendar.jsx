@@ -38,7 +38,7 @@ class ClassCalendar extends Component {
       .then((results) => {
         if (RefreshToken(results)) {
           this.classes = results.schedules;
-          this.cleanup();
+          this.dateReformatting();
           this.forceUpdate();
         }
         else {
@@ -47,11 +47,11 @@ class ClassCalendar extends Component {
       });
 
     this.navigateToClassDetail = this.navigateToClassDetail.bind(this);
-    this.cleanup = this.cleanup.bind(this);
+    this.dateReformatting = this.dateReformatting.bind(this);
 
   }
 
-  cleanup() {
+  dateReformatting() {
     this.classes.forEach(cls => {
       cls.start_time = new Date(cls.start_time);
       cls.end_time = new Date(cls.end_time);
