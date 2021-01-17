@@ -97,7 +97,7 @@ class CreateAccount extends Component {
       "is_staff": false,
       "is_superuser": false
     });
-    fetch(this.env.getRootUrl() + "/users/", {
+    fetch(this.env.getRootUrl() + "/api-auth/register/", {
       method: "POST",
       body: json,
       headers: {
