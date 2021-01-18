@@ -168,7 +168,7 @@ class CreateAccount extends Component {
                 <Form.Group controlId="emailCAFormGroup">
                   <Form.Control
                     className="textInput"
-                    type="text"
+                    type="email"
                     placeholder="Email:"
                     value={this.state.email}
                     onChange={this.changeEmail}

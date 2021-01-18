@@ -94,7 +94,7 @@ class LoginPage extends Component {
               <Col md={5} xs={12}   >
                 <Form.Group controlId="emailFormGroup">
                   <Form.Control
-                    type="text"
+                    type="email"
                     name="username"
                     value={username}
                     className="username"
