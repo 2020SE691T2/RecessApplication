@@ -3,7 +3,6 @@ import './ProfilePage.css'
 import Menubar from "./MenuBar"
 import RefreshToken from "../RefreshToken"
 import Environment from "./Environment";
-
 // Bootstrap Components
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
@@ -18,7 +17,6 @@ import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 class ProfilePage extends Component {
 
     env;
-
     constructor() {
         super();
         this.state = {
@@ -33,7 +31,6 @@ class ProfilePage extends Component {
         };
 
         this.hiddenFileInput = createRef()
-
         this.editFirstName = this.editFirstName.bind(this);
         this.editLastName = this.editLastName.bind(this);
         this.editPreferredName = this.editPreferredName.bind(this);
@@ -43,9 +40,7 @@ class ProfilePage extends Component {
         this.editProfilePicture = this.editProfilePicture.bind(this);
         this.onFormSubmitted = this.onFormSubmitted.bind(this);
         this.onButtonClicked = this.onButtonClicked.bind(this);
-
         this.env = new Environment();
-
     }
 
     componentDidMount() {
@@ -199,13 +194,13 @@ class ProfilePage extends Component {
                         <Row>
                             <Col xs={12} lg={6}>
                                 <Form.Group controlId="fnameFormGroup">
-                                    <Form.Label className="textLabel">First Name:</Form.Label>
+                                    <Form.Label className="textLabelProfilePage">First Name:</Form.Label>
                                     <Form.Control type="text" name="firstNameInput" disabled={this.state.disabled} value={this.state.firstName} onChange={this.editFirstName} />
                                 </Form.Group>
                             </Col>
                             <Col xs={12} lg={6}>
                                 <Form.Group controlId="lnameFormGroup">
-                                    <Form.Label className="textLabel">Last Name:</Form.Label>
+                                    <Form.Label className="textLabelProfilePage">Last Name:</Form.Label>
                                     <Form.Control type="text" name="lastNameInput" disabled={this.state.disabled} value={this.state.lastName} onChange={this.editLastName} />
                                 </Form.Group>
                             </Col>
@@ -213,13 +208,13 @@ class ProfilePage extends Component {
                         <Row>
                             <Col xs={12} lg={6}>
                                 <Form.Group controlId="pnameFormGroup">
-                                    <Form.Label className="textLabel">Prefered Name:</Form.Label>
+                                    <Form.Label className="textLabelProfilePage">Prefered Name:</Form.Label>
                                     <Form.Control type="text" name="preferredNameInput" disabled={this.state.disabled} value={this.state.preferredName} onChange={this.editPreferredName} />
                                 </Form.Group>
                             </Col>
                             <Col xs={12} lg={6}>
                                 <Form.Group controlId="emailFormGroup">
-                                    <Form.Label className="textLabel">Email Address:</Form.Label>
+                                    <Form.Label className="textLabelProfilePage">Email Address:</Form.Label>
                                     <Form.Control type="text" name="emailInput" disabled={this.state.disabled} value={this.state.email} onChange={this.editEmail} />
                                 </Form.Group>
                             </Col>
@@ -227,13 +222,13 @@ class ProfilePage extends Component {
                         <Row>
                             <Col xs={12} lg={6}>
                                 <Form.Group controlId="dobFormGroup">
-                                    <Form.Label className="textLabel">Date of Birth:</Form.Label>
+                                    <Form.Label className="textLabelProfilePage">Date of Birth:</Form.Label>
                                     <Form.Control type="date" name="dobInput" disabled={this.state.disabled} value={this.state.dob} onChange={this.editDoB} />
                                 </Form.Group>
                             </Col>
                             <Col xs={12} lg={6}>
                                 <Form.Group controlId="idFormGroup">
-                                    <Form.Label className="textLabel">Id Number:</Form.Label>
+                                    <Form.Label className="textLabelProfilePageProfilePage">Id Number:</Form.Label>
                                     <Form.Control type="text" name="idNumInput" disabled={this.state.disabled} value={this.state.idNum} onChange={this.editIdNum} />
                                 </Form.Group>
                             </Col>

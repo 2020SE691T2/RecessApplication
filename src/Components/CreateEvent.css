@@ -1,17 +1,4 @@
-.container {
-  text-align: center;
-}
-
-.header {
-  text-align: center;
-  width: 100%;
-}
-
-.banner {
-  max-width: 100%;
-}
-
-.background_CA {
+.background_CE {
   background-image: url(/createaccountbackground.jpg);
   background-repeat: no-repeat;
   background-size: cover;
@@ -20,84 +7,11 @@
   min-height: 100vh;
 }
 
-.button {
-  display: inline-block;
-  width: 20%;
-  height: 60px;
-
-  border: 2px solid #bdbdbd;
-  border-radius: 5px;
-
-  box-shadow: 10px 5px 10px black;
-
-  background-color: #828481;
-  background-repeat: no-repeat;
-  color: white;
-}
-
-.textInput {
+.textInput_CE {
   text-align: left;
   font-size: 15px;
   border: 1px solid #bdbdbd;
   border-radius: 5px;
-
   box-shadow: 10px 5px 10px black;
   background-repeat: no-repeat;
-
-  margin-top: 3%;
-  margin-left: 23%;
-}
-
-.fileInput {
-  text-align: left;
-
-  border-radius: 5px;
-
-  margin-top: 3%;
-  margin-right: 1%;
-}
-
-.password_CA {
-  width: 28%;
-  text-align: left;
-  font-size: 15px;
-  border: 1px solid #bdbdbd;
-  border-radius: 5px;
-  padding: 33px 11px 10px 30px;
-  box-shadow: 10px 5px 10px black;
-  background-position: -73px -41px;
-  background-size: 100%;
-  background-repeat: no-repeat;
-
-  margin-right: 1%;
-  margin-top: 50px;
-}
-
-.textInput_role {
-  font-size: 15px;
-  border: 1px solid #bdbdbd;
-  border-radius: 5px;
-
-  box-shadow: 10px 5px 10px black;
-  background-repeat: no-repeat;
-
-  margin-top: 3%;
-  margin-left: 20%;
-}
-.Submit_CA {
-  display: inline-block;
-  width: 56%;
-  height: 63px;
-
-  border: 1px solid #bdbdbd;
-  border-radius: 5px;
-
-  box-shadow: 10px 5px 10px black;
-  background-image: url(/createaccountbutton.jpg);
-  background-position: 0px;
-  background-size: 100%;
-  background-color: #828481;
-  background-repeat: no-repeat;
-
-  margin-top: 5px;
 }

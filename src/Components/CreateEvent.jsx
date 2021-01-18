@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./CreateEvent.css";
 import Menubar from "./MenuBar"
 import Environment from "./Environment";
-
 // Bootstrap Components
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -17,7 +16,6 @@ import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 class CreateEvent extends Component {
 
   env;
-
   constructor(props) {
     super(props);
     this.state = {
@@ -32,9 +30,7 @@ class CreateEvent extends Component {
     this.changeYear = this.changeYear.bind(this);
     this.changeSection = this.changeSection.bind(this);
     this.createEvent = this.createEvent.bind(this);
-
     this.env = new Environment();
-
   }
 
   changeId(event) {
@@ -89,20 +85,18 @@ class CreateEvent extends Component {
     return (
       <div>
         <Menubar />
-        <Container className="background_CA" fluid>
+        <Container className="background_CE" fluid>
           <Form onSubmit={this.createEvent}>
-            <div className="header">
-              <Row>
-                <Col>
-                  <a href="/"> <Image src="./Recess_logo.png" alt={'Recess Logo'} fluid /></a>
-                </Col>
-              </Row>
-            </div>
-            <Row>
-              <Col md={5}>
+            <Row className="justify-content-md-center">
+              <Col>
+                <a href="/"> <Image src="./Recess_logo.png" alt={'Recess Logo'} fluid /></a>
+              </Col>
+            </Row>
+            <Row className="justify-content-md-center">
+              <Col md={5} xs={12}>
                 <Form.Group controlId="idFormGroup">
                   <Form.Control
-                    className="textInput"
+                    className="textInput_CE"
                     name="id"
                     type="text"
                     placeholder="ID:"
@@ -112,10 +106,10 @@ class CreateEvent extends Component {
                   />
                 </Form.Group>
               </Col>
-              <Col md={5}>
+              <Col md={5} xs={12}>
                 <Form.Group controlId="nameFormGroup">
                   <Form.Control
-                    className="textInput"
+                    className="textInput_CE"
                     name="name"
                     type="text"
                     placeholder="Class Name:"
@@ -126,11 +120,11 @@ class CreateEvent extends Component {
                 </Form.Group>
               </Col>
             </Row>
-            <Row>
-              <Col md={5}>
+            <Row className="justify-content-md-center">
+              <Col md={5} xs={12}>
                 <Form.Group controlId="yearFormGroup">
                   <Form.Control
-                    className="textInput"
+                    className="textInput_CE"
                     type="number"
                     placeholder="Year:"
                     value={this.state.year}
@@ -139,10 +133,10 @@ class CreateEvent extends Component {
                   />
                 </Form.Group>
               </Col>
-              <Col md={5}>
+              <Col md={5} xs={12}>
                 <Form.Group controlId="sectionFormGroup">
                   <Form.Control
-                    className="textInput"
+                    className="textInput_CE"
                     name="section"
                     type="text"
                     placeholder="Section:"
@@ -153,7 +147,7 @@ class CreateEvent extends Component {
                 </Form.Group>
               </Col>
             </Row>
-            <Row>
+            <Row className="justify-content-md-center">
               <Col>
                 <Button onClick={this.createEvent} variant="primary">Create New Class Event</Button>
               </Col>

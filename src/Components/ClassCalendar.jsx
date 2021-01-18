@@ -7,15 +7,12 @@ import moment from 'moment'
 import RefreshToken from "../RefreshToken"
 import Environment from "./Environment";
 import { toastr } from 'react-redux-toastr'
-
-
 // Bootstrap Components
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 const localizer = momentLocalizer(moment)
-
 
 class ClassCalendar extends Component {
 
@@ -48,7 +45,6 @@ class ClassCalendar extends Component {
 
     this.navigateToClassDetail = this.navigateToClassDetail.bind(this);
     this.dateReformatting = this.dateReformatting.bind(this);
-
   }
 
   dateReformatting() {
@@ -57,7 +53,6 @@ class ClassCalendar extends Component {
       cls.end_time = new Date(cls.end_time);
     });
   }
-
 
   navigateToClassDetail(event) {
     this.props.history.push({

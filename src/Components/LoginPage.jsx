@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import "./LoginApp.css";
 import Menubar from "./MenuBar"
 import Environment from "./Environment";
-
-
 // Bootstrap Components
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
@@ -29,7 +27,6 @@ class LoginPage extends Component {
     this.handleKeyPress = this.handleKeyPress.bind(this);
 
     this.env = new Environment();
-
   }
 
   onChange = (e) => {
@@ -45,7 +42,6 @@ class LoginPage extends Component {
 
   loginClicked(e) {
     e.preventDefault();
-
     try {
       var url = this.env.getRootUrl() + "/api-auth/auth/";
       fetch(url, {
@@ -64,7 +60,6 @@ class LoginPage extends Component {
           if ("tokens" in results) {
             sessionStorage.setItem("refreshToken", results.tokens.refresh);
             sessionStorage.setItem("accessToken", results.tokens.access);
-
             if (results.user.email_address) {
               sessionStorage.setItem("email", results.user.email_address);
               this.props.history.push({
@@ -84,26 +79,19 @@ class LoginPage extends Component {
   }
 
   render() {
-
     const { username, password } = this.state;
     return (
       <div>
         <Menubar />
         <Container className="background" fluid>
           <Form onSubmit={this.loginClicked} onKeyPress={this.handleKeyPress}>
-            <div className="logo">
-              <Row>
-
-                <Col >
-
-                  <Image src="/Recess_logo.png" fluid />
-
-                </Col>
-              </Row>
-            </div>
-
-            <Row >
-              <Col md={5} xs={8}   >
+            <Row className="justify-content-md-center">
+              <Col >
+                <Image src="/Recess_logo.png" fluid />
+              </Col>
+            </Row>
+            <Row className="justify-content-md-center">
+              <Col md={5} xs={12}   >
                 <Form.Group controlId="emailFormGroup">
                   <Form.Control
                     type="text"
@@ -112,15 +100,12 @@ class LoginPage extends Component {
                     className="username"
                     onChange={this.onChange}
                     style={{ height: 65 }}
-
-
-
                   />
                 </Form.Group>
               </Col>
             </Row>
-            <Row >
-              <Col md={5} xs={8} >
+            <Row className="justify-content-md-center">
+              <Col md={5} xs={12} >
                 <Form.Group controlId="passwordFormGroup">
                   <Form.Control
                     type="password"
@@ -133,13 +118,17 @@ class LoginPage extends Component {
                 </Form.Group>
               </Col>
             </Row>
-            <Row>
-              <Col>
+            <Row className="justify-content-md-center">
+              <Col md={5} xs={12}>
                 <Button variant="primary" className="Submit_Login" onClick={this.loginClicked}></Button>
               </Col>
             </Row>
           </Form>
-          <Button variant="link" className="forgotPassword" href="#">"Forgot your password?"</Button>
+          <Row className="justify-content-md-center">
+            <Col md={5} xs={12}>
+              <Button variant="link" className="forgotPassword" href="#">"Forgot your password?"</Button>
+            </Col>
+          </Row>
         </Container>
       </div>
     );

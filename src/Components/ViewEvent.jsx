@@ -3,7 +3,6 @@ import "./ViewEvent.css";
 import Menubar from "./MenuBar"
 import RefreshToken from "../RefreshToken"
 import Environment from "./Environment";
-
 // Bootstrap Components
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -17,7 +16,6 @@ import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 class ViewEvent extends Component {
 
   env;
-
   constructor(props) {
     super(props);
     this.state = {
@@ -34,9 +32,7 @@ class ViewEvent extends Component {
     this.changeYear = this.changeYear.bind(this);
     this.changeSection = this.changeSection.bind(this);
     this.onFormSubmitted = this.onFormSubmitted.bind(this);
-
     this.env = new Environment();
-
   }
 
   changeClassId(event) {
@@ -138,25 +134,25 @@ class ViewEvent extends Component {
         <Menubar />
         <Container fluid className={'backgroundViewEvent'}>
           <Form onSubmit={this.onFormSubmitted}>
-            <Row>
+            <Row className="justify-content-md-center">
               <Form.Label className="pageTitle">View Event</Form.Label>
             </Row>
-            <Row>
-              <Col xs={12} lg={6}>
+            <Row className="justify-content-md-center">
+              <Col xs={12} md={5}>
                 <Form.Group controlId="classIdFormGroup">
                   <Form.Label className="rowStyle">Class Id:</Form.Label>
                   <Form.Control type="text" name="classIdInput" disabled={this.state.disabled} value={this.state.classId} onChange={this.changeClassId} />
                 </Form.Group>
               </Col>
-              <Col xs={12} lg={6}>
+              <Col xs={12} md={5}>
                 <Form.Group controlId="classNameFormGroup">
                   <Form.Label className="rowStyle">Class Name:</Form.Label>
                   <Form.Control type="text" name="classNameInput" disabled={this.state.disabled} value={this.state.className} onChange={this.changeClassName} />
                 </Form.Group>
               </Col>
             </Row>
-            <Row>
-              <Col xs={12} lg={6}>
+            <Row className="justify-content-md-center">
+              <Col xs={12} md={5}>
                 <Form.Group controlId="meetingLinkFormGroup">
                   <Form.Label className="rowStyle">Meeting Link:</Form.Label>
                   <Nav class="nav-link-color" variant="pills" activeKey="1">
@@ -164,18 +160,18 @@ class ViewEvent extends Component {
                   </Nav>
                 </Form.Group>
               </Col>
-              <Col xs={12} lg={6}>
+              <Col xs={12} md={5}>
                 <Form.Group controlId="sectionFormGroup">
                   <Form.Label className="rowStyle">Section:</Form.Label>
                   <Form.Control type="text" name="sectionInput" disabled={this.state.disabled} value={this.state.section} onChange={this.changeSection} />
                 </Form.Group>
               </Col>
             </Row>
-            <Row>
-              <Col xs={12}>
+            <Row className="justify-content-md-center">
+              <Col xs={12} md={10}>
                 <Button block id="editEventButton" style={{ visibility: "visible" }} onClick={this.onFormSubmitted}>Edit Event</Button>
               </Col>
-              <Col xs={12}>
+              <Col xs={12} md={10}>
                 <Button block variant="success" id="saveEventeButton" style={{ visibility: "hidden" }} onClick={this.onFormSubmitted}>Save Event</Button>
               </Col>
             </Row>

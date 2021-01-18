@@ -2,10 +2,6 @@
   text-align: center;
 }
 
-.logo {
-  margin-top: 10%;
-  margin-right: 38%;
-}
 .background {
   background-image: url(/Recess_Bg.jpg);
   background-repeat: no-repeat;
@@ -24,8 +20,6 @@
   background-image: url(/username.png);
   background-position: -75px -42px;
   background-repeat: no-repeat;
-  margin-top: 10%;
-  margin-left: 30%;
 }
 
 .password {
@@ -37,7 +31,6 @@
   background-image: url(/password.png);
   background-position: -75px -42px;
   background-repeat: no-repeat;
-  margin-left: 30%;
 }
 
 .forgotPassword {
@@ -46,13 +39,11 @@
   font-size: 25px;
   font-family: "Times New Roman", Times, serif;
   font-weight: bold;
-  margin-right: 27%;
 }
 
 .Submit_Login {
   width: 162px;
   height: 63px;
-
   border: 1px solid #bdbdbd;
   border-radius: 5px;
   box-shadow: 10px 5px 10px black;
@@ -60,5 +51,4 @@
   background-position: -75px -42px;
   background-size: 290%;
   background-repeat: no-repeat;
-  margin-right: 27%;
 }
