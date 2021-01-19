@@ -4,14 +4,14 @@
 }
 
 .backgroundProfilePage {
-  background-image: url(../Resources/background.jpg);
+  background-image: url(/CalChalk.jpeg);
   background-repeat: no-repeat;
   background-size:cover;
   background-color: #6a6a73;
   min-height: 100vh;
 }
 
-.textLabel {
+.textLabelProfilePage {
   background-color:  #d38d5c;
   border-color: #80e46a;
   border-width: thin;
