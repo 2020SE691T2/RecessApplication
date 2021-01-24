@@ -12,7 +12,7 @@ import Form from 'react-bootstrap/Form';
 import { toastr } from 'react-redux-toastr'
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 
-class ProfilePage extends Component {
+class ChangePassword extends Component {
 
     env;
     constructor() {
@@ -103,4 +103,4 @@ class ProfilePage extends Component {
         );
     }
 }
-export default ProfilePage;
+export default ChangePassword;
