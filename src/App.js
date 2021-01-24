@@ -3,16 +3,27 @@ import './App.css';
 import {
   BrowserRouter,
   Switch,
-  Route,
-  Redirect
+  Route
 } from "react-router-dom";
 import ProfilePage from "./Components/ProfilePage"
 import LoginPage from "./Components/LoginPage"
 import LandingPage from "./Components/LandingPage"
-import CreateAccount from './Components/CreateAccount'
+import CreateAccount from './Components/CreateAccount';
 import ForgotPassword from './Components/ForgotPassword'
-import NewCal from './Components/NewCal'
-import ClassCalendar from './Components/Calendar';
+import ViewEvent from './Components/ViewEvent';
+import CreateEvent from './Components/CreateEvent';
+import ClassCalendar from './Components/ClassCalendar';
+import LogoutPage from "./Components/LogoutPage"
+import { Provider } from 'react-redux'
+import ReduxToastr from 'react-redux-toastr'
+import { createStore, combineReducers } from 'redux'
+import { reducer as toastrReducer } from 'react-redux-toastr'
+
+const reducers = {
+  toastr: toastrReducer
+}
+const reducer = combineReducers(reducers)
+const store = createStore(reducer)
 
 function App() {
   return (
@@ -24,11 +35,25 @@ function App() {
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/CreateAccount" component={CreateAccount} />
           <Route exact path="/ForgotPassword" component={ForgotPassword} />
+          <Route exact path="/ViewEvent" component={ViewEvent} />
+          <Route exact path="/CreateEvent" component={CreateEvent} />
+          <Route exact path="/Logout" component={LogoutPage} />
           <Route exact path="/Calendar" component={ClassCalendar} />
-          <Route exact path="/NewCal" component={NewCal} />
-          
         </Switch>
       </BrowserRouter>
+      <Provider store={store}>
+        <div>
+          <ReduxToastr
+            timeOut={4000}
+            newestOnTop={false}
+            preventDuplicates
+            position="top-center"
+            getState={(state) => state.toastr} // This is the default
+            transitionIn="fadeIn"
+            transitionOut="fadeOut"
+            closeOnToastrClick />
+        </div>
+      </Provider>
     </div>
   );
 }

@@ -1,0 +1,17 @@
+.background_CE {
+  background-image: url(/createaccountbackground.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: scroll;
+  border: 1px solid;
+  min-height: 100vh;
+}
+
+.textInput_CE {
+  text-align: left;
+  font-size: 15px;
+  border: 1px solid #bdbdbd;
+  border-radius: 5px;
+  box-shadow: 10px 5px 10px black;
+  background-repeat: no-repeat;
+}

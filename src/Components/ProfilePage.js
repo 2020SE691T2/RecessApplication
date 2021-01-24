@@ -1,7 +1,8 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import './ProfilePage.css'
 import Menubar from "./MenuBar"
-
+import RefreshToken from "../RefreshToken"
+import Environment from "./Environment";
 // Bootstrap Components
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
@@ -9,8 +10,13 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
+import { PencilSquare } from 'react-bootstrap-icons';
+import { toastr } from 'react-redux-toastr'
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 
 class ProfilePage extends Component {
+
+    env;
     constructor() {
         super();
         this.state = {
@@ -24,32 +30,44 @@ class ProfilePage extends Component {
             photo: ""
         };
 
+        this.hiddenFileInput = createRef()
         this.editFirstName = this.editFirstName.bind(this);
         this.editLastName = this.editLastName.bind(this);
         this.editPreferredName = this.editPreferredName.bind(this);
         this.editEmail = this.editEmail.bind(this);
         this.editDoB = this.editDoB.bind(this);
         this.editIdNum = this.editIdNum.bind(this);
+        this.editProfilePicture = this.editProfilePicture.bind(this);
         this.onFormSubmitted = this.onFormSubmitted.bind(this);
+        this.onButtonClicked = this.onButtonClicked.bind(this);
+        this.env = new Environment();
     }
 
     componentDidMount() {
         try {
-            var url = "https://recess-api.herokuapp.com/users/" + this.props.location.state.email;
+            var url = this.env.getRootUrl() + "/users/" + sessionStorage.getItem("email");
             fetch(url, {
-                method: "GET"
+                method: "GET",
+                headers: new Headers({
+                    'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+                })
             })
                 .then((resp) => resp.json())
                 .then((results) => {
-                    this.setState({
-                        firstName: results.first_name,
-                        lastName: results.last_name,
-                        preferredName: results.preferred_name,
-                        email: results.email_address,
-                        dob: results.dob,
-                        idNum: results.physical_id_num,
-                        photo: results.photo
-                    });
+                    if (RefreshToken(results)) {
+                        this.setState({
+                            firstName: results.first_name,
+                            lastName: results.last_name,
+                            preferredName: results.preferred_name,
+                            email: results.email_address,
+                            dob: results.dob,
+                            idNum: results.physical_id_num,
+                            photo: results.photo
+                        });
+                    }
+                    else {
+                        toastr.error('Error', "Failed to get profile.\nPlease log in again.")
+                    }
                 });
         } catch (e) {
             console.log(e);
@@ -80,27 +98,32 @@ class ProfilePage extends Component {
                 "preferred_name": this.state.preferredName,
                 "physical_id_num": this.state.idNum,
                 "dob": this.state.dob,
-                "photo": this.state.profilePicture,
+                "photo": this.state.photo,
             });
-            var url = "https://recess-api.herokuapp.com/users/" + this.state.email;
-            console.log(json);
+            var url = this.env.getRootUrl() + "/users/" + this.state.email;
             fetch(url, {
                 method: "PATCH",
                 body: json,
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
                 }
             }).then((resp) => resp.json())
                 .then((results) => {
-                    this.setState({
-                        firstName: results.first_name,
-                        lastName: results.last_name,
-                        preferredName: results.preferred_name,
-                        email: results.email_address,
-                        dob: results.dob,
-                        idNum: results.physical_id_num,
-                        photo: results.photo
-                    });
+                    if (RefreshToken(results)) {
+                        this.setState({
+                            firstName: results.first_name,
+                            lastName: results.last_name,
+                            preferredName: results.preferred_name,
+                            email: results.email_address,
+                            dob: results.dob,
+                            idNum: results.physical_id_num,
+                            photo: results.photo
+                        });
+                    }
+                    else {
+                        toastr.error('Error', "Failed to update profile.  Please try again.");
+                    }
                 });
         }
     }
@@ -127,8 +150,23 @@ class ProfilePage extends Component {
 
     editIdNum(event) {
         this.setState({ idNum: event.target.value });
-
     }
+
+    onButtonClicked(event) {
+        this.hiddenFileInput.current.click();
+    }
+
+    editProfilePicture(event) {
+        var files = document.getElementById('file').files;
+        var reader = new FileReader();
+        reader.readAsDataURL(files[0]);
+
+        const scope = this;
+        reader.onload = function () {
+            scope.setState({ photo: reader.result });
+        };
+    }
+
     render() {
         return (
             <div>
@@ -136,48 +174,61 @@ class ProfilePage extends Component {
                 <Container fluid className={'backgroundProfilePage'}>
                     <Row>
                         <Col>
-                            <Image src={this.state.photo} fluid alt={'Profile Picture'} />
+                            <Image src={this.state.photo} fluid alt={'Profile Picture'} style={{ height: '150px', width: '150px' }} />
+                            <Button className={this.state.disabled ? 'invisible' : 'visible'} onClick={this.onButtonClicked}>
+                                <PencilSquare />
+                                <Form.Control
+                                    name="profilePicture"
+                                    className="fileInput"
+                                    ref={this.hiddenFileInput}
+                                    id="file"
+                                    type="file"
+                                    accept="image/*"
+                                    style={{ display: 'none' }}
+                                    onChange={this.editProfilePicture}
+                                />
+                            </Button>
                         </Col>
                     </Row>
                     <Form onSubmit={this.onFormSubmitted}>
                         <Row>
-                            <Col xs={12}>
+                            <Col xs={12} lg={6}>
                                 <Form.Group controlId="fnameFormGroup">
-                                    <Form.Label className="textLabel">First Name:</Form.Label>
+                                    <Form.Label className="textLabelProfilePage">First Name:</Form.Label>
                                     <Form.Control type="text" name="firstNameInput" disabled={this.state.disabled} value={this.state.firstName} onChange={this.editFirstName} />
                                 </Form.Group>
                             </Col>
-                            <Col xs={12}>
+                            <Col xs={12} lg={6}>
                                 <Form.Group controlId="lnameFormGroup">
-                                    <Form.Label className="textLabel">Last Name:</Form.Label>
+                                    <Form.Label className="textLabelProfilePage">Last Name:</Form.Label>
                                     <Form.Control type="text" name="lastNameInput" disabled={this.state.disabled} value={this.state.lastName} onChange={this.editLastName} />
                                 </Form.Group>
                             </Col>
                         </Row>
                         <Row>
-                            <Col xs={12}>
+                            <Col xs={12} lg={6}>
                                 <Form.Group controlId="pnameFormGroup">
-                                    <Form.Label className="textLabel">Prefered Name:</Form.Label>
+                                    <Form.Label className="textLabelProfilePage">Prefered Name:</Form.Label>
                                     <Form.Control type="text" name="preferredNameInput" disabled={this.state.disabled} value={this.state.preferredName} onChange={this.editPreferredName} />
                                 </Form.Group>
                             </Col>
-                            <Col xs={12}>
+                            <Col xs={12} lg={6}>
                                 <Form.Group controlId="emailFormGroup">
-                                    <Form.Label className="textLabel">Email Address:</Form.Label>
+                                    <Form.Label className="textLabelProfilePage">Email Address:</Form.Label>
                                     <Form.Control type="text" name="emailInput" disabled={this.state.disabled} value={this.state.email} onChange={this.editEmail} />
                                 </Form.Group>
                             </Col>
                         </Row>
                         <Row>
-                            <Col xs={12}>
+                            <Col xs={12} lg={6}>
                                 <Form.Group controlId="dobFormGroup">
-                                    <Form.Label className="textLabel">Date of Birth:</Form.Label>
+                                    <Form.Label className="textLabelProfilePage">Date of Birth:</Form.Label>
                                     <Form.Control type="date" name="dobInput" disabled={this.state.disabled} value={this.state.dob} onChange={this.editDoB} />
                                 </Form.Group>
                             </Col>
-                            <Col xs={12}>
+                            <Col xs={12} lg={6}>
                                 <Form.Group controlId="idFormGroup">
-                                    <Form.Label className="textLabel">Id Number:</Form.Label>
+                                    <Form.Label className="textLabelProfilePageProfilePage">Id Number:</Form.Label>
                                     <Form.Control type="text" name="idNumInput" disabled={this.state.disabled} value={this.state.idNum} onChange={this.editIdNum} />
                                 </Form.Group>
                             </Col>
