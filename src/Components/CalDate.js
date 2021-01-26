@@ -15,7 +15,7 @@ class CalDate extends React.Component {
 
 
         const d = new Date()
-        const weekDay = ['Sunday', 'Monday', 'Wednesday', 'Thursday', 'Friday','Saturday', 'Sunday'];
+        const weekDay = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday','Saturday'];
         const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
         
         const day = weekDay [d.getDay()]
@@ -30,6 +30,12 @@ class CalDate extends React.Component {
 
         const currentTime = hours+ ":" + minutes 
 
+        if(day == "Tuesday"){
+
+            document.getElementById("date_color").className = "Tuesday";
+
+        }
+
 
 
 
@@ -41,7 +47,7 @@ class CalDate extends React.Component {
 <Row> 
 
     <Col>
-<h3>{currentDate}   </h3>
+<h3 id="date_color">{currentDate}   </h3>
 </Col>
 
 <Col>
