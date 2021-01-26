@@ -17,6 +17,7 @@ import { Provider } from 'react-redux'
 import ReduxToastr from 'react-redux-toastr'
 import { createStore, combineReducers } from 'redux'
 import { reducer as toastrReducer } from 'react-redux-toastr'
+import NewCal from './Components/NewCal';
 
 const reducers = {
   toastr: toastrReducer
@@ -37,6 +38,7 @@ function App() {
           <Route exact path="/CreateEvent" component={CreateEvent} />
           <Route exact path="/Logout" component={LogoutPage} />
           <Route exact path="/Calendar" component={ClassCalendar} />
+          <Route exact path="/NewCal" component={NewCal} />
         </Switch>
       </BrowserRouter>
       <Provider store={store}>

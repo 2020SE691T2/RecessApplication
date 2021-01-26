@@ -38,9 +38,36 @@ class CalDate extends React.Component {
         const currentTime = hours+ ":" + minutes 
         document.getElementById("time_color").innerText = currentTime;
 
+        if(day == "Monday"){
+
+            document.getElementById("date_color").className = "Monday";
+           
+
+        }
+
         if(day == "Tuesday"){
 
             document.getElementById("date_color").className = "Tuesday";
+           
+        }
+
+        if(day == "Wednesday"){
+
+            document.getElementById("date_color").className = "Wednesday";
+           
+
+        }
+
+        if(day == "Thursday"){
+
+            document.getElementById("date_color").className = "Thursday";
+           
+
+        }
+
+        if(day == "Friday"){
+
+            document.getElementById("date_color").className = "Friday";
            
 
         }
