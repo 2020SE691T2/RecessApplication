@@ -1,16 +1,19 @@
 import React, { Component } from "react";
 import "./CreateAccount.css";
 import Menubar from "./MenuBar"
-
+import Environment from "./Environment";
 // Bootstrap Components
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image'
+import { toastr } from 'react-redux-toastr'
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 
 class CreateAccount extends Component {
+
+  env;
 
   constructor(props) {
     super(props);
@@ -34,6 +37,7 @@ class CreateAccount extends Component {
     this.creatAccount = this.creatAccount.bind(this);
     this.changeRole = this.changeRole.bind(this);
     this.changeProfilePicture = this.changeProfilePicture.bind(this);
+    this.env = new Environment();
   }
 
   changefirstName(event) {
@@ -90,7 +94,7 @@ class CreateAccount extends Component {
       "is_staff": false,
       "is_superuser": false
     });
-    fetch("https://recess-api.herokuapp.com/users/", {
+    fetch(this.env.getRootUrl() + "/api-auth/register/", {
       method: "POST",
       body: json,
       headers: {
@@ -98,11 +102,19 @@ class CreateAccount extends Component {
       }
     }).then((resp) => resp.json())
       .then((results) => {
-        if (results.email_address) {
-          this.props.history.push({
-            pathname: '/Profile',
-            state: { email: results.email_address }
-          })
+        if ("tokens" in results) {
+          sessionStorage.setItem("refreshToken", results.tokens.refresh);
+          sessionStorage.setItem("accessToken", results.tokens.access);
+          if (results.email_address) {
+            sessionStorage.setItem("email", results.email_address);
+            this.props.history.push({
+              pathname: '/Profile',
+              state: { email: results.email_address }
+            })
+          }
+        }
+        else {
+          toastr.error('Error', "Failed to create account.\nPlease enter all information.")
         }
       });
   }
@@ -113,29 +125,18 @@ class CreateAccount extends Component {
         <Menubar />
         <Container className="background_CA" fluid>
           <Form onSubmit={this.creatAccount}>
-
-            <div className="header">
-
-              <Row>
-                <Col>
-                  <a href="/"> <Image src="./Recess_logo.png" alt={'Recess Logo'} fluid /></a>
-                </Col>
-              </Row>
-
-            </div>
-            <Row>
-
-              <Col>
-
-                <div className="banner"> <p> <img src="./signupbanner.png" alt={'Create Account Banner'} fluid /></p> </div>
-
+            <Row className="justify-content-md-center">
+              <Col md={6} xs={12}>
+                <a href="/"> <Image src="./Recess_logo.png" alt={'Recess Logo'} fluid /></a>
               </Col>
             </Row>
-
-
-            <Row>
-
-              <Col md={5}>
+            <Row className="justify-content-md-center">
+              <Col xs={12}>
+                <Image src="./signupbanner.png" alt={'Create Account Banner'} fluid />
+              </Col>
+            </Row>
+            <Row className="justify-content-md-center">
+              <Col md={5} xs={12}>
                 <Form.Group controlId="firstNameFormGroup">
                   <Form.Control
                     className="textInput"
@@ -147,10 +148,8 @@ class CreateAccount extends Component {
                     style={{ height: 64 }}
                   />
                 </Form.Group>
-
               </Col>
-
-              <Col md={5}>
+              <Col md={5} xs={12}>
                 <Form.Group controlId="lastNameFormGroup">
                   <Form.Control
                     className="textInput"
@@ -161,19 +160,15 @@ class CreateAccount extends Component {
                     onChange={this.changeLastName}
                     style={{ height: 64 }}
                   />
-
                 </Form.Group>
               </Col>
             </Row>
-
-
-            <Row>
-
-              <Col md={5}>
+            <Row className="justify-content-md-center">
+              <Col md={5} xs={12}>
                 <Form.Group controlId="emailCAFormGroup">
                   <Form.Control
                     className="textInput"
-                    type="text"
+                    type="email"
                     placeholder="Email:"
                     value={this.state.email}
                     onChange={this.changeEmail}
@@ -181,9 +176,7 @@ class CreateAccount extends Component {
                   />
                 </Form.Group>
               </Col>
-
-
-              <Col md={5}>
+              <Col md={5} xs={12}>
                 <Form.Group controlId="preferredNameFormGroup">
                   <Form.Control
                     className="textInput"
@@ -197,11 +190,8 @@ class CreateAccount extends Component {
                 </Form.Group>
               </Col>
             </Row>
-
-
-            <Row>
-              <Col md={5}>
-
+            <Row className="justify-content-md-center">
+              <Col md={5} xs={12}>
                 <Form.Group controlId="dateofbirthFormGroup">
                   <Form.Control
                     className="textInput"
@@ -213,12 +203,9 @@ class CreateAccount extends Component {
                     style={{ height: 64 }}
                   />
                 </Form.Group>
-              </Col >
-
-
-              <Col md={5}>
+              </Col>
+              <Col md={5} xs={12}>
                 <Form.Group controlId="passwordFormGroup">
-
                   <Form.Control
                     className="textInput"
                     name="passwordCA"
@@ -229,58 +216,48 @@ class CreateAccount extends Component {
                     style={{ height: 64 }}
                   />
                 </Form.Group>
-
               </Col>
             </Row>
-            <div class="col-6 offset-4">
-              <Row>
-                <Col  >
-                  <Form.Group controlId="roleFormGroup">
-                    <Form.Control as="select"
-                      className="textInput_role"
-                      type="text"
-                      value={this.state.role}
-                      onChange={this.changeRole}
-                      style={{ height: 64 }}
-                    >
-                      <option value="Teacher">Teacher</option>
-                      <option value="Student">Student</option>
-                      <option value="Parent">Parent</option>
-                    </Form.Control>
-                  </Form.Group>
-
-                </Col>
-                <Col>
-                  <Image src={this.state.profilePicture} alt={'Profile Picture'} style={{ height: '75px', width: '75px' }} />
-                </Col>
-
-                <Col md={5}>
-                  <Form.Group controlId="pictureFormGroup">
-                    <Form.Control
-                      name="profilePicture"
-                      className="fileInput"
-                      id="file"
-                      type="file"
-                      accept="image/*"
-                      onChange={this.changeProfilePicture}
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-            </div>
-
-            <Row>
-
+            <Row className="justify-content-md-center">
+              <Col md={5} xs={12}>
+                <Form.Group controlId="roleFormGroup">
+                  <Form.Control as="select"
+                    className="textInput_role"
+                    type="text"
+                    value={this.state.role}
+                    onChange={this.changeRole}
+                    style={{ height: 64 }}
+                  >
+                    <option value="Teacher">Teacher</option>
+                    <option value="Student">Student</option>
+                    <option value="Parent">Parent</option>
+                  </Form.Control>
+                </Form.Group>
+              </Col>
+              <Col md={2} xs={3}>
+                <Image src={this.state.profilePicture} alt={'Profile Picture'} style={{ height: '75px', width: '75px' }} />
+              </Col>
+              <Col md={3} xs={5}>
+                <Form.Group controlId="pictureFormGroup">
+                  <Form.Control
+                    name="profilePicture"
+                    className="fileInput"
+                    id="file"
+                    type="file"
+                    accept="image/*"
+                    onChange={this.changeProfilePicture}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row className="justify-content-md-center">
               <Col>
                 <input className="Submit_CA " type="submit" value="" />
-
               </Col>
-            </Row >
-
-          </Form >
-
-        </Container >
-      </div >
+            </Row>
+          </Form>
+        </Container>
+      </div>
     );
   }
 }
