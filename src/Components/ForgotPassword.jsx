@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./ForgotPassword.css";
 import Menubar from "./MenuBar"
+import Environment from "./Environment";
 // Bootstrap Components
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -10,6 +11,8 @@ import Image from 'react-bootstrap/Image';
 
 class ForgotPassword extends Component {
 
+  env;
+
   constructor(props) {
     super(props);
     this.state = {
@@ -17,12 +20,13 @@ class ForgotPassword extends Component {
     };
 
     this.changeEmail = this.changeEmail.bind(this);
+    this.forgotPassword = this.forgotPassword.bind(this);
+    this.env = new Environment();
   }
 
   changeEmail(event) {
     this.setState({ email: event.target.value });
   }
-
 
   /* The code below may not be applicable to this program. I wasn't sure. */
   forgotPassword(event) {
@@ -31,7 +35,7 @@ class ForgotPassword extends Component {
       "email": this.state.email
     });
 
-    fetch("https://recess-api.herokuapp.com/users/", {
+    fetch(this.env.getRootUrl() + "/api/password_reset/", {
       method: "POST",
       body: json,
       headers: {
@@ -39,12 +43,7 @@ class ForgotPassword extends Component {
       }
     }).then((resp) => resp.json())
       .then((results) => {
-        if (results.email_address) {
-          this.props.history.push({
-            pathname: '/Profile',
-            state: { email: results.email_address }
-          })
-        }
+        console.log(results);
       });
 
   }
