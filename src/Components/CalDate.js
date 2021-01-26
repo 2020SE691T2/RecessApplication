@@ -10,9 +10,13 @@ import Col from 'react-bootstrap/Col';
 
 class CalDate extends React.Component {
 
+    constructor(){
+        super();
+        this.color_change = this.color_change.bind(this);
+    }
     
-    render(){
 
+    color_change(){
 
         const d = new Date()
         const weekDay = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday','Saturday'];
@@ -25,18 +29,32 @@ class CalDate extends React.Component {
 
         const currentDate =day + ", " + month + ", " + date + ", " + year
 
+        document.getElementById("date_color").innerText = currentDate;
+       
+
         const hours = d.getHours();
         const minutes = d.getMinutes();
 
         const currentTime = hours+ ":" + minutes 
+        document.getElementById("time_color").innerText = currentTime;
 
         if(day == "Tuesday"){
 
             document.getElementById("date_color").className = "Tuesday";
+           
 
         }
 
 
+    }
+
+
+    componentDidMount(){
+        this.color_change();
+    }
+
+    
+    render(){
 
 
     return(
@@ -47,11 +65,11 @@ class CalDate extends React.Component {
 <Row> 
 
     <Col>
-<h3 id="date_color">{currentDate}   </h3>
+<h3 id="date_color">  </h3>
 </Col>
 
 <Col>
-<h3>{currentTime} </h3>
+<h3 id ="time_color"> </h3>
 </Col>
 </Row>
 
