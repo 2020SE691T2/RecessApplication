@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./NewCal.css";
-import Menubar from "./MenuBar"
+import Menubar from "./MenuBar";
+import CalDate from "./CalDate";
 
 // Bootstrap Components
 import Button from 'react-bootstrap/Button';
@@ -13,16 +14,20 @@ import Image from 'react-bootstrap/Image';
 
 
 class NewCal extends Component {
-
+    
 
 
 render() {
+
+    
     return (
       <div>
         <Menubar />
         <Container className= "backgroundNewCal" fluid>
 
 <div className="date">
+
+
 
     <Row>
 
@@ -36,7 +41,10 @@ render() {
 
                 <Col>
                 <div className="calDateColor">
-                <h3>Thursday, January 21, 2021</h3>
+                
+              
+            <CalDate />
+            
                 </div>
                 
                 </Col>

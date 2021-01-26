@@ -16,7 +16,10 @@ import ClassCalendar from './Components/Calendar';
 
 function App() {
   return (
+   
     <div className="App">
+
+    
       <BrowserRouter>
         <Switch>
           <Route exact path="/login" component={LoginPage} />
