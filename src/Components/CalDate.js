@@ -25,7 +25,7 @@ class CalDate extends React.Component {
 
         const currentDate = day + ", " + month + ", " + date + ", " + year
 
-        document.getElementById("date_color").innerText = currentDate;
+        document.getElementById("currentDate").innerText = currentDate;
 
         var hours = d.getHours();
         const minutes = d.getMinutes();
@@ -45,27 +45,27 @@ class CalDate extends React.Component {
         else {
             currentTime = hours + ":" + minutes + timeOfDay;
         }
-        document.getElementById("time_color").innerText = currentTime;
+        document.getElementById("currentTime").innerText = currentTime;
 
         if (day == "Monday") {
-            document.getElementById("date_color").className = "Monday";
-            document.getElementById("time_color").className = "Monday";
+            document.getElementById("currentDate").className = "Monday";
+            document.getElementById("currentTime").className = "Monday";
         }
         else if (day == "Tuesday") {
-            document.getElementById("date_color").className = "Tuesday";
-            document.getElementById("time_color").className = "Tuesday";
+            document.getElementById("currentDate").className = "Tuesday";
+            document.getElementById("currentTime").className = "Tuesday";
         }
         else if (day == "Wednesday") {
-            document.getElementById("date_color").className = "Wednesday";
-            document.getElementById("time_color").className = "Wednesday";
+            document.getElementById("currentDate").className = "Wednesday";
+            document.getElementById("currentTime").className = "Wednesday";
         }
         else if (day == "Thursday") {
-            document.getElementById("date_color").className = "Thursday";
-            document.getElementById("time_color").className = "Thursday";
+            document.getElementById("currentDate").className = "Thursday";
+            document.getElementById("currentTime").className = "Thursday";
         }
         else if (day == "Friday") {
-            document.getElementById("date_color").className = "Friday";
-            document.getElementById("time_color").className = "Friday";
+            document.getElementById("currentDate").className = "Friday";
+            document.getElementById("currentTime").className = "Friday";
         }
     }
 
@@ -79,10 +79,10 @@ class CalDate extends React.Component {
                 <div className='cal_date'>
                     <Row>
                         <Col>
-                            <h3 id="date_color">  </h3>
+                            <h3 id="currentDate">  </h3>
                         </Col>
                         <Col>
-                            <h3 id="time_color"> </h3>
+                            <h3 id="currentTime"> </h3>
                         </Col>
                     </Row>
                 </div>
