@@ -14,21 +14,21 @@ class CalDate extends React.Component {
 
     color_change() {
 
-        const d = new Date()
-        const weekDay = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+        var d = new Date()
+        var weekDay = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+        var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
 
-        const day = weekDay[d.getDay()]
-        const month = months[d.getMonth()]
-        const date = d.getDate()
-        const year = d.getFullYear()
+        var day = weekDay[d.getDay()]
+        var month = months[d.getMonth()]
+        var date = d.getDate()
+        var year = d.getFullYear()
 
-        const currentDate = day + ", " + month + ", " + date + ", " + year
+        var currentDate = day + ", " + month + " " + date + ", " + year
 
         document.getElementById("currentDate").innerText = currentDate;
 
         var hours = d.getHours();
-        const minutes = d.getMinutes();
+        var minutes = d.getMinutes();
         var timeOfDay = "";
 
         if (hours > 12) {
@@ -71,6 +71,7 @@ class CalDate extends React.Component {
 
     componentDidMount() {
         this.color_change();
+        setInterval(this.color_change, 3000);
     }
 
     render() {
