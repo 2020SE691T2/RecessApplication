@@ -21,6 +21,7 @@ class Menubar extends React.Component {
                     </Nav>
                     <Nav>
                         <Nav.Link href="/Profile" hidden={sessionStorage.getItem("accessToken") === null ? true : false}>Profile</Nav.Link>
+                        <Nav.Link href="/ChangePassword" hidden={sessionStorage.getItem("accessToken") === null ? true : false}>Change Password</Nav.Link>
                         <Nav.Link href="/login" hidden={sessionStorage.getItem("accessToken") === null ? false : true} >Login</Nav.Link>
                         <Nav.Link href="/Logout" hidden={sessionStorage.getItem("accessToken") === null ? true : false} >Logout</Nav.Link>
                         <Nav.Link href="/CreateAccount" hidden={sessionStorage.getItem("accessToken") === null ? false : true} >Create Account</Nav.Link>
