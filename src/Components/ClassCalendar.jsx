@@ -65,7 +65,7 @@ class ClassCalendar extends Component {
     return (
       <div>
         <Menubar />
-        <Container fluid>
+        <Container className="calendarBackground" fluid>
           <Row>
             <Col>
               <h1>My Calendar</h1>
