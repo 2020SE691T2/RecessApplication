@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./NewCal.css";
+import "./Calendar.css";
 import Menubar from "./MenuBar";
 import CalDate from "./CalDate";
 import RefreshToken from "../RefreshToken"
@@ -12,7 +12,7 @@ import Col from 'react-bootstrap/Col';
 import { toastr } from 'react-redux-toastr'
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 
-class NewCal extends Component {
+class Calendar extends Component {
 
     env;
     mondayEvents = [];
@@ -48,8 +48,6 @@ class NewCal extends Component {
     }
 
     getEventsFromDatabase(year, week) {
-        console.log(year);
-        console.log(week);
         var url = this.env.getRootUrl() + "/api/classes?year=" + year + "&week=" + week;
         fetch(url, {
             method: "GET",
@@ -196,4 +194,4 @@ class NewCal extends Component {
     }
 }
 
-export default NewCal;
+export default Calendar;

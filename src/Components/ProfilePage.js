@@ -228,7 +228,7 @@ class ProfilePage extends Component {
                             </Col>
                             <Col xs={12} lg={6}>
                                 <Form.Group controlId="idFormGroup">
-                                    <Form.Label className="textLabelProfilePageProfilePage">Id Number:</Form.Label>
+                                    <Form.Label className="textLabelProfilePage">Id Number:</Form.Label>
                                     <Form.Control type="text" name="idNumInput" disabled={this.state.disabled} value={this.state.idNum} onChange={this.editIdNum} />
                                 </Form.Group>
                             </Col>
