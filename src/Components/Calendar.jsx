@@ -57,6 +57,7 @@ class Calendar extends Component {
         })
             .then((resp) => resp.json())
             .then((results) => {
+                console.log(results.schedules);
                 //need to sort the events by day of week and the time
                 results.schedules.forEach(event => {
                     switch (event.weekday.toLowerCase()) {
@@ -130,7 +131,8 @@ class Calendar extends Component {
                                         <CalendarEvent startTime={event.start_time}
                                             endTime={event.end_time}
                                             link={event.meeting_link}
-                                            className={event.class_name} />
+                                            className={event.class_name}
+                                            day={event.weekday} />
                                     ))
                                 }
                             </div>
@@ -143,8 +145,8 @@ class Calendar extends Component {
                                         <CalendarEvent startTime={event.start_time}
                                             endTime={event.end_time}
                                             link={event.meeting_link}
-                                            className={event.class_name} />
-                                    ))
+                                            className={event.class_name}
+                                            day={event.weekday} />))
                                 }
                             </div>
                         </Col>
@@ -156,8 +158,8 @@ class Calendar extends Component {
                                         <CalendarEvent startTime={event.start_time}
                                             endTime={event.end_time}
                                             link={event.meeting_link}
-                                            className={event.class_name} />
-                                    ))
+                                            className={event.class_name}
+                                            day={event.weekday} />))
                                 }
                             </div>
                         </Col>
@@ -169,8 +171,8 @@ class Calendar extends Component {
                                         <CalendarEvent startTime={event.start_time}
                                             endTime={event.end_time}
                                             link={event.meeting_link}
-                                            className={event.class_name} />
-                                    ))
+                                            className={event.class_name}
+                                            day={event.weekday} />))
                                 }
                             </div>
                         </Col>
@@ -182,8 +184,8 @@ class Calendar extends Component {
                                         <CalendarEvent startTime={event.start_time}
                                             endTime={event.end_time}
                                             link={event.meeting_link}
-                                            className={event.class_name} />
-                                    ))
+                                            className={event.class_name}
+                                            day={event.weekday} />))
                                 }
                             </div>
                         </Col>
