@@ -47,23 +47,23 @@ class CalDate extends React.Component {
         }
         document.getElementById("currentTime").innerText = currentTime;
 
-        if (day == "Monday") {
+        if (day === "Monday") {
             document.getElementById("currentDate").className = "Monday";
             document.getElementById("currentTime").className = "Monday";
         }
-        else if (day == "Tuesday") {
+        else if (day === "Tuesday") {
             document.getElementById("currentDate").className = "Tuesday";
             document.getElementById("currentTime").className = "Tuesday";
         }
-        else if (day == "Wednesday") {
+        else if (day === "Wednesday") {
             document.getElementById("currentDate").className = "Wednesday";
             document.getElementById("currentTime").className = "Wednesday";
         }
-        else if (day == "Thursday") {
+        else if (day === "Thursday") {
             document.getElementById("currentDate").className = "Thursday";
             document.getElementById("currentTime").className = "Thursday";
         }
-        else if (day == "Friday") {
+        else if (day === "Friday") {
             document.getElementById("currentDate").className = "Friday";
             document.getElementById("currentTime").className = "Friday";
         }

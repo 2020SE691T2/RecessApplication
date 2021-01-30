@@ -4,6 +4,7 @@ import Menubar from "./MenuBar";
 import CalDate from "./CalDate";
 import RefreshToken from "../RefreshToken"
 import Environment from "./Environment";
+import CalendarEvent from "./CalendarEvent";
 // Bootstrap Components
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -14,10 +15,18 @@ import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 class NewCal extends Component {
 
     env;
+    mondayEvents = [];
+    tuesdayEvents = [];
+    wednesdayEvents = [];
+    thursdayEvents = [];
+    fridayEvents = [];
     constructor() {
         super();
         this.populatePageTitle = this.populatePageTitle.bind(this);
+        this.getEventsFromDatabase = this.getEventsFromDatabase.bind(this);
+        this.populateCalendar = this.populateCalendar.bind(this);
         this.env = new Environment();
+
     }
 
     populatePageTitle() {
@@ -39,8 +48,54 @@ class NewCal extends Component {
             });
     }
 
+    getEventsFromDatabase(year, week) {
+        var url = this.env.getRootUrl() + "/api/classes?year=" + year + "&week=" + week;
+        fetch(url, {
+            method: "GET",
+            headers: new Headers({
+                'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+            })
+        })
+            .then((resp) => resp.json())
+            .then((results) => {
+                //need to sort the events by day of week and the time
+                results.schedules.forEach(event => {
+                    switch (event.weekday.toLowerCase()) {
+                        case "monday":
+                            this.mondayEvents.push(event);
+                            break;
+                        case "tuesday":
+                            this.tuesdayEvents.push(event);
+                            break;
+                        case "wednesday":
+                            this.wednesdayEvents.push(event);
+                            break;
+                        case "thursday":
+                            this.thursdayEvents.push(event);
+                            break;
+                        case "friday":
+                            this.fridayEvents.push(event);
+                            break;
+                        default:
+
+                    }
+                });
+                this.mondayEvents.sort((a, b) => (a.start_time > b.start_time) ? 1 : -1)
+                this.tuesdayEvents.sort((a, b) => (a.start_time > b.start_time) ? 1 : -1)
+                this.wednesdayEvents.sort((a, b) => (a.start_time > b.start_time) ? 1 : -1)
+                this.thursdayEvents.sort((a, b) => (a.start_time > b.start_time) ? 1 : -1)
+                this.fridayEvents.sort((a, b) => (a.start_time > b.start_time) ? 1 : -1)
+            });
+    }
+
+    populateCalendar() {
+
+    }
+
     componentDidMount() {
         this.populatePageTitle();
+        this.getEventsFromDatabase(2021, 43);
+        this.populateCalendar();
     }
 
     render() {
@@ -50,7 +105,7 @@ class NewCal extends Component {
                 <Container className="backgroundNewCal" fluid>
                     <Row className="justify-content-md-center">
                         <Col>
-                            <h2 id="pageTitle" />
+                            <h2 id="pageTitle"> </h2>
                         </Col>
                     </Row>
                     <Row className="justify-content-md-center">
@@ -65,8 +120,14 @@ class NewCal extends Component {
                         <Col xs={2}>
                             <h3>Monday</h3>
                             <div className="box1">
-                                <p>8:00 am - 10:00 am</p>
-                                <h5> Classtime</h5>
+                                {
+                                    this.wednesdayEvents.map(event => (
+                                        <CalendarEvent startTime={event.start_time}
+                                            endTime={event.end_time}
+                                            link={event.meeting_link}
+                                            className={event.class_name} />
+                                    ))
+                                }
                             </div>
                         </Col>
                         <Col xs={2}>
