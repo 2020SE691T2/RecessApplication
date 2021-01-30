@@ -24,7 +24,6 @@ class NewCal extends Component {
         super();
         this.populatePageTitle = this.populatePageTitle.bind(this);
         this.getEventsFromDatabase = this.getEventsFromDatabase.bind(this);
-        this.populateCalendar = this.populateCalendar.bind(this);
         this.env = new Environment();
 
     }
@@ -49,6 +48,8 @@ class NewCal extends Component {
     }
 
     getEventsFromDatabase(year, week) {
+        console.log(year);
+        console.log(week);
         var url = this.env.getRootUrl() + "/api/classes?year=" + year + "&week=" + week;
         fetch(url, {
             method: "GET",
@@ -85,17 +86,23 @@ class NewCal extends Component {
                 this.wednesdayEvents.sort((a, b) => (a.start_time > b.start_time) ? 1 : -1)
                 this.thursdayEvents.sort((a, b) => (a.start_time > b.start_time) ? 1 : -1)
                 this.fridayEvents.sort((a, b) => (a.start_time > b.start_time) ? 1 : -1)
+                this.forceUpdate();
             });
-    }
-
-    populateCalendar() {
-
     }
 
     componentDidMount() {
         this.populatePageTitle();
-        this.getEventsFromDatabase(2021, 43);
-        this.populateCalendar();
+        //taken from https://weeknumber.net/how-to/javascript
+        var date = new Date();
+        date.setHours(0, 0, 0, 0);
+        // Thursday in current week decides the year.
+        date.setDate(date.getDate() + 3 - (date.getDay() + 6) % 7);
+        // January 4 is always in week 1.
+        var week1 = new Date(date.getFullYear(), 0, 4);
+        // Adjust to Thursday in week 1 and count number of weeks from date to week1.
+        var currentWeek = 1 + Math.round(((date.getTime() - week1.getTime()) / 86400000
+            - 3 + (week1.getDay() + 6) % 7) / 7);
+        this.getEventsFromDatabase(date.getFullYear(), currentWeek);
     }
 
     render() {
@@ -121,7 +128,7 @@ class NewCal extends Component {
                             <h3>Monday</h3>
                             <div className="box1">
                                 {
-                                    this.wednesdayEvents.map(event => (
+                                    this.mondayEvents.map(event => (
                                         <CalendarEvent startTime={event.start_time}
                                             endTime={event.end_time}
                                             link={event.meeting_link}
@@ -133,21 +140,53 @@ class NewCal extends Component {
                         <Col xs={2}>
                             <h3>Tuesday</h3>
                             <div className="box2">
+                                {
+                                    this.tuesdayEvents.map(event => (
+                                        <CalendarEvent startTime={event.start_time}
+                                            endTime={event.end_time}
+                                            link={event.meeting_link}
+                                            className={event.class_name} />
+                                    ))
+                                }
                             </div>
                         </Col>
                         <Col xs={2}>
                             <h3>Wednesday</h3>
                             <div className="box3">
+                                {
+                                    this.wednesdayEvents.map(event => (
+                                        <CalendarEvent startTime={event.start_time}
+                                            endTime={event.end_time}
+                                            link={event.meeting_link}
+                                            className={event.class_name} />
+                                    ))
+                                }
                             </div>
                         </Col>
                         <Col xs={2}>
                             <h3> Thursday</h3>
                             <div className="box4">
+                                {
+                                    this.thursdayEvents.map(event => (
+                                        <CalendarEvent startTime={event.start_time}
+                                            endTime={event.end_time}
+                                            link={event.meeting_link}
+                                            className={event.class_name} />
+                                    ))
+                                }
                             </div>
                         </Col>
                         <Col xs={2}>
                             <h3> Friday</h3>
                             <div className="box5">
+                                {
+                                    this.fridayEvents.map(event => (
+                                        <CalendarEvent startTime={event.start_time}
+                                            endTime={event.end_time}
+                                            link={event.meeting_link}
+                                            className={event.class_name} />
+                                    ))
+                                }
                             </div>
                         </Col>
                     </Row>
