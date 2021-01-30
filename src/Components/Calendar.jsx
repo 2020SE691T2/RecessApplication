@@ -57,7 +57,6 @@ class Calendar extends Component {
         })
             .then((resp) => resp.json())
             .then((results) => {
-                console.log(results.schedules);
                 //need to sort the events by day of week and the time
                 results.schedules.forEach(event => {
                     switch (event.weekday.toLowerCase()) {

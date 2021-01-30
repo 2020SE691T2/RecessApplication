@@ -26,7 +26,6 @@ class CalendarEvent extends Component {
 
     componentDidMount() {
         var timeString = this.formatTime(this.props.startTime) + " - " + this.formatTime(this.props.endTime);
-        console.log(timeString);
         document.getElementById(this.props.className + this.props.day).innerHTML = timeString;
     }
     render() {
