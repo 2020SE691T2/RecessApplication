@@ -13,13 +13,13 @@ import CreateAccount from './Components/CreateAccount';
 import ForgotPassword from './Components/ForgotPassword';
 import ViewEvent from './Components/ViewEvent';
 import CreateEvent from './Components/CreateEvent';
-import ClassCalendar from './Components/ClassCalendar';
 import LogoutPage from "./Components/LogoutPage";
 import ChangePassword from "./Components/ChangePassword";
 import { Provider } from 'react-redux'
 import ReduxToastr from 'react-redux-toastr'
 import { createStore, combineReducers } from 'redux'
 import { reducer as toastrReducer } from 'react-redux-toastr'
+import Calendar from './Components/Calendar';
 
 const reducers = {
   toastr: toastrReducer
@@ -43,7 +43,7 @@ function App() {
           <Route exact path="/ViewEvent" component={ViewEvent} />
           <Route exact path="/CreateEvent" component={CreateEvent} />
           <Route exact path="/Logout" component={LogoutPage} />
-          <Route exact path="/Calendar" component={ClassCalendar} />
+          <Route exact path="/Calendar" component={Calendar} />
           <Route exact path="/ChangePassword" component={ChangePassword} />
         </Switch>
       </BrowserRouter>

@@ -63,7 +63,7 @@ class LoginPage extends Component {
             if (results.user.email_address) {
               sessionStorage.setItem("email", results.user.email_address);
               this.props.history.push({
-                pathname: '/Profile',
+                pathname: '/Calendar',
                 state: { email: results.user.email_address }
               })
             }

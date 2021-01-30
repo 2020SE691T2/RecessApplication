@@ -1,28 +1,60 @@
 .container {
-  background-image: url(/CalChalk.jpeg);
+  text-align: center;
+}
+
+.backgroundNewCal {
+  background-image: url(/fpbackground.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: scroll;
   border: 1px solid;
   min-height: 100vh;
   color: white;
+  font-family: Chalkduster, sans-serif;
 }
 
-.rbc-timeslot-group {
-  min-height: 40px;
-  display: flex;
-  flex-flow: column nowrap;
+.box1 {
+  color: black;
+  background-color: #a0df76;
+  border: 3px solid #448e13;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 10px 5px 10px black;
+  padding-bottom: 250%;
 }
 
-.rbc-time-content {
-  border: 0px solid #ddd !important;
+.box2 {
+  background-color: #ec1c6a;
+  border: 3px solid #8e133f;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 10px 5px 10px black;
+  padding-bottom: 250%;
 }
 
-.rbc-toolbar button {
-  color: white !important;
+.box3 {
+  background-color: #fcb005;
+  border: 3px solid #8e6a14;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 10px 5px 10px black;
+  padding-bottom: 250%;
 }
 
-.rbc-day-slot .rbc-time-slot {
-  border-top: none !important;
-  border-bottom: none !important;
+.box4 {
+  background-color: #20a9ed;
+  border: 3px solid #136690;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 10px 5px 10px black;
+  padding-bottom: 250%;
+}
+
+.box5 {
+  background-color: #885cbb;
+  border: 3px solid #4d138e;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 10px 5px 10px black;
+  padding-bottom: 250%;
 }
