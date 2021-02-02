@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import './ConfirmForgotPassword.css'
 import Menubar from "./MenuBar"
-import RefreshToken from "../RefreshToken"
 import Environment from "./Environment";
 // Bootstrap Components
 import Button from 'react-bootstrap/Button';
