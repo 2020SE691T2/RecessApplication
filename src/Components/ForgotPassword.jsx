@@ -8,6 +8,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
+import { toastr } from 'react-redux-toastr'
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 
 class ForgotPassword extends Component {
 
@@ -28,7 +30,6 @@ class ForgotPassword extends Component {
     this.setState({ email: event.target.value });
   }
 
-  /* The code below may not be applicable to this program. I wasn't sure. */
   forgotPassword(event) {
     event.preventDefault();
     var json = JSON.stringify({
@@ -41,14 +42,19 @@ class ForgotPassword extends Component {
       headers: {
         "Content-Type": "application/json"
       }
-    }).then((resp) => resp.json())
-      .then((results) => {
-        console.log(results);
-      });
+    }).then((resp) => {
+      if (resp.status === 200) {
+        this.props.history.push({
+          pathname: '/ConfirmForgotPassword'
+        });
+      }
+      else {
+        toastr.error('Error', "Please verify that you entered a valid email address.");
+      }
+    });
 
   }
 
-  /* Method above needs to be fixed. */
   render() {
     return (
       <div>
