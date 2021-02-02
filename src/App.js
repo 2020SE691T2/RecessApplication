@@ -11,6 +11,7 @@ import LoginPage from "./Components/LoginPage";
 import LandingPage from "./Components/LandingPage";
 import CreateAccount from './Components/CreateAccount';
 import ForgotPassword from './Components/ForgotPassword';
+import ConfirmForgotPassword from './Components/ConfirmForgotPassword';
 import ViewEvent from './Components/ViewEvent';
 import CreateEvent from './Components/CreateEvent';
 import LogoutPage from "./Components/LogoutPage";
@@ -40,6 +41,7 @@ function App() {
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/CreateAccount" component={CreateAccount} />
           <Route exact path="/ForgotPassword" component={ForgotPassword} />
+          <Route exact path="/ConfirmForgotPassword" component={ConfirmForgotPassword} />
           <Route exact path="/ViewEvent" component={ViewEvent} />
           <Route exact path="/CreateEvent" component={CreateEvent} />
           <Route exact path="/Logout" component={LogoutPage} />
