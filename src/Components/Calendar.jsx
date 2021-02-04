@@ -58,32 +58,34 @@ class Calendar extends Component {
             .then((resp) => resp.json())
             .then((results) => {
                 //need to sort the events by day of week and the time
-                results.schedules.forEach(event => {
-                    switch (event.weekday.toLowerCase()) {
-                        case "monday":
-                            this.mondayEvents.push(event);
-                            break;
-                        case "tuesday":
-                            this.tuesdayEvents.push(event);
-                            break;
-                        case "wednesday":
-                            this.wednesdayEvents.push(event);
-                            break;
-                        case "thursday":
-                            this.thursdayEvents.push(event);
-                            break;
-                        case "friday":
-                            this.fridayEvents.push(event);
-                            break;
-                        default:
+                if (results.schedules) {
+                    results.schedules.forEach(event => {
+                        switch (event.weekday.toLowerCase()) {
+                            case "monday":
+                                this.mondayEvents.push(event);
+                                break;
+                            case "tuesday":
+                                this.tuesdayEvents.push(event);
+                                break;
+                            case "wednesday":
+                                this.wednesdayEvents.push(event);
+                                break;
+                            case "thursday":
+                                this.thursdayEvents.push(event);
+                                break;
+                            case "friday":
+                                this.fridayEvents.push(event);
+                                break;
+                            default:
 
-                    }
-                });
-                this.mondayEvents.sort((a, b) => (a.start_time > b.start_time) ? 1 : -1)
-                this.tuesdayEvents.sort((a, b) => (a.start_time > b.start_time) ? 1 : -1)
-                this.wednesdayEvents.sort((a, b) => (a.start_time > b.start_time) ? 1 : -1)
-                this.thursdayEvents.sort((a, b) => (a.start_time > b.start_time) ? 1 : -1)
-                this.fridayEvents.sort((a, b) => (a.start_time > b.start_time) ? 1 : -1)
+                        }
+                    });
+                    this.mondayEvents.sort((a, b) => (a.start_time > b.start_time) ? 1 : -1)
+                    this.tuesdayEvents.sort((a, b) => (a.start_time > b.start_time) ? 1 : -1)
+                    this.wednesdayEvents.sort((a, b) => (a.start_time > b.start_time) ? 1 : -1)
+                    this.thursdayEvents.sort((a, b) => (a.start_time > b.start_time) ? 1 : -1)
+                    this.fridayEvents.sort((a, b) => (a.start_time > b.start_time) ? 1 : -1)
+                }
                 this.forceUpdate();
             });
     }

@@ -126,7 +126,7 @@ class LoginPage extends Component {
           </Form>
           <Row className="justify-content-md-center">
             <Col md={5} xs={12}>
-              <Button variant="link" className="forgotPassword" href="#">"Forgot your password?"</Button>
+              <Button variant="link" className="forgotPassword" href="/ForgotPassword">"Forgot your password?"</Button>
             </Col>
           </Row>
         </Container>
