@@ -105,11 +105,11 @@ class CreateAccount extends Component {
         if ("tokens" in results) {
           sessionStorage.setItem("refreshToken", results.tokens.refresh);
           sessionStorage.setItem("accessToken", results.tokens.access);
-          if (results.email_address) {
-            sessionStorage.setItem("email", results.email_address);
+          if (results.user.email_address) {
+            sessionStorage.setItem("email", results.user.email_address);
             this.props.history.push({
               pathname: '/Profile',
-              state: { email: results.email_address }
+              state: { email: results.user.email_address }
             })
           }
         }
