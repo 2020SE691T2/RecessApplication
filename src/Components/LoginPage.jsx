@@ -83,7 +83,7 @@ class LoginPage extends Component {
     return (
       <div>
         <Menubar />
-        <Container className="background" fluid>
+        <Container className="background_login" fluid>
           <Form onSubmit={this.loginClicked} onKeyPress={this.handleKeyPress}>
             <Row className="justify-content-md-center">
               <Col >
