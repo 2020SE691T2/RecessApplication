@@ -106,7 +106,6 @@ class CreateAccount extends Component {
           sessionStorage.setItem("refreshToken", results.tokens.refresh);
           sessionStorage.setItem("accessToken", results.tokens.access);
           if (results.user.role) {
-
             sessionStorage.setItem("role", results.user.role);
           }
           if (results.user.email_address) {
