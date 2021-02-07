@@ -100,23 +100,31 @@ class CreateAccount extends Component {
       headers: {
         "Content-Type": "application/json"
       }
-    }).then((resp) => resp.json())
-      .then((results) => {
-        if ("tokens" in results) {
-          sessionStorage.setItem("refreshToken", results.tokens.refresh);
-          sessionStorage.setItem("accessToken", results.tokens.access);
-          if (results.user.email_address) {
-            sessionStorage.setItem("email", results.user.email_address);
-            this.props.history.push({
-              pathname: '/Profile',
-              state: { email: results.user.email_address }
-            })
+    }).then((resp) => {
+      if (resp.status === 200) {
+        resp.json().then((results) => {
+          if (results.error) {
+            toastr.error('Error', "Failed to create account.")
           }
-        }
-        else {
-          toastr.error('Error', "Failed to create account.\nPlease enter all information.")
-        }
-      });
+          else {
+            if ("tokens" in results) {
+              sessionStorage.setItem("refreshToken", results.tokens.refresh);
+              sessionStorage.setItem("accessToken", results.tokens.access);
+              if (results.user.email_address) {
+                sessionStorage.setItem("email", results.user.email_address);
+                this.props.history.push({
+                  pathname: '/Profile',
+                  state: { email: results.user.email_address }
+                })
+              }
+            }
+          }
+        });
+      }
+      else {
+        toastr.error('Error', "Failed to create account.\nPlease enter all information.")
+      }
+    });
   }
 
   render() {
