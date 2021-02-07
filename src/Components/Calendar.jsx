@@ -25,7 +25,6 @@ class Calendar extends Component {
         this.populatePageTitle = this.populatePageTitle.bind(this);
         this.getEventsFromDatabase = this.getEventsFromDatabase.bind(this);
         this.env = new Environment();
-
     }
 
     populatePageTitle() {
