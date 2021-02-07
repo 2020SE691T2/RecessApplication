@@ -81,6 +81,14 @@ class CreateEvent extends Component {
     return false;
   }
 
+  componentDidMount() {
+    if (!sessionStorage.getItem("refreshToken")) {
+      this.props.history.push({
+        pathname: '/login'
+      });
+    }
+  }
+
   render() {
     return (
       <div>
