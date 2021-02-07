@@ -3,37 +3,8 @@ import "./MenuBar.css"
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import Environment from "./Environment";
 
 class Menubar extends React.Component {
-    isStudentOrParent = true;
-    env;
-    constructor() {
-        super();
-        this.env = new Environment();
-    }
-
-    componentDidMount() {
-        var url = this.env.getRootUrl() + "/users/" + sessionStorage.getItem("email");
-        fetch(url, {
-            method: "GET",
-            headers: new Headers({
-                'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
-            })
-        })
-            .then((resp) => resp.json())
-            .then((results) => {
-                if (results.role) {
-                    if (results.role === "Teacher") {
-                        this.isStudentOrParent = false;
-                    }
-                    else {
-                        this.isStudentOrParent = true;
-                    }
-                }
-            });
-    }
-
     render() {
         return (
             <Navbar bg="light" expand="lg" sticky="top">
@@ -44,7 +15,7 @@ class Menubar extends React.Component {
                         <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="#">About</Nav.Link>
                         <NavDropdown title="Events" id="basic-nav-dropdown" hidden={sessionStorage.getItem("accessToken") === null ? true : false} >
-                            <NavDropdown.Item href="/CreateEvent" hidden={this.isStudentOrParent}>Create Event</NavDropdown.Item>
+                            <NavDropdown.Item href="/CreateEvent" hidden={sessionStorage.getItem("role") != "Teacher" ? true : false}>Create Event</NavDropdown.Item>
                             <NavDropdown.Item href="/Calendar">Calendar</NavDropdown.Item>
                         </NavDropdown>
                     </Nav>

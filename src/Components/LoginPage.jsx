@@ -60,6 +60,9 @@ class LoginPage extends Component {
           if ("tokens" in results) {
             sessionStorage.setItem("refreshToken", results.tokens.refresh);
             sessionStorage.setItem("accessToken", results.tokens.access);
+            if (results.user.role) {
+              sessionStorage.setItem("role", results.user.role);
+            }
             if (results.user.email_address) {
               sessionStorage.setItem("email", results.user.email_address);
               this.props.history.push({

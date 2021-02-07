@@ -82,28 +82,11 @@ class CreateEvent extends Component {
   }
 
   componentDidMount() {
-    var url = this.env.getRootUrl() + "/users/" + sessionStorage.getItem("email");
-    fetch(url, {
-      method: "GET",
-      headers: new Headers({
-        'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
-      })
-    })
-      .then((resp) => resp.json())
-      .then((results) => {
-        if (results.role) {
-          if (results.role != "Teacher") {
-            this.props.history.push({
-              pathname: '/Calendar'
-            });
-          }
-        }
-        else {
-          this.props.history.push({
-            pathname: '/login'
-          });
-        }
+    if (sessionStorage.getItem("role") != "Teacher") {
+      this.props.history.push({
+        pathname: '/Calendar'
       });
+    }
   }
 
   render() {
