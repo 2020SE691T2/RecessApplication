@@ -3,10 +3,7 @@ import "./MenuBar.css"
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import RefreshToken from "../RefreshToken"
 import Environment from "./Environment";
-import { toastr } from 'react-redux-toastr'
-import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 
 class Menubar extends React.Component {
     isStudentOrParent = true;
