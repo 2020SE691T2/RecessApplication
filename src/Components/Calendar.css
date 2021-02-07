@@ -13,6 +13,11 @@
   font-family: Chalkduster, sans-serif;
 }
 
+.calendarDay {
+  height: 100%; /* makes the box equal to 100% of its parent's height */
+  min-height: 50vh; /* 50% of viewport height */
+}
+
 .box1 {
   color: black;
   background-color: #a0df76;
@@ -20,7 +25,6 @@
   margin-top: 20px;
   border-radius: 10px;
   box-shadow: 10px 5px 10px black;
-  padding-bottom: 250%;
 }
 
 .box2 {
@@ -29,7 +33,6 @@
   margin-top: 20px;
   border-radius: 10px;
   box-shadow: 10px 5px 10px black;
-  padding-bottom: 250%;
 }
 
 .box3 {
@@ -38,7 +41,6 @@
   margin-top: 20px;
   border-radius: 10px;
   box-shadow: 10px 5px 10px black;
-  padding-bottom: 250%;
 }
 
 .box4 {
@@ -47,7 +49,6 @@
   margin-top: 20px;
   border-radius: 10px;
   box-shadow: 10px 5px 10px black;
-  padding-bottom: 250%;
 }
 
 .box5 {
@@ -56,5 +57,4 @@
   margin-top: 20px;
   border-radius: 10px;
   box-shadow: 10px 5px 10px black;
-  padding-bottom: 250%;
 }
