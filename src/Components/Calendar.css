@@ -16,45 +16,33 @@
 .calendarDay {
   height: 100%; /* makes the box equal to 100% of its parent's height */
   min-height: 50vh; /* 50% of viewport height */
-}
-
-.box1 {
-  color: black;
-  background-color: #a0df76;
-  border: 3px solid #448e13;
   margin-top: 20px;
   border-radius: 10px;
   box-shadow: 10px 5px 10px black;
+}
+
+.box1 {
+  background-color: #a0df76;
+  border: 3px solid #448e13;
+
 }
 
 .box2 {
   background-color: #ec1c6a;
   border: 3px solid #8e133f;
-  margin-top: 20px;
-  border-radius: 10px;
-  box-shadow: 10px 5px 10px black;
 }
 
 .box3 {
   background-color: #fcb005;
   border: 3px solid #8e6a14;
-  margin-top: 20px;
-  border-radius: 10px;
-  box-shadow: 10px 5px 10px black;
 }
 
 .box4 {
   background-color: #20a9ed;
   border: 3px solid #136690;
-  margin-top: 20px;
-  border-radius: 10px;
-  box-shadow: 10px 5px 10px black;
 }
 
 .box5 {
   background-color: #885cbb;
   border: 3px solid #4d138e;
-  margin-top: 20px;
-  border-radius: 10px;
-  box-shadow: 10px 5px 10px black;
 }
