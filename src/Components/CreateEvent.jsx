@@ -82,10 +82,17 @@ class CreateEvent extends Component {
   }
 
   componentDidMount() {
-    if (sessionStorage.getItem("role") != "Teacher") {
+    if (!sessionStorage.getItem("refreshToken")) {
       this.props.history.push({
-        pathname: '/Calendar'
+        pathname: '/login'
       });
+    }
+    else {
+      if (sessionStorage.getItem("role") !== "Teacher") {
+        this.props.history.push({
+          pathname: '/Calendar'
+        });
+      }
     }
   }
 
