@@ -39,7 +39,7 @@ class Calendar extends Component {
             .then((resp) => resp.json())
             .then((results) => {
                 if (RefreshToken(results)) {
-                    document.getElementById("pageTitle").innerText = results.first_name + "'s Weekly Class Calendar";
+                    document.getElementById("pageTitle").innerText = results.preferred_name + "'s Weekly Class Calendar";
                 }
                 else {
                     toastr.error('Error', "Failed to get profile.\nPlease log in again.")
