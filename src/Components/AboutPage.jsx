@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./About.css";
+import "./AboutPage.css";
 import Menubar from "./MenuBar"
 // Bootstrap Components
 import Container from 'react-bootstrap/Container';

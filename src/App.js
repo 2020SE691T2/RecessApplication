@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import ProfilePage from "./Components/ProfilePage";
 import LoginPage from "./Components/LoginPage";
-import AboutPage from "./Components/About";
+import AboutPage from "./Components/AboutPage";
 import LandingPage from "./Components/LandingPage";
 import CreateAccount from './Components/CreateAccount';
 import ForgotPassword from './Components/ForgotPassword';
