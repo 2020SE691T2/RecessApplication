@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import ProfilePage from "./Components/ProfilePage";
 import LoginPage from "./Components/LoginPage";
+import AboutPage from "./Components/AboutPage";
 import LandingPage from "./Components/LandingPage";
 import CreateAccount from './Components/CreateAccount';
 import ForgotPassword from './Components/ForgotPassword';
@@ -36,6 +37,7 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route exact path="/login" component={LoginPage} />
+          <Route exact path="/About" component={AboutPage} />
           <Route exact path="/Profile" component={ProfilePage} />
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/CreateAccount" component={CreateAccount} />

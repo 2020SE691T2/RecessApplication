@@ -105,6 +105,14 @@ class CreateAccount extends Component {
       });
   }
 
+  componentDidMount() {
+    if (sessionStorage.getItem("refreshToken")) {
+      this.props.history.push({
+        pathname: '/Calendar'
+      });
+    }
+  }
+
   render() {
     return (
       <div>

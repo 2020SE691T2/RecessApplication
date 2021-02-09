@@ -64,6 +64,14 @@ class LoginPage extends Component {
     }
   }
 
+  componentDidMount() {
+    if (sessionStorage.getItem("refreshToken")) {
+      this.props.history.push({
+        pathname: '/Calendar'
+      });
+    }
+  }
+
   render() {
     const { username, password } = this.state;
     return (

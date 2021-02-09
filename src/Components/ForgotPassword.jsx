@@ -52,7 +52,14 @@ class ForgotPassword extends Component {
         toastr.error('Error', "Please verify that you entered a valid email address.");
       }
     });
+  }
 
+  componentDidMount() {
+    if (sessionStorage.getItem("refreshToken")) {
+      this.props.history.push({
+        pathname: '/Calendar'
+      });
+    }
   }
 
   render() {

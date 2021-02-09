@@ -53,9 +53,9 @@ class ChangePassword extends Component {
         }).then((resp) => resp.json())
             .then((results) => {
                 if (RefreshToken(results)) {
-                    this.setState({oldPassword: ''});
-                    this.setState({newPassword: ''});
-                    if (results.code === 200 ) {
+                    this.setState({ oldPassword: '' });
+                    this.setState({ newPassword: '' });
+                    if (results.code === 200) {
                         toastr.success('Password Changed');
                         this.props.history.push({
                             pathname: '/Profile'
@@ -68,6 +68,14 @@ class ChangePassword extends Component {
                     toastr.error('Error', "Failed to change password.  Please try again.");
                 }
             });
+    }
+
+    componentDidMount() {
+        if (!sessionStorage.getItem("refreshToken")) {
+            this.props.history.push({
+                pathname: '/login'
+            });
+        }
     }
 
     render() {
