@@ -13,7 +13,7 @@ class Menubar extends React.Component {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
                         <Nav.Link href="/">Home</Nav.Link>
-                        <Nav.Link href="#">About</Nav.Link>
+                        <Nav.Link href="/About">About</Nav.Link>
                         <NavDropdown title="Events" id="basic-nav-dropdown" hidden={sessionStorage.getItem("accessToken") === null ? true : false} >
                             <NavDropdown.Item href="/CreateEvent">Create Event</NavDropdown.Item>
                             <NavDropdown.Item href="/Calendar">Calendar</NavDropdown.Item>
