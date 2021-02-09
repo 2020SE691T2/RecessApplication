@@ -87,6 +87,13 @@ class CreateEvent extends Component {
         pathname: '/login'
       });
     }
+    else {
+      if (sessionStorage.getItem("role") !== "Teacher") {
+        this.props.history.push({
+          pathname: '/Calendar'
+        });
+      }
+    }
   }
 
   render() {
