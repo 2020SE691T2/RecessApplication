@@ -8,6 +8,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image'
+import StoreSessionKeys from "../StoreSessionKeys";
 import { toastr } from 'react-redux-toastr'
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 
@@ -103,28 +104,21 @@ class CreateAccount extends Component {
     }).then((resp) => {
       if (resp.status === 200) {
         resp.json().then((results) => {
-          if (results.error) {
-            toastr.error('Error', "Failed to create account.")
-          }
-          else {
-            if ("tokens" in results) {
-              sessionStorage.setItem("refreshToken", results.tokens.refresh);
-              sessionStorage.setItem("accessToken", results.tokens.access);
-              if (results.user.email_address) {
-                sessionStorage.setItem("email", results.user.email_address);
-                this.props.history.push({
-                  pathname: '/Profile',
-                  state: { email: results.user.email_address }
-                })
-              }
-            }
-          }
+          StoreSessionKeys(this, results, "Failed to create account.", '/Profile');
         });
       }
       else {
         toastr.error('Error', "Failed to create account.\nPlease enter all information.")
       }
     });
+  }
+
+  componentDidMount() {
+    if (sessionStorage.getItem("refreshToken")) {
+      this.props.history.push({
+        pathname: '/Calendar'
+      });
+    }
   }
 
   render() {

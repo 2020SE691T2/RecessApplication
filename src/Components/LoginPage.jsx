@@ -9,8 +9,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
-import { toastr } from 'react-redux-toastr'
-import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
+import StoreSessionKeys from "../StoreSessionKeys";
 
 class LoginPage extends Component {
 
@@ -57,24 +56,19 @@ class LoginPage extends Component {
       })
         .then((resp) => resp.json())
         .then((results) => {
-          if ("tokens" in results) {
-            sessionStorage.setItem("refreshToken", results.tokens.refresh);
-            sessionStorage.setItem("accessToken", results.tokens.access);
-            if (results.user.email_address) {
-              sessionStorage.setItem("email", results.user.email_address);
-              this.props.history.push({
-                pathname: '/Calendar',
-                state: { email: results.user.email_address }
-              })
-            }
-          }
-          else {
-            toastr.error('Error', 'Incorrect username or password. Please try again.');
-          }
+          StoreSessionKeys(this, results, 'Incorrect username or password. Please try again.', '/Calendar');
         });
     } catch (error) {
       console.log(error);
       console.log("--------------------------");
+    }
+  }
+
+  componentDidMount() {
+    if (sessionStorage.getItem("refreshToken")) {
+      this.props.history.push({
+        pathname: '/Calendar'
+      });
     }
   }
 
