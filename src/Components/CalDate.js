@@ -52,8 +52,10 @@ class CalDate extends React.Component {
     }
 
     componentDidMount() {
-        this.color_change();
-        setInterval(this.color_change, 3000);
+        if (sessionStorage.getItem("refreshToken")) {
+            this.color_change();
+            setInterval(this.color_change, 3000);
+        }
     }
 
     render() {
