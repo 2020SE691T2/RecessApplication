@@ -52,30 +52,37 @@ class ViewEvent extends Component {
   }
 
   componentDidMount() {
-    if (typeof this.props.location.state !== 'undefined' &&
-      typeof this.props.location.state.classId !== 'undefined') {
-      var url = this.env.getRootUrl() + "/class_info/" + this.props.location.state.classId;
-      fetch(url, {
-        method: "GET",
-        headers: new Headers({
-          'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+    if (!sessionStorage.getItem("refreshToken")) {
+      this.props.history.push({
+        pathname: '/login'
+      });
+    }
+    else {
+      if (typeof this.props.location.state !== 'undefined' &&
+        typeof this.props.location.state.classId !== 'undefined') {
+        var url = this.env.getRootUrl() + "/class_info/" + this.props.location.state.classId;
+        fetch(url, {
+          method: "GET",
+          headers: new Headers({
+            'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+          })
         })
-      })
-        .then((resp) => resp.json())
-        .then((results) => {
-          if (RefreshToken(results)) {
-            this.setState({
-              classId: results.class_id,
-              className: results.class_name,
-              meetingLink: results.meeting_link,
-              year: results.year,
-              section: results.section
-            });
-          }
-          else {
-            toastr.error('Error', "Failed to get event.  Please verify event id.");
-          }
-        });
+          .then((resp) => resp.json())
+          .then((results) => {
+            if (RefreshToken(results)) {
+              this.setState({
+                classId: results.class_id,
+                className: results.class_name,
+                meetingLink: results.meeting_link,
+                year: results.year,
+                section: results.section
+              });
+            }
+            else {
+              toastr.error('Error', "Failed to get event.  Please verify event id.");
+            }
+          });
+      }
     }
   }
 
