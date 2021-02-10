@@ -132,7 +132,7 @@ class Calendar extends Component {
                     <Row className="justify-content-md-center">
                         <Col xs={2}>
                             <h3>Monday</h3>
-                            <div className="box1">
+                            <div className="box1 calendarDay">
                                 {
                                     this.mondayEvents.map(event => (
                                         <CalendarEvent startTime={event.start_time}
@@ -146,7 +146,7 @@ class Calendar extends Component {
                         </Col>
                         <Col xs={2}>
                             <h3>Tuesday</h3>
-                            <div className="box2">
+                            <div className="box2 calendarDay">
                                 {
                                     this.tuesdayEvents.map(event => (
                                         <CalendarEvent startTime={event.start_time}
@@ -159,7 +159,7 @@ class Calendar extends Component {
                         </Col>
                         <Col xs={2}>
                             <h3>Wednesday</h3>
-                            <div className="box3">
+                            <div className="box3 calendarDay">
                                 {
                                     this.wednesdayEvents.map(event => (
                                         <CalendarEvent startTime={event.start_time}
@@ -172,7 +172,7 @@ class Calendar extends Component {
                         </Col>
                         <Col xs={2}>
                             <h3> Thursday</h3>
-                            <div className="box4">
+                            <div className="box4 calendarDay">
                                 {
                                     this.thursdayEvents.map(event => (
                                         <CalendarEvent startTime={event.start_time}
@@ -185,7 +185,7 @@ class Calendar extends Component {
                         </Col>
                         <Col xs={2}>
                             <h3> Friday</h3>
-                            <div className="box5">
+                            <div className="box5 calendarDay">
                                 {
                                     this.fridayEvents.map(event => (
                                         <CalendarEvent startTime={event.start_time}
