@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, createRef } from "react";
 import "./CreateAccount.css";
 import Menubar from "./MenuBar"
 import Environment from "./Environment";
@@ -8,6 +8,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image'
+import Button from 'react-bootstrap/Button';
 import StoreSessionKeys from "../StoreSessionKeys";
 import { toastr } from 'react-redux-toastr'
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
@@ -29,6 +30,7 @@ class CreateAccount extends Component {
       profilePicture: ''
     };
 
+    this.hiddenFileInput = createRef()
     this.changefirstName = this.changefirstName.bind(this);
     this.changeLastName = this.changeLastName.bind(this);
     this.changePreferredName = this.changePreferredName.bind(this);
@@ -38,6 +40,7 @@ class CreateAccount extends Component {
     this.creatAccount = this.creatAccount.bind(this);
     this.changeRole = this.changeRole.bind(this);
     this.changeProfilePicture = this.changeProfilePicture.bind(this);
+    this.onButtonClicked = this.onButtonClicked.bind(this);
     this.env = new Environment();
   }
 
@@ -78,6 +81,10 @@ class CreateAccount extends Component {
     reader.onload = function () {
       scope.setState({ profilePicture: reader.result });
     };
+  }
+
+  onButtonClicked(event) {
+    this.hiddenFileInput.current.click();
   }
 
   creatAccount(event) {
@@ -236,22 +243,28 @@ class CreateAccount extends Component {
                   </Form.Control>
                 </Form.Group>
               </Col>
-              <Col md={2} xs={3}>
+              <Col md={2} xs={6}>
                 <Image src={this.state.profilePicture} alt={'Profile Picture'} style={{ height: '75px', width: '75px' }} />
               </Col>
-              <Col md={3} xs={5}>
+              <Col md={3} xs={6}>
                 <Form.Group controlId="pictureFormGroup">
-                  <Form.Control
-                    name="profilePicture"
-                    className="fileInput"
-                    id="file"
-                    type="file"
-                    accept="image/*"
-                    onChange={this.changeProfilePicture}
-                  />
+                  <Button onClick={this.onButtonClicked}>
+                    <Form.Control
+                      name="profilePicture"
+                      className="fileInput"
+                      ref={this.hiddenFileInput}
+                      id="file"
+                      type="file"
+                      accept="image/*"
+                      style={{ display: 'none' }}
+                      onChange={this.changeProfilePicture}
+                    />
+                                Choose File
+                            </Button>
                 </Form.Group>
               </Col>
             </Row>
+            <br />
             <Row className="justify-content-md-center">
               <Col>
                 <input className="Submit_CA " type="submit" value="" />
