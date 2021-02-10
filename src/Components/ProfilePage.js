@@ -172,7 +172,8 @@ class ProfilePage extends Component {
             <div>
                 <Menubar />
                 <Container fluid className={'backgroundProfilePage'}>
-                    <Row>
+                    <br />
+                    <Row className="justify-content-md-center">
                         <Col>
                             <Image src={this.state.photo} fluid alt={'Profile Picture'} style={{ height: '150px', width: '150px' }} />
                             <Button className={this.state.disabled ? 'invisible' : 'visible'} onClick={this.onButtonClicked}>
@@ -191,53 +192,53 @@ class ProfilePage extends Component {
                         </Col>
                     </Row>
                     <Form onSubmit={this.onFormSubmitted}>
-                        <Row>
-                            <Col xs={12} lg={6}>
+                        <Row className="justify-content-md-center">
+                            <Col xs={12} lg={5}>
                                 <Form.Group controlId="fnameFormGroup">
                                     <Form.Label className="textLabelProfilePage">First Name:</Form.Label>
                                     <Form.Control type="text" name="firstNameInput" disabled={this.state.disabled} value={this.state.firstName} onChange={this.editFirstName} />
                                 </Form.Group>
                             </Col>
-                            <Col xs={12} lg={6}>
+                            <Col xs={12} lg={5}>
                                 <Form.Group controlId="lnameFormGroup">
                                     <Form.Label className="textLabelProfilePage">Last Name:</Form.Label>
                                     <Form.Control type="text" name="lastNameInput" disabled={this.state.disabled} value={this.state.lastName} onChange={this.editLastName} />
                                 </Form.Group>
                             </Col>
                         </Row>
-                        <Row>
-                            <Col xs={12} lg={6}>
+                        <Row className="justify-content-md-center">
+                            <Col xs={12} lg={5}>
                                 <Form.Group controlId="pnameFormGroup">
                                     <Form.Label className="textLabelProfilePage">Prefered Name:</Form.Label>
                                     <Form.Control type="text" name="preferredNameInput" disabled={this.state.disabled} value={this.state.preferredName} onChange={this.editPreferredName} />
                                 </Form.Group>
                             </Col>
-                            <Col xs={12} lg={6}>
+                            <Col xs={12} lg={5}>
                                 <Form.Group controlId="emailFormGroup">
                                     <Form.Label className="textLabelProfilePage">Email Address:</Form.Label>
                                     <Form.Control type="text" name="emailInput" disabled={this.state.disabled} value={this.state.email} onChange={this.editEmail} />
                                 </Form.Group>
                             </Col>
                         </Row>
-                        <Row>
-                            <Col xs={12} lg={6}>
+                        <Row className="justify-content-md-center">
+                            <Col xs={12} lg={5}>
                                 <Form.Group controlId="dobFormGroup">
                                     <Form.Label className="textLabelProfilePage">Date of Birth:</Form.Label>
                                     <Form.Control type="date" name="dobInput" disabled={this.state.disabled} value={this.state.dob} onChange={this.editDoB} />
                                 </Form.Group>
                             </Col>
-                            <Col xs={12} lg={6}>
+                            <Col xs={12} lg={5}>
                                 <Form.Group controlId="idFormGroup">
                                     <Form.Label className="textLabelProfilePage">Id Number:</Form.Label>
                                     <Form.Control type="text" name="idNumInput" disabled={this.state.disabled} value={this.state.idNum} onChange={this.editIdNum} />
                                 </Form.Group>
                             </Col>
                         </Row>
-                        <Row>
-                            <Col xs={12}>
+                        <Row className="justify-content-md-center">
+                            <Col xs={12} lg={10}>
                                 <Button block id="editButton" style={{ visibility: "visible" }} onClick={this.onFormSubmitted}>Edit</Button>
                             </Col>
-                            <Col xs={12}>
+                            <Col xs={12} lg={10}>
                                 <Button block variant="success" id="saveButton" style={{ visibility: "hidden" }} onClick={this.onFormSubmitted}>Save</Button>
                             </Col>
                         </Row>

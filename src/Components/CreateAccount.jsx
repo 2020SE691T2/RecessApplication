@@ -7,8 +7,11 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import Image from 'react-bootstrap/Image';
+import Image from 'react-bootstrap/Image'
 import Button from 'react-bootstrap/Button';
+import StoreSessionKeys from "../StoreSessionKeys";
+import { toastr } from 'react-redux-toastr'
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 
 class CreateAccount extends Component {
 
@@ -105,10 +108,16 @@ class CreateAccount extends Component {
       headers: {
         "Content-Type": "application/json"
       }
-    }).then((resp) => resp.json())
-      .then((results) => {
-        StoreSessionKeys(this, results, "Failed to create account.\nPlease enter all information.", '/Profile');
-      });
+    }).then((resp) => {
+      if (resp.status === 200) {
+        resp.json().then((results) => {
+          StoreSessionKeys(this, results, "Failed to create account.", '/Profile');
+        });
+      }
+      else {
+        toastr.error('Error', "Failed to create account.\nPlease enter all information.")
+      }
+    });
   }
 
   componentDidMount() {
