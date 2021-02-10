@@ -38,7 +38,12 @@ class Calendar extends Component {
             .then((resp) => resp.json())
             .then((results) => {
                 if (RefreshToken(results)) {
-                    document.getElementById("pageTitle").innerText = results.first_name + "'s Weekly Class Calendar";
+                    if (results.preferred_name === "") {
+                        document.getElementById("pageTitle").innerText = results.first_name + "'s Weekly Class Calendar";
+                    }
+                    else {
+                        document.getElementById("pageTitle").innerText = results.preferred_name + "'s Weekly Class Calendar";
+                    }
                 }
                 else {
                     toastr.error('Error', "Failed to get profile.\nPlease log in again.")
@@ -132,7 +137,7 @@ class Calendar extends Component {
                     <Row className="justify-content-md-center">
                         <Col xs={2}>
                             <h3>Monday</h3>
-                            <div className="box1">
+                            <div className="box1 calendarDay">
                                 {
                                     this.mondayEvents.map(event => (
                                         <CalendarEvent startTime={event.start_time}
@@ -146,7 +151,7 @@ class Calendar extends Component {
                         </Col>
                         <Col xs={2}>
                             <h3>Tuesday</h3>
-                            <div className="box2">
+                            <div className="box2 calendarDay">
                                 {
                                     this.tuesdayEvents.map(event => (
                                         <CalendarEvent startTime={event.start_time}
@@ -159,7 +164,7 @@ class Calendar extends Component {
                         </Col>
                         <Col xs={2}>
                             <h3>Wednesday</h3>
-                            <div className="box3">
+                            <div className="box3 calendarDay">
                                 {
                                     this.wednesdayEvents.map(event => (
                                         <CalendarEvent startTime={event.start_time}
@@ -172,7 +177,7 @@ class Calendar extends Component {
                         </Col>
                         <Col xs={2}>
                             <h3> Thursday</h3>
-                            <div className="box4">
+                            <div className="box4 calendarDay">
                                 {
                                     this.thursdayEvents.map(event => (
                                         <CalendarEvent startTime={event.start_time}
@@ -185,7 +190,7 @@ class Calendar extends Component {
                         </Col>
                         <Col xs={2}>
                             <h3> Friday</h3>
-                            <div className="box5">
+                            <div className="box5 calendarDay">
                                 {
                                     this.fridayEvents.map(event => (
                                         <CalendarEvent startTime={event.start_time}

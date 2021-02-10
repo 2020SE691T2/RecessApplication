@@ -172,6 +172,7 @@ class ProfilePage extends Component {
             <div>
                 <Menubar />
                 <Container fluid className={'backgroundProfilePage'}>
+                    <br />
                     <Row className="justify-content-md-center">
                         <Col>
                             <Image src={this.state.photo} fluid alt={'Profile Picture'} style={{ height: '150px', width: '150px' }} />
