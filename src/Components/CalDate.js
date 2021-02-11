@@ -38,8 +38,8 @@ class CalDate extends React.Component {
             timeOfDay = " PM";
         }
         else {
-            if (hours === 24) {
-                hours = hours - 12;
+            if (hours === 0) {
+                hours = hours + 12;
             }
             timeOfDay = " AM";
         }
