@@ -13,7 +13,7 @@ import { toastr } from 'react-redux-toastr'
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 
 class Calendar extends Component {
-
+    
     env;
     mondayEvents = [];
     tuesdayEvents = [];
@@ -25,8 +25,9 @@ class Calendar extends Component {
         this.populatePageTitle = this.populatePageTitle.bind(this);
         this.getEventsFromDatabase = this.getEventsFromDatabase.bind(this);
         this.env = new Environment();
+    
     }
-
+    
     populatePageTitle() {
         var url = this.env.getRootUrl() + "/users/" + sessionStorage.getItem("email");
         fetch(url, {
@@ -37,6 +38,7 @@ class Calendar extends Component {
         })
             .then((resp) => resp.json())
             .then((results) => {
+                
                 if (RefreshToken(results)) {
                     if (results.preferred_name === "") {
                         document.getElementById("pageTitle").innerText = results.first_name + "'s Weekly Class Calendar";
@@ -50,7 +52,7 @@ class Calendar extends Component {
                 }
             });
     }
-
+    
     getEventsFromDatabase(year, week) {
         var url = this.env.getRootUrl() + "/api/classes?year=" + year + "&week=" + week;
         fetch(url, {
@@ -81,7 +83,7 @@ class Calendar extends Component {
                                 this.fridayEvents.push(event);
                                 break;
                             default:
-
+                            
                         }
                     });
                     this.mondayEvents.sort((a, b) => (a.start_time > b.start_time) ? 1 : -1)
@@ -93,7 +95,7 @@ class Calendar extends Component {
                 this.forceUpdate();
             });
     }
-
+    
     componentDidMount() {
         if (!sessionStorage.getItem("refreshToken")) {
             this.props.history.push({
@@ -115,7 +117,7 @@ class Calendar extends Component {
             this.getEventsFromDatabase(date.getFullYear(), currentWeek);
         }
     }
-
+    
     render() {
         return (
             <div>
@@ -123,11 +125,13 @@ class Calendar extends Component {
                 <Container className="backgroundNewCal" fluid>
                     <Row className="justify-content-md-center">
                         <Col>
+                            <br/>
                             <h2 id="pageTitle"> </h2>
                         </Col>
                     </Row>
                     <Row className="justify-content-md-center">
                         <Col>
+                            <br/>
                             <CalDate />
                         </Col>
                     </Row>
@@ -135,8 +139,9 @@ class Calendar extends Component {
                         <p></p>
                     </div>
                     <Row className="justify-content-md-center">
+                        <br/>
                         <Col xs={2}>
-                            <h3>Monday</h3>
+                            <h3 style={{color:'#a0df76'}}>Monday </h3>
                             <div className="box1 calendarDay">
                                 {
                                     this.mondayEvents.map(event => (
@@ -150,7 +155,7 @@ class Calendar extends Component {
                             </div>
                         </Col>
                         <Col xs={2}>
-                            <h3>Tuesday</h3>
+                            <h3 style={{color:'#ec1c6a'}}>Tuesday</h3>
                             <div className="box2 calendarDay">
                                 {
                                     this.tuesdayEvents.map(event => (
@@ -163,7 +168,7 @@ class Calendar extends Component {
                             </div>
                         </Col>
                         <Col xs={2}>
-                            <h3>Wednesday</h3>
+                            <h3 style={{color:'#fcb005'}}>Wednesday</h3>
                             <div className="box3 calendarDay">
                                 {
                                     this.wednesdayEvents.map(event => (
@@ -176,7 +181,7 @@ class Calendar extends Component {
                             </div>
                         </Col>
                         <Col xs={2}>
-                            <h3> Thursday</h3>
+                            <h3 style={{color:'#20a9ed'}}> Thursday</h3>
                             <div className="box4 calendarDay">
                                 {
                                     this.thursdayEvents.map(event => (
@@ -189,7 +194,7 @@ class Calendar extends Component {
                             </div>
                         </Col>
                         <Col xs={2}>
-                            <h3> Friday</h3>
+                            <h3 style={{color:'#885cbb'}}> Friday</h3>
                             <div className="box5 calendarDay">
                                 {
                                     this.fridayEvents.map(event => (

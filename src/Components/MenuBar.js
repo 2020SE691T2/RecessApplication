@@ -2,7 +2,6 @@ import React from "react";
 import "./MenuBar.css"
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
-import NavDropdown from 'react-bootstrap/NavDropdown';
 
 class Menubar extends React.Component {
     render() {
@@ -14,10 +13,8 @@ class Menubar extends React.Component {
                     <Nav className="mr-auto">
                         <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="/About">About</Nav.Link>
-                        <NavDropdown title="Events" id="basic-nav-dropdown" hidden={sessionStorage.getItem("accessToken") === null ? true : false} >
-                            <NavDropdown.Item href="/CreateEvent" hidden={sessionStorage.getItem("role") !== "Teacher" ? true : false}>Create Event</NavDropdown.Item>
-                            <NavDropdown.Item href="/Calendar">Calendar</NavDropdown.Item>
-                        </NavDropdown>
+                        <Nav.Link href="/Calendar" hidden={sessionStorage.getItem("accessToken") === null ? true : false}>Calendar</Nav.Link>
+                        <Nav.Link href="/CreateEvent" hidden={sessionStorage.getItem("role") !== "Teacher" ? true : false}>New Class</Nav.Link>
                     </Nav>
                     <Nav>
                         <Nav.Link href="/Profile" hidden={sessionStorage.getItem("accessToken") === null ? true : false}>Profile</Nav.Link>

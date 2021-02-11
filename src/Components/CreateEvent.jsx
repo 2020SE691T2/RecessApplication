@@ -8,13 +8,12 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
-import Button from 'react-bootstrap/Button';
 import RefreshToken from "../RefreshToken";
 import { toastr } from 'react-redux-toastr'
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 
 class CreateEvent extends Component {
-
+  
   env;
   constructor(props) {
     super(props);
@@ -22,40 +21,63 @@ class CreateEvent extends Component {
       id: '',
       name: '',
       year: '',
+      days: '',
+      startTime: '',
+      endTime: '',
       section: ''
     };
-
+    
     this.changeId = this.changeId.bind(this);
     this.changeName = this.changeName.bind(this);
     this.changeYear = this.changeYear.bind(this);
+    this.changeDays = this.changeDays.bind(this);
+    this.changeStart = this.changeStart.bind(this);
+    this.changeEnd = this.changeEnd.bind(this);
     this.changeSection = this.changeSection.bind(this);
     this.createEvent = this.createEvent.bind(this);
+    
     this.env = new Environment();
   }
-
+  
   changeId(event) {
     this.setState({ "id": event.target.value });
   }
-
+  
   changeName(event) {
     this.setState({ "name": event.target.value });
   }
-
+  
   changeYear(event) {
     this.setState({ "year": event.target.value });
   }
-
+  
+  changeStart(event) {
+    this.setState({ "startTime": event.target.value });
+  }
+  
+  changeEnd(event) {
+    this.setState({ "endTime": event.target.value });
+  }
+  
+  changeDays(event) {
+    let values = Array.from(event.target.selectedOptions, option => option.value);
+    this.setState({ "days": values });
+  }
+    
   changeSection(event) {
     this.setState({ "section": event.target.value });
   }
 
+  // FIX THIS - THIS IS WHERE SHIT IS SENT TO THE BACKEND
   createEvent(event) {
     event.preventDefault();
     var json = JSON.stringify({
-      "class_id": this.state.id,
       "class_name": this.state.name,
       "year": this.state.year,
-      "section": this.state.section
+      "days" : this.state.days,
+      "start" : this.state.startTime,
+      "end" : this.state.endTime,
+      "section" : this.state.section
     });
     fetch(this.env.getRootUrl() + "/class_info/", {
       method: "POST",
@@ -100,7 +122,7 @@ class CreateEvent extends Component {
     return (
       <div>
         <Menubar />
-        <Container className="background_CE" fluid>
+        <Container className="background_CE" align-content="center" fluid>
           <Form onSubmit={this.createEvent}>
             <Row className="justify-content-md-center">
               <Col>
@@ -108,26 +130,16 @@ class CreateEvent extends Component {
               </Col>
             </Row>
             <Row className="justify-content-md-center">
-              <Col md={5} xs={12}>
-                <Form.Group controlId="idFormGroup">
-                  <Form.Control
-                    className="textInput_CE"
-                    name="id"
-                    type="text"
-                    placeholder="ID:"
-                    value={this.state.id}
-                    onChange={this.changeId}
-                    style={{ height: 64 }}
-                  />
-                </Form.Group>
+              <Col md={3} xs={12}>
+                <p className="textPlaceholder_CE">Class name: </p>
               </Col>
-              <Col md={5} xs={12}>
+              <Col md={3} xs={12}>
                 <Form.Group controlId="nameFormGroup">
                   <Form.Control
                     className="textInput_CE"
                     name="name"
                     type="text"
-                    placeholder="Class Name:"
+                    
                     value={this.state.name}
                     onChange={this.changeName}
                     style={{ height: 64 }}
@@ -135,26 +147,96 @@ class CreateEvent extends Component {
                 </Form.Group>
               </Col>
             </Row>
+            
             <Row className="justify-content-md-center">
-              <Col md={5} xs={12}>
+              <Col md={3} xs={12}>
+                <p className="textPlaceholder_CE">School year: </p>
+              </Col>
+              <Col md={3} xs={12}>
                 <Form.Group controlId="yearFormGroup">
                   <Form.Control
                     className="textInput_CE"
-                    type="number"
-                    placeholder="Year:"
+                    type="number" min="2019" max="2025"
+                    
                     value={this.state.year}
                     onChange={this.changeYear}
                     style={{ height: 64 }}
                   />
                 </Form.Group>
               </Col>
-              <Col md={5} xs={12}>
+            </Row>
+
+            <Row className="justify-content-md-center">
+              <Col md={3} xs={12}>
+                <p className="textPlaceholder_CE">Meeting days: </p>
+              </Col>
+              <Col md={3} xs={12}>
+                <Form.Group controlId="daySelectFormGroup">
+                  <Form.Control as="select" multiple 
+                    className="daySelect_CE"
+                    name="days"
+                    value={this.props.arrayOfOptionValues}
+                    onChange={this.changeDays}
+                    style={{ height: 128 }}>
+                    <option value={0}>Monday</option>
+                    <option value={1}>Tuesday</option>
+                    <option value={2}>Wednesday</option>
+                    <option value={3}>Thursday</option>
+                    <option value={4}>Friday</option>
+                  </Form.Control>
+                </Form.Group>
+              </Col>         
+            </Row>
+            
+            <Row className="justify-content-md-center">
+              <Col md={3} xs={12}>
+                <p className="textPlaceholder_CE">Start time: </p>
+              </Col>
+              <Col md={3} xs={12}>
+                <Form.Group controlId="StartTimeFormGroup">
+                  <Form.Control
+                    className="textInput_CE"
+                    name="start-time"
+                    type="time" min="9:00" max="17:00"
+                    
+                    value={this.state.startTime}
+                    onChange={this.changeStart}
+                    style={{ height: 64 }}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            
+            <Row className="justify-content-md-center">
+              <Col md={3} xs={12}>
+                <p className="textPlaceholder_CE">End time: </p>
+              </Col>
+              <Col md={3} xs={12}>
+                <Form.Group controlId="endTimeFormGroup">
+                  <Form.Control
+                    className="textInput_CE"
+                    name="end-time"
+                    type="time" min="9:00" max="17:00"
+                    
+                    value={this.state.endTime}
+                    onChange={this.changeEnd}
+                    style={{ height: 64 }}
+                  />
+                </Form.Group>
+              </Col>
+            </Row>
+            
+            <Row className="justify-content-md-center">
+              <Col md={3} xs={12}>
+                <p className="textPlaceholder_CE">Section: </p>
+              </Col>
+              <Col md={3} xs={12}>
                 <Form.Group controlId="sectionFormGroup">
                   <Form.Control
                     className="textInput_CE"
                     name="section"
                     type="text"
-                    placeholder="Section:"
+                    placeholder="Optional"
                     value={this.state.section}
                     onChange={this.changeSection}
                     style={{ height: 64 }}
@@ -162,9 +244,12 @@ class CreateEvent extends Component {
                 </Form.Group>
               </Col>
             </Row>
+            
+            <br/>
+            
             <Row className="justify-content-md-center">
               <Col>
-                <Button onClick={this.createEvent} variant="primary">Create New Class Event</Button>
+                  <a href="/#" className="CE_Button" onClick={this.createEvent}>Create New Event</a>
               </Col>
             </Row >
           </Form >

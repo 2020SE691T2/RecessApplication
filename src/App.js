@@ -20,7 +20,8 @@ import { Provider } from 'react-redux'
 import ReduxToastr from 'react-redux-toastr'
 import { createStore, combineReducers } from 'redux'
 import { reducer as toastrReducer } from 'react-redux-toastr'
-import Calendar from './Components/Calendar';
+import Calendar from './Components/Calendar'
+import { Helmet } from 'react-helmet'
 
 const reducers = {
   toastr: toastrReducer
@@ -32,7 +33,9 @@ function App() {
   return (
 
     <div className="App">
-
+        <Helmet>
+          <title>{ 'Recess' }</title>
+        </Helmet>
 
       <BrowserRouter>
         <Switch>

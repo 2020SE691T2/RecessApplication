@@ -78,6 +78,7 @@ class LoginPage extends Component {
       <div>
         <Menubar />
         <Container className="background_login" fluid>
+
           <Form onSubmit={this.loginClicked} onKeyPress={this.handleKeyPress}>
             <Row className="justify-content-md-center">
               <Col >
@@ -91,7 +92,8 @@ class LoginPage extends Component {
                     type="email"
                     name="username"
                     value={username}
-                    className="username"
+                    className="login"
+                    placeholder="Email"
                     onChange={this.onChange}
                     style={{ height: 65 }}
                   />
@@ -105,7 +107,8 @@ class LoginPage extends Component {
                     type="password"
                     name="password"
                     value={password}
-                    className="password"
+                    className="login"
+                    placeholder="Password"
                     onChange={this.onChange}
                     style={{ height: 65 }}
                   />
@@ -113,15 +116,12 @@ class LoginPage extends Component {
               </Col>
             </Row>
             <Row className="justify-content-md-center">
-              <Col md={5} xs={12}>
-                <Button variant="primary" className="Submit_Login" onClick={this.loginClicked}></Button>
-              </Col>
+                <Button variant="light" className="Submit_Login" onClick={this.loginClicked}>Login</Button>
             </Row>
           </Form>
+          <br/>
           <Row className="justify-content-md-center">
-            <Col md={5} xs={12}>
               <Button variant="link" className="forgotPassword" href="/ForgotPassword">"Forgot your password?"</Button>
-            </Col>
           </Row>
         </Container>
       </div>

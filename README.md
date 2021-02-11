@@ -6,7 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Quick Start
 
-Makes ure you have Node.js installed on your machine.
-In the RecessApplication directory run npm start from the command line.
+Makes sure you have Node.js installed on your machine.
+In the RecessApplication directory run ```npm start``` from the command line.
 Website will be available at http://localhost:3000
 
