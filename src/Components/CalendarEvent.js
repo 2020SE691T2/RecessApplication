@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./CalendarEvent.css";
-import AMPM from "./AMPM";
+
+import hourAdjust from "./HourAdjust";
+import selectAMPM from "./SelectAMPM";
 
 class CalendarEvent extends Component {
 
@@ -12,7 +14,8 @@ class CalendarEvent extends Component {
     formatTime(unformattedTime) {
         unformattedTime = unformattedTime.substring(0, 5);
         var hours = parseInt(unformattedTime.substring(0, 2));
-        var timeOfDay = AMPM(hours);
+        var timeOfDay = selectAMPM(hours);
+        hours = hourAdjust(hours);
         var formattedTime = hours.toString() + unformattedTime.substring(2) + timeOfDay;
         return formattedTime;
     }

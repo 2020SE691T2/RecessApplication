@@ -1,7 +1,8 @@
 import React from "react";
 import "./CalDate.css";
 
-import AMPM from "./AMPM";
+import hourAdjust from "./HourAdjust";
+import selectAMPM from "./SelectAMPM";
 
 // Bootstrap Components
 import Row from 'react-bootstrap/Row';
@@ -31,7 +32,8 @@ class CalDate extends React.Component {
         
         var hours = d.getHours();
         var minutes = d.getMinutes();
-        var timeOfDay = AMPM(hours);
+        var timeOfDay = selectAMPM(hours);
+        hours = hourAdjust(hours);
         var currentTime = "";
         if (minutes < 10) {
             currentTime = hours + ":0" + minutes + timeOfDay;
