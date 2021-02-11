@@ -11,44 +11,88 @@
   min-height: 100vh;
 }
 
-.username {
-  text-align: right;
-  font-size: 15px;
-  border: 1px solid #bdbdbd;
-  border-radius: 5px;
-  box-shadow: 10px 5px 10px black;
-  background-image: url(/username.png);
-  background-position: -75px -42px;
-  background-repeat: no-repeat;
+.fancy-inputs{
+  float: left;
+  width: 100%;
+  margin: 0 0 50px 0;
+  label.input{
+    float: left;
+    width: 460px;
+    height: 42px;
+    margin: 50px 0 0 0;
+    position: relative;
+    clear: both;
+    span{
+      width: 100%;
+      height: 40px;
+      line-height: 40px;
+      position: absolute;
+      left: 0;
+      cursor: text;
+      span{
+        position: absolute;
+        top: 0;
+        z-index: 1;
+        font-family: 'Indie Flower', cursive;
+        font-size: 22px;
+        color: #fff;
+        text-indent: 10px;
+        transition: 0.3s;
+        -webkit-transition: 0.3s;
+        -moz-transition: 0.3s;
+      }
+      &:before{
+        content: '';
+        width: 0%;
+        height: 3px;
+        background-color: #2C3E50;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: 99;
+        transition: 0.3s;
+        -webkit-transition: 0.3s;
+        -moz-transition: 0.3s;
+      }
+      &:after{
+        content: '';
+        width: 0%;
+        height: 3px;
+        background-color: #2C3E50;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        z-index: 99;
+        transition: 0.3s;
+        -webkit-transition: 0.3s;
+        -moz-transition: 0.3s;
+      }
+    }
+  }
 }
 
-.password {
-  text-align: right;
+.login {
+  text-align: left;
   font-size: 15px;
   border: 1px solid #bdbdbd;
   border-radius: 5px;
   box-shadow: 10px 5px 10px black;
-  background-image: url(/password.png);
-  background-position: -75px -42px;
-  background-repeat: no-repeat;
+  font-size: 36px;
+  font-family: Chalkduster, sans-serif;
+  font-weight: bold;
+  color: black;
 }
 
 .forgotPassword {
   color: white;
   text-shadow: 1px 2px black;
-  font-size: 25px;
-  font-family: "Times New Roman", Times, serif;
+  font-size: 36px;
+  font-family: Chalkduster, sans-serif;
   font-weight: bold;
 }
 
 .Submit_Login {
-  width: 162px;
-  height: 63px;
-  border: 1px solid #bdbdbd;
-  border-radius: 5px;
-  box-shadow: 10px 5px 10px black;
-  background-image: url(/enter.png);
-  background-position: -75px -42px;
-  background-size: 290%;
-  background-repeat: no-repeat;
+  color:#ffffff;
+ 	font-size:64px;
+  font-family: Chalkduster, sans-serif;
 }
