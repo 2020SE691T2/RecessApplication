@@ -67,40 +67,55 @@ class CreateEvent extends Component {
   changeSection(event) {
     this.setState({ "section": event.target.value });
   }
+  
+  valid_input() {
+      
+    if (this.state.name === "" ||
+        this.state.year === "" || 
+        this.state.startTime === "" ||
+        this.state.endTime === "" ||
+        this.state.startTime >= this.state.endTime)
+        return false;
+    return true;
+  }
 
   // FIX THIS - THIS IS WHERE SHIT IS SENT TO THE BACKEND
   createEvent(event) {
     event.preventDefault();
-    var json = JSON.stringify({
-      "class_name": this.state.name,
-      "year": this.state.year,
-      "days" : this.state.days,
-      "start" : this.state.startTime,
-      "end" : this.state.endTime,
-      "section" : this.state.section
-    });
-    fetch(this.env.getRootUrl() + "/class_info/", {
-      method: "POST",
-      body: json,
-      headers: {
-        "Content-Type": "application/json",
-        'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
-      }
-    }).then((resp) => resp.json())
-      .then((results) => {
-        if (RefreshToken(results)) {
-          if (results.class_id) {
-            this.props.history.push({
-              pathname: '/ViewEvent',
-              state: { classId: results.class_id }
-            })
+    if (!this.valid_input()) {
+        window.alert("Please fill out form completely!");
+    } else {        
+        var json = JSON.stringify({
+          "class_name": this.state.name,
+          "year": this.state.year,
+          "days" : this.state.days,
+          "start" : this.state.startTime,
+          "end" : this.state.endTime,
+          "section" : this.state.section
+        });
+        fetch(this.env.getRootUrl() + "/api/create-class/", {
+          method: "POST",
+          body: json,
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
           }
-        }
-        else {
-          toastr.error('Error', "Failed to create event. Please enter all information.", "Error")
-        }
-      });
-    return false;
+        }).then((resp) => resp.json())
+          .then((results) => {
+            if (RefreshToken(results)) {
+              if (results.class_id) {
+                this.props.history.push({
+                  pathname: '/ViewEvent',
+                  state: { classId: results.class_id }
+                })
+              }
+            }
+            else {
+              toastr.error('Error', "Failed to create event. Please enter all information.", "Error")
+            }
+          });
+        return false;
+    }
   }
 
   componentDidMount() {
