@@ -67,7 +67,7 @@ class AboutPage extends Component {
                   </Col>
                   <Col xs={12} sm={4} lg={2}>
                     <Image src="/profile_placeholder.png" rounded className="profileImage"/>
-                    <h4>Jeffery Durelli</h4>
+                    <h4>Jeffrey Durelli</h4>
                   </Col>
                   <Col xs={12} sm={4} lg={2}>
                     <Image src="/profile_placeholder.png" rounded className="profileImage"/>
