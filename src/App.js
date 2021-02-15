@@ -22,6 +22,7 @@ import { createStore, combineReducers } from 'redux'
 import { reducer as toastrReducer } from 'react-redux-toastr'
 import Calendar from './Components/Calendar'
 import { Helmet } from 'react-helmet'
+import Roster from './Components/Roster';
 
 const reducers = {
   toastr: toastrReducer
@@ -51,6 +52,7 @@ function App() {
           <Route exact path="/Logout" component={LogoutPage} />
           <Route exact path="/Calendar" component={Calendar} />
           <Route exact path="/ChangePassword" component={ChangePassword} />
+          <Route exact path="/Roster" component={Roster} />
         </Switch>
       </BrowserRouter>
       <Provider store={store}>
