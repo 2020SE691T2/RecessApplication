@@ -251,7 +251,7 @@ class CreateAccount extends Component {
                   <Button onClick={this.onButtonClicked}>
                     <Form.Control
                       name="profilePicture"
-                      className="fileInput"
+                      className="chooseFileButton_Login"
                       ref={this.hiddenFileInput}
                       id="file"
                       type="file"
