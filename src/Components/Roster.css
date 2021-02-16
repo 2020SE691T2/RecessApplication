@@ -4,5 +4,43 @@
 
 .addTeacherHeading {
   float: left;
-  margin-left: 30px;
+  margin-left: 250px;
+}
+
+.teacherMenu {
+  float: left;
+  margin-left: 250px;
+}
+
+.teacherField {
+  float: right;
+  margin-right: 350px;
+  padding: 10px;
+  background-color: #759f5d;
+  border: 1px black solid;
+  opacity: 0.8;
+}
+
+.addStudentHeading {
+  float: left;
+  margin-left: 250px;
+}
+
+.studentMenu {
+  float: left;
+  margin-left: 250px;
+}
+
+.studentField {
+  float: right;
+  margin-right: 350px;
+  padding: 10px;
+  background-color: #759f5d;
+  border: 1px black solid;
+  opacity: 0.8;
+}
+
+input[type="text"] {
+  background-color: #dedee6;
+  border: 0px;
 }

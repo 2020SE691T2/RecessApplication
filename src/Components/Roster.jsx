@@ -14,6 +14,7 @@ import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 import RefreshToken from "../RefreshToken"
 import { Dropdown, MenuItem, DropdownButton } from "react-bootstrap";
 import FormControl from 'react-bootstrap/FormControl'
+import Form from 'react-bootstrap/Form';
 
 // The forwardRef is important!!
 // Dropdown needs access to the DOM node in order to position the Menu
@@ -36,6 +37,8 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
 const CustomMenu = React.forwardRef(
   ({ children, style, className, 'aria-labelledby': labeledBy }, ref) => {
     const [value, setValue] = useState('');
+
+  
 
     return (
       <div
@@ -94,7 +97,7 @@ class Roster extends Component {
 
   render() {
     return (
-      <div>
+      <div >
         <Menubar />
         <Container className="background_roster" fluid>
 
@@ -106,35 +109,116 @@ class Roster extends Component {
             </Col>
           </Row>
 
+         <br />
+         <br />
+
           <Row>
             <Col>
               <h4 className="addTeacherHeading"> Add Teacher(s)</h4>
 
             </Col>
-
+            <Col>
+                
+                <h4 className="teacherField">Teacher</h4>
+                 
+                 
+                 
+                 </Col>
 
           </Row>
 
           <Row>
 
-            <Col>
-              <Dropdown>
+            <Col >
+              <Dropdown className = "teacherMenu"> 
                 <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
-                  Custom toggle
+                  Co-Teacher's Name(s)
     </Dropdown.Toggle>
 
                 <Dropdown.Menu as={CustomMenu}>
-                  <Dropdown.Item eventKey="1">Teacher 1</Dropdown.Item>
-                  <Dropdown.Item eventKey="2">Teacher 2</Dropdown.Item>
-                  <Dropdown.Item eventKey="3" active>
-                    Teacher 3
-      </Dropdown.Item>
-                  <Dropdown.Item eventKey="1">Teacher 4</Dropdown.Item>
+                  <Dropdown.Item eventKey="0">Megatron Jones</Dropdown.Item>
+                  <Dropdown.Item eventKey="1">Boris Kudjoe</Dropdown.Item>
+                  <Dropdown.Item eventKey="2">Boris Valley</Dropdown.Item>
+                  <Dropdown.Item eventKey="3">Tommy Pickles</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>,
 
                 </Col>
+
+                <Col>
+                <form>
+
+                <Col><input class="form-control form-control-sm" type="text" placeholder=""></input> </Col><Col><button type="button" class="btn">X</button></Col>
+                <Col><input class="form-control form-control-sm" type="text" placeholder=""></input> </Col><Col><button type="button" class="btn">X</button></Col>
+                <Col><input class="form-control form-control-sm" type="text" placeholder=""></input> </Col><Col><button type="button" class="btn">X</button></Col>
+                <Col><input class="form-control form-control-sm" type="text" placeholder=""></input> </Col><Col><button type="button" class="btn">X</button></Col>
+                <Col><input class="form-control form-control-sm" type="text" placeholder=""></input> </Col><Col><button type="button" class="btn">X</button></Col>
+                <Col><input class="form-control form-control-sm" type="text" placeholder=""></input> </Col><Col><button type="button" class="btn">X</button></Col>
+                <Col><input class="form-control form-control-sm" type="text" placeholder=""></input> </Col><Col><button type="button" class="btn">X</button></Col>
+                <Col><input class="form-control form-control-sm" type="text" placeholder=""></input> </Col><Col><button type="button" class="btn">X</button></Col>
+                
+  </form>
+                
+                </Col>
+
+                
           </Row>
+
+          <Row>
+            <Col>
+              <h4 className="addStudentHeading"> Add Student(s)</h4>
+
+            </Col>
+            <Col>
+                
+                <h4 className="studentField">Student</h4>
+                 
+                 
+                 
+                 </Col>
+
+          </Row>
+
+          <Row>
+
+            <Col >
+              <Dropdown className = "studentMenu"> 
+                <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
+                  Student's Name(s)
+    </Dropdown.Toggle>
+
+                <Dropdown.Menu as={CustomMenu}>
+                  <Dropdown.Item eventKey="0">Jenny Jones</Dropdown.Item>
+                  <Dropdown.Item eventKey="1">Jerry Springer</Dropdown.Item>
+                  <Dropdown.Item eventKey="2">Oprah Winfrey</Dropdown.Item>
+                  <Dropdown.Item eventKey="3">Tiny Tim</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>,
+
+                </Col>
+
+                <Col>
+                <form>
+
+                <input class="form-control form-control-sm" type="text" placeholder=""></input>
+                <input class="form-control form-control-sm" type="text" placeholder=""></input>
+                <input class="form-control form-control-sm" type="text" placeholder=""></input>
+                <input class="form-control form-control-sm" type="text" placeholder=""></input>
+                <input class="form-control form-control-sm" type="text" placeholder=""></input>
+                <input class="form-control form-control-sm" type="text" placeholder=""></input>
+                <input class="form-control form-control-sm" type="text" placeholder=""></input>
+                <input class="form-control form-control-sm" type="text" placeholder=""></input>
+                <input class="form-control form-control-sm" type="text" placeholder=""></input>
+                <input class="form-control form-control-sm" type="text" placeholder=""></input>
+                <input class="form-control form-control-sm" type="text" placeholder=""></input>
+                
+  </form>
+                
+                </Col>
+
+                
+          </Row>
+
 
         </Container>
       </div>
