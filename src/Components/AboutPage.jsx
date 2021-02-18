@@ -54,27 +54,27 @@ class AboutPage extends Component {
                 </Row>
                 <Row>
                   <Col xs={12} sm={4} lg={2}>
-                    <Image src="/profile_placeholder.png" rounded className="profileImage"/>
+                    <Image src="/team/Megatron.png" rounded className="profileImage"/>
                     <h4>Matt Griffiths</h4>
                   </Col>
                   <Col xs={12} sm={4} lg={2}>
-                    <Image src="/profile_placeholder.png" rounded className="profileImage"/>
+                    <Image src="/team/dylan.jpg" rounded className="profileImage"/>
                     <h4>Dylan Zeller</h4>
                   </Col>
                   <Col xs={12} sm={4} lg={2}>
-                    <Image src="/profile_placeholder.png" rounded className="profileImage"/>
+                    <Image src="/team/matt.jpg" rounded className="profileImage"/>
                     <h4>Matt Knobloch</h4>
                   </Col>
                   <Col xs={12} sm={4} lg={2}>
-                    <Image src="/profile_placeholder.png" rounded className="profileImage"/>
+                    <Image src="/team/jeff.jpg" rounded className="profileImage"/>
                     <h4>Jeffrey Durelli</h4>
                   </Col>
                   <Col xs={12} sm={4} lg={2}>
-                    <Image src="/profile_placeholder.png" rounded className="profileImage"/>
+                    <Image src="/team/wendy.png" rounded className="profileImage"/>
                     <h4>Wendy Prayer</h4>
                   </Col>
                   <Col xs={12} sm={4} lg={2}>
-                    <Image src="/profile_placeholder.png" rounded className="profileImage"/>
+                    <Image src="/team/jon.jpg" rounded className="profileImage"/>
                     <h4>Jon McDaniel</h4>
                   </Col>
                 </Row>
