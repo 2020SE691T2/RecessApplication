@@ -15,6 +15,7 @@ import RefreshToken from "../RefreshToken"
 import { Dropdown, MenuItem, DropdownButton } from "react-bootstrap";
 import FormControl from 'react-bootstrap/FormControl'
 import Form from 'react-bootstrap/Form';
+import Image from 'react-bootstrap/Image';
 
 // The forwardRef is important!!
 // Dropdown needs access to the DOM node in order to position the Menu
@@ -148,15 +149,6 @@ class Roster extends Component {
                 <Col>
                 <form>
 
-                <Col><input class="form-control form-control-sm" type="text" placeholder=""></input> </Col><Col><button type="button" class="btn">X</button></Col>
-                <Col><input class="form-control form-control-sm" type="text" placeholder=""></input> </Col><Col><button type="button" class="btn">X</button></Col>
-                <Col><input class="form-control form-control-sm" type="text" placeholder=""></input> </Col><Col><button type="button" class="btn">X</button></Col>
-                <Col><input class="form-control form-control-sm" type="text" placeholder=""></input> </Col><Col><button type="button" class="btn">X</button></Col>
-                <Col><input class="form-control form-control-sm" type="text" placeholder=""></input> </Col><Col><button type="button" class="btn">X</button></Col>
-                <Col><input class="form-control form-control-sm" type="text" placeholder=""></input> </Col><Col><button type="button" class="btn">X</button></Col>
-                <Col><input class="form-control form-control-sm" type="text" placeholder=""></input> </Col><Col><button type="button" class="btn">X</button></Col>
-                <Col><input class="form-control form-control-sm" type="text" placeholder=""></input> </Col><Col><button type="button" class="btn">X</button></Col>
-                
   </form>
                 
                 </Col>
@@ -187,7 +179,7 @@ class Roster extends Component {
                   Student's Name(s)
     </Dropdown.Toggle>
 
-                <Dropdown.Menu as={CustomMenu}>
+                <Dropdown.Menu  as={CustomMenu}>
                   <Dropdown.Item eventKey="0">Jenny Jones</Dropdown.Item>
                   <Dropdown.Item eventKey="1">Jerry Springer</Dropdown.Item>
                   <Dropdown.Item eventKey="2">Oprah Winfrey</Dropdown.Item>
@@ -197,23 +189,25 @@ class Roster extends Component {
 
                 </Col>
 
-                <Col>
+
+
+                <Col md={6}>
+                
                 <form>
 
-                <input class="form-control form-control-sm" type="text" placeholder=""></input>
-                <input class="form-control form-control-sm" type="text" placeholder=""></input>
-                <input class="form-control form-control-sm" type="text" placeholder=""></input>
-                <input class="form-control form-control-sm" type="text" placeholder=""></input>
-                <input class="form-control form-control-sm" type="text" placeholder=""></input>
-                <input class="form-control form-control-sm" type="text" placeholder=""></input>
-                <input class="form-control form-control-sm" type="text" placeholder=""></input>
-                <input class="form-control form-control-sm" type="text" placeholder=""></input>
-                <input class="form-control form-control-sm" type="text" placeholder=""></input>
-                <input class="form-control form-control-sm" type="text" placeholder=""></input>
-                <input class="form-control form-control-sm" type="text" placeholder=""></input>
+               <div className= "txtInputButton flex"> 
+               
+                
+               <input  className="form-control form-control-sm inputBox" type="text" placeholder=""></input>
+              
+      
+               <button type="button" class="btn"><Image className ="xButton" src="./x.png"/></button>
+              
+               </div>
+               
                 
   </form>
-                
+   
                 </Col>
 
                 
