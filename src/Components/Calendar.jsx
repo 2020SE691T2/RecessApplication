@@ -24,6 +24,8 @@ class Calendar extends Component {
         super();
         this.populatePageTitle = this.populatePageTitle.bind(this);
         this.getEventsFromDatabase = this.getEventsFromDatabase.bind(this);
+        this.prepareEventComponent = this.prepareEventComponent.bind(this);
+        this.sortDailyEvents = this.sortDailyEvents.bind(this);
         this.env = new Environment();
     
     }
@@ -86,14 +88,19 @@ class Calendar extends Component {
                             
                         }
                     });
-                    this.mondayEvents.sort((a, b) => (a.start_time > b.start_time) ? 1 : -1)
-                    this.tuesdayEvents.sort((a, b) => (a.start_time > b.start_time) ? 1 : -1)
-                    this.wednesdayEvents.sort((a, b) => (a.start_time > b.start_time) ? 1 : -1)
-                    this.thursdayEvents.sort((a, b) => (a.start_time > b.start_time) ? 1 : -1)
-                    this.fridayEvents.sort((a, b) => (a.start_time > b.start_time) ? 1 : -1)
+                    
+                    this.mondayEvents = this.sortDailyEvents(this.mondayEvents);
+                    this.tuesdayEvents = this.sortDailyEvents(this.tuesdayEvents);
+                    this.wednesdayEvents = this.sortDailyEvents(this.wednesdayEvents);
+                    this.thursdayEvents = this.sortDailyEvents(this.thursdayEvents);
+                    this.fridayEvents = this.sortDailyEvents(this.fridayEvents);
                 }
                 this.forceUpdate();
             });
+    }
+
+    sortDailyEvents(dailyEventArray) {
+        return dailyEventArray.sort((a, b) => (a.start_time > b.start_time) ? 1 : -1)
     }
     
     componentDidMount() {
@@ -116,6 +123,16 @@ class Calendar extends Component {
                 - 3 + (week1.getDay() + 6) % 7) / 7);
             this.getEventsFromDatabase(date.getFullYear(), currentWeek);
         }
+    }
+
+    prepareEventComponent(data) {
+        return (
+            <CalendarEvent startTime={data.start_time}
+            endTime={data.end_time}
+            link={data.meeting_link}
+            className={data.class_name}
+            day={data.weekday} />
+        )
     }
     
     render() {
@@ -144,13 +161,7 @@ class Calendar extends Component {
                             <h3 style={{color:'#a0df76'}}>Monday </h3>
                             <div className="box1 calendarDay">
                                 {
-                                    this.mondayEvents.map(event => (
-                                        <CalendarEvent startTime={event.start_time}
-                                            endTime={event.end_time}
-                                            link={event.meeting_link}
-                                            className={event.class_name}
-                                            day={event.weekday} />
-                                    ))
+                                    this.mondayEvents.map(event => this.prepareEventComponent(event))
                                 }
                             </div>
                         </Col>
@@ -158,12 +169,7 @@ class Calendar extends Component {
                             <h3 style={{color:'#ec1c6a'}}>Tuesday</h3>
                             <div className="box2 calendarDay">
                                 {
-                                    this.tuesdayEvents.map(event => (
-                                        <CalendarEvent startTime={event.start_time}
-                                            endTime={event.end_time}
-                                            link={event.meeting_link}
-                                            className={event.class_name}
-                                            day={event.weekday} />))
+                                    this.tuesdayEvents.map(event => this.prepareEventComponent(event))
                                 }
                             </div>
                         </Col>
@@ -171,12 +177,7 @@ class Calendar extends Component {
                             <h3 style={{color:'#fcb005'}}>Wednesday</h3>
                             <div className="box3 calendarDay">
                                 {
-                                    this.wednesdayEvents.map(event => (
-                                        <CalendarEvent startTime={event.start_time}
-                                            endTime={event.end_time}
-                                            link={event.meeting_link}
-                                            className={event.class_name}
-                                            day={event.weekday} />))
+                                    this.wednesdayEvents.map(event => this.prepareEventComponent(event))
                                 }
                             </div>
                         </Col>
@@ -184,12 +185,7 @@ class Calendar extends Component {
                             <h3 style={{color:'#20a9ed'}}> Thursday</h3>
                             <div className="box4 calendarDay">
                                 {
-                                    this.thursdayEvents.map(event => (
-                                        <CalendarEvent startTime={event.start_time}
-                                            endTime={event.end_time}
-                                            link={event.meeting_link}
-                                            className={event.class_name}
-                                            day={event.weekday} />))
+                                    this.thursdayEvents.map(event => this.prepareEventComponent(event))
                                 }
                             </div>
                         </Col>
@@ -197,12 +193,7 @@ class Calendar extends Component {
                             <h3 style={{color:'#885cbb'}}> Friday</h3>
                             <div className="box5 calendarDay">
                                 {
-                                    this.fridayEvents.map(event => (
-                                        <CalendarEvent startTime={event.start_time}
-                                            endTime={event.end_time}
-                                            link={event.meeting_link}
-                                            className={event.class_name}
-                                            day={event.weekday} />))
+                                    this.fridayEvents.map(event => this.prepareEventComponent(event))
                                 }
                             </div>
                         </Col>

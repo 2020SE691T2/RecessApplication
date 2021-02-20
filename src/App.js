@@ -17,9 +17,8 @@ import CreateEvent from './Components/CreateEvent';
 import LogoutPage from "./Components/LogoutPage";
 import ChangePassword from "./Components/ChangePassword";
 import { Provider } from 'react-redux'
-import ReduxToastr from 'react-redux-toastr'
+import ReduxToastr, { reducer as toastrReducer } from 'react-redux-toastr'
 import { createStore, combineReducers } from 'redux'
-import { reducer as toastrReducer } from 'react-redux-toastr'
 import Calendar from './Components/Calendar'
 import { Helmet } from 'react-helmet'
 
