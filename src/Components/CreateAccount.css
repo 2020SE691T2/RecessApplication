@@ -1,5 +1,5 @@
 .background_CA {
-  background-image: url(/createaccountbackground.jpg);
+  background-image: url(/fpbackground.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: scroll;
@@ -26,11 +26,13 @@
   border-radius: 5px;
   box-shadow: 10px 5px 10px black;
   background-repeat: no-repeat;
+  font-family: Chalkduster, sans-serif;
 }
 
 .fileInput {
   text-align: left;
   border-radius: 5px;
+  font-family: Chalkduster, sans-serif;
 }
 
 .password_CA {
@@ -44,6 +46,7 @@
   background-position: -73px -41px;
   background-size: 100%;
   background-repeat: no-repeat;
+  font-family: Chalkduster, sans-serif;
 }
 
 .textInput_role {
@@ -52,17 +55,21 @@
   border-radius: 5px;
   box-shadow: 10px 5px 10px black;
   background-repeat: no-repeat;
+  font-family: Chalkduster, sans-serif;
 }
-.Submit_CA {
-  display: inline-block;
-  width: 56%;
-  height: 63px;
-  border: 1px solid #bdbdbd;
-  border-radius: 5px;
-  box-shadow: 10px 5px 10px black;
-  background-image: url(/createaccountbutton.jpg);
-  background-position: 0px;
-  background-size: 100%;
-  background-color: #828481;
-  background-repeat: no-repeat;
+
+.chooseFileButton_Login {
+  color:#ffffff;
+ 	font-size:64px;
+  font-family: Chalkduster, sans-serif;
+}
+
+.CreateAccountButton_CA {
+  font-size: 28px !important;
+  font-family: Chalkduster, sans-serif;
+}
+
+.ChooseFileButton_CA {
+  font-size: 14px !important;
+  font-family: Chalkduster, sans-serif;
 }

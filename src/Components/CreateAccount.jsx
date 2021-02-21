@@ -37,10 +37,11 @@ class CreateAccount extends Component {
     this.changeEmail = this.changeEmail.bind(this);
     this.changeBirthday = this.changeBirthday.bind(this);
     this.changePassword = this.changePassword.bind(this);
-    this.creatAccount = this.creatAccount.bind(this);
+    this.createAccount = this.createAccount.bind(this);
     this.changeRole = this.changeRole.bind(this);
     this.changeProfilePicture = this.changeProfilePicture.bind(this);
     this.onButtonClicked = this.onButtonClicked.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
     this.env = new Environment();
   }
 
@@ -87,37 +88,49 @@ class CreateAccount extends Component {
     this.hiddenFileInput.current.click();
   }
 
-  creatAccount(event) {
+  handleKeyPress(event) {
+    //13 is the char code for enter
+    if (event.charCode === 13) {
+      this.createAccount(event);
+    }
+  }
+
+  createAccount(event) {
     event.preventDefault();
-    var json = JSON.stringify({
-      "email_address": this.state.email,
-      "first_name": this.state.firstName,
-      "last_name": this.state.lastName,
-      "preferred_name": this.state.preferredName,
-      "password": this.state.password,
-      "physical_id_num": "1",
-      "dob": this.state.birthday,
-      "role": this.state.role,
-      "photo": this.state.profilePicture,
-      "is_staff": false,
-      "is_superuser": false
-    });
-    fetch(this.env.getRootUrl() + "/api-auth/register/", {
-      method: "POST",
-      body: json,
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then((resp) => {
-      if (resp.status === 200) {
-        resp.json().then((results) => {
-          StoreSessionKeys(this, results, "Failed to create account.", '/Profile');
-        });
-      }
-      else {
-        toastr.error('Error', "Failed to create account.\nPlease enter all information.")
-      }
-    });
+    if (this.state.role === "") {
+      toastr.error('Error', "You must select a role to create an account.");
+    }
+    else {
+      var json = JSON.stringify({
+        "email_address": this.state.email,
+        "first_name": this.state.firstName,
+        "last_name": this.state.lastName,
+        "preferred_name": this.state.preferredName,
+        "password": this.state.password,
+        "physical_id_num": "1",
+        "dob": this.state.birthday,
+        "role": this.state.role,
+        "photo": this.state.profilePicture,
+        "is_staff": false,
+        "is_superuser": false
+      });
+      fetch(this.env.getRootUrl() + "/api-auth/register/", {
+        method: "POST",
+        body: json,
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then((resp) => {
+        if (resp.status === 200) {
+          resp.json().then((results) => {
+            StoreSessionKeys(this, results, "Failed to create account.", '/Profile');
+          });
+        }
+        else {
+          toastr.error('Error', "Failed to create account.\nPlease enter all information.")
+        }
+      });
+    }
   }
 
   componentDidMount() {
@@ -133,7 +146,7 @@ class CreateAccount extends Component {
       <div>
         <Menubar />
         <Container className="background_CA" fluid>
-          <Form onSubmit={this.creatAccount}>
+          <Form onSubmit={this.createAccount} onKeyPress={this.handleKeyPress}>
             <Row className="justify-content-md-center">
               <Col md={6} xs={12}>
                 <a href="/"> <Image src="./Recess_logo.png" alt={'Recess Logo'} fluid /></a>
@@ -155,6 +168,7 @@ class CreateAccount extends Component {
                     value={this.state.firstName}
                     onChange={this.changefirstName}
                     style={{ height: 64 }}
+                    required
                   />
                 </Form.Group>
               </Col>
@@ -168,6 +182,7 @@ class CreateAccount extends Component {
                     value={this.state.lastName}
                     onChange={this.changeLastName}
                     style={{ height: 64 }}
+                    required
                   />
                 </Form.Group>
               </Col>
@@ -182,6 +197,7 @@ class CreateAccount extends Component {
                     value={this.state.email}
                     onChange={this.changeEmail}
                     style={{ height: 64 }}
+                    required
                   />
                 </Form.Group>
               </Col>
@@ -210,6 +226,7 @@ class CreateAccount extends Component {
                     onChange={this.changeBirthday}
                     placeholder="Date of Birth"
                     style={{ height: 64 }}
+                    required
                   />
                 </Form.Group>
               </Col>
@@ -223,6 +240,7 @@ class CreateAccount extends Component {
                     value={this.state.password}
                     onChange={this.changePassword}
                     style={{ height: 64 }}
+                    required
                   />
                 </Form.Group>
               </Col>
@@ -236,10 +254,11 @@ class CreateAccount extends Component {
                     value={this.state.role}
                     onChange={this.changeRole}
                     style={{ height: 64 }}
+                    required
                   >
-                    <option value="Teacher">Teacher</option>
+                    <option value="Role" hidden={this.state.role !== ""}>Role:</option>
                     <option value="Student">Student</option>
-                    <option value="Parent">Parent</option>
+                    <option value="Teacher">Teacher</option>
                   </Form.Control>
                 </Form.Group>
               </Col>
@@ -248,10 +267,10 @@ class CreateAccount extends Component {
               </Col>
               <Col md={3} xs={6}>
                 <Form.Group controlId="pictureFormGroup">
-                  <Button onClick={this.onButtonClicked}>
+                  <Button onClick={this.onButtonClicked} variant="light" className="ChooseFileButton_CA">
                     <Form.Control
                       name="profilePicture"
-                      className="fileInput"
+                      className="chooseFileButton_Login"
                       ref={this.hiddenFileInput}
                       id="file"
                       type="file"
@@ -267,7 +286,7 @@ class CreateAccount extends Component {
             <br />
             <Row className="justify-content-md-center">
               <Col>
-                <input className="Submit_CA " type="submit" value="" />
+                <Button variant="light" className="CreateAccountButton_CA" onClick={this.createAccount}>Create Account</Button>
               </Col>
             </Row>
           </Form>
