@@ -238,9 +238,8 @@ class CreateAccount extends Component {
                     style={{ height: 64 }}
                   >
                     <option value="Role" hidden={this.state.role !== ""}>Role:</option>
-                    <option value="Teacher">Teacher</option>
                     <option value="Student">Student</option>
-                    <option value="Parent">Parent</option>
+                    <option value="Teacher">Teacher</option>
                   </Form.Control>
                 </Form.Group>
               </Col>
