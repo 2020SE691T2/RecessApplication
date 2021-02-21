@@ -76,6 +76,10 @@ class Roster extends Component {
 
   }
 
+  componentDidMount() {
+    this.populatePageTitle_roster();
+  }
+
   populatePageTitle_roster() {
     var url = this.env.getRootUrl() + "/users/" + sessionStorage.getItem("email");
     fetch(url, {
@@ -88,10 +92,10 @@ class Roster extends Component {
       .then((results) => {
         if (RefreshToken(results)) {
           if (results.preferred_name === "") {
-            document.getElementById("pageTitle_roster").innerText = results.first_name + "'s Class Roster";
+            document.getElementById("pageTitle_roster").innerHTML = results.first_name + "'s Class Roster";
           }
           else {
-            document.getElementById("pageTitle_roster").innerText = results.preferred_name + "'s Class Roster";
+            document.getElementById("pageTitle_roster").innerHTML = results.preferred_name + "'s Class Roster";
           }
         }
         else {
@@ -113,7 +117,7 @@ class Roster extends Component {
           <Row className="justify-content-md-center">
             <Col>
               <br />
-              <h2 id="pageTitle_roster"> Mrs. Prayer's Class Roster</h2>
+              <h2 id="pageTitle_roster"></h2>
             </Col>
           </Row>
           <br />
