@@ -39,26 +39,3 @@
   border: 1px black solid;
   opacity: 0.8;
 }
-
-input[type="text"] {
-  background-color: #dedee6;
-  border: 0px;
-}
-
-.xButton {
-  width: 30px;
-}
-
-.txtInputButton {
-  margin-right: 270px;
-  margin-left: 200px;
-}
-
-.inputBox {
-  text-align: center;
-}
-
-.flex {
-  display: flex;
-  flex-direction: row;
-}

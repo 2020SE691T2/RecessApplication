@@ -20,7 +20,7 @@ class RosterEntry extends Component {
     render() {
         return (
             <div className="txtInputButton flex" id={"rosterEntry" + this.props.name}>
-                <p className="form-control form-control-sm inputBox" type="text" id={this.props.name} disabled />
+                <p className="inputBox" type="text" id={this.props.name} disabled />
                 <button type="button" className="btn"><Image className="xButton" src="./x.png" onClick={this.xButtonClicked} /></button>
             </div >
         );

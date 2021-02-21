@@ -1,5 +1,22 @@
-.event {
-    border-radius: 10px;
-    margin: 10px;
-    background-color: white;
-  }
+.inputBox {
+  text-align: center;
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+}
+
+.xButton {
+  width: 30px;
+}
+
+.txtInputButton {
+  margin-right: 270px;
+  margin-left: 200px;
+}
+
+input[type="text"] {
+  background-color: #dedee6;
+  border: 0px;
+}
