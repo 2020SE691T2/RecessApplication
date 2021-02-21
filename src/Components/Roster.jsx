@@ -112,12 +112,14 @@ class Roster extends Component {
     console.log(e);
     this.teachers.push(e);
     console.log(this.teachers);
+    this.forceUpdate();
   }
 
   handleStudentDropdownSelection(e) {
     console.log(e);
     this.students.push(e);
-    console.log(this.students)
+    console.log(this.students);
+    this.forceUpdate();
   }
 
 
@@ -158,7 +160,11 @@ class Roster extends Component {
             </Col>
             <Col>
               <Form id="teacherListForm">
-                <RosterEntry name="student" />
+                {
+                  this.teachers.map(email => (           
+                    <RosterEntry name={email} />
+                  ))
+                }
               </Form>
             </Col>
           </Row>
@@ -186,8 +192,11 @@ class Roster extends Component {
             </Col>
             <Col md={6}>
               <Form id="studentListForm">
-                <RosterEntry name="test1" />
-                <RosterEntry name="test2" />
+                {
+                  this.students.map(email => (           
+                    <RosterEntry name={email} />
+                  ))
+                }
               </Form>
             </Col>
           </Row>
