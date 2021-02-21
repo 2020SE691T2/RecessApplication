@@ -130,10 +130,7 @@ class Roster extends Component {
             </Col>
             <Col>
               <form>
-                <div className="txtInputButton flex">
-                  <input className="form-control form-control-sm inputBox" type="text" placeholder=""></input>
-                  <button type="button" class="btn"><Image className="xButton" src="./x.png" /></button>
-                </div>
+                <RosterEntry name="student" />
               </form>
             </Col>
           </Row>
