@@ -26,8 +26,8 @@ class LandingPage extends Component {
           <div className = "header_lp">
             <Row>
               <Col>
-                <h1 >Calendar Management Made Simple!</h1>
-                <h3 > <a href="#" className="subtitle">Click here to learn more!</a></h3>
+                <h1 >Academic Calendar Management Made Simple!</h1>
+                <h3 > <a href="/About" className="subtitle">Click here to learn more!</a></h3>
                 
               </Col>
             </Row>
@@ -38,25 +38,25 @@ class LandingPage extends Component {
           <div className="infoBox"> 
 
           <Row>
-            <Col md={3} className ="box1_lp">
+            <Col xs={6} md={3} className ="box1_lp">
               <Image className="imageIcons" src="/navigate.png"></Image>
               <h2>Easy Navigation for Students and Parents</h2>
             
             </Col>
 
-            <Col md={3} className ="box2_lp">
+            <Col xs={6} md={3} className ="box2_lp">
             <Image className="imageIcons" src="/sun1.png"></Image>
               <h2>Bright Colors to Capture Student's Attention</h2>
             
             </Col>
 
-            <Col md={3} className ="box3_lp">
+            <Col xs={6} md={3} className ="box3_lp">
             <Image className="imageIcons" src="/finger.png"></Image>
               <h2>Responsive Interface for Young Learners</h2>
             
             </Col>
 
-            <Col md={3}className ="box4_lp">
+            <Col xs={6} md={3}className ="box4_lp">
             <Image className="imageIcons" src="/roster.png"></Image>
               <h2>Easy Roster Management for Educators</h2>
             
@@ -66,6 +66,8 @@ class LandingPage extends Component {
           </Row>
 
           </div>
+
+          <br/>
 
     
 
@@ -89,25 +91,49 @@ class LandingPage extends Component {
 
             <br/>
 
+            <div className ="content_right">
+
             <Row>
 
 
-            <Col>
+            <Col xs ={12} md={6}>
               
               <Image className="calImage" src="/Calendarss.png"></Image>
               
               </Col>
 
-              <Col>
-              <h3>
+              <Col xs ={12} md={6}>
+              <h4>
 
-                This user friendly calendar blah blah .
-              </h3>
+                This user user-friendly calendar allows educators to create Zoom integrated video meetings and calendar events for their students. The events 
+                are easily accesible by young learners and include bright colors for enhanced interactivity! 
+              </h4>
+              
+              </Col>
+            </Row>
+
+<br/>
+<br/>
+
+            <Row>
+
+
+            <Col xs ={12} md={6}>
+              
+              <Image className="calImage" src="/createEventSS.png"></Image>
+              
+              </Col>
+
+              <Col xs ={12} md={6}>
+              <h4>
+
+                Educators can create events seamlessly with the simple interface. Simply, input the requested information and the events are magicaclly created for both the educator and the young learners! 
+              </h4>
               
               </Col>
             </Row>
             
-            
+            </div>
 
 
           </div>
