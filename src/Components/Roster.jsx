@@ -3,6 +3,7 @@ import React, { Component, useState } from "react";
 import "./Roster.css";
 import Menubar from "./MenuBar"
 import Environment from "./Environment";
+import RosterEntry from "./RosterEntry";
 
 // Bootstrap Components
 import Container from 'react-bootstrap/Container';
@@ -14,8 +15,6 @@ import RefreshToken from "../RefreshToken"
 import { Dropdown } from "react-bootstrap";
 import FormControl from 'react-bootstrap/FormControl'
 import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import Image from 'react-bootstrap/Image';
 
 // The forwardRef is important!!
 // Dropdown needs access to the DOM node in order to position the Menu
@@ -117,8 +116,8 @@ class Roster extends Component {
               <h2 id="pageTitle_roster"> Mrs. Prayer's Class Roster</h2>
             </Col>
           </Row>
-         <br />
-         <br />
+          <br />
+          <br />
           <Row>
             <Col>
               <h4 className="addTeacherHeading"> Add Teacher(s)</h4>
@@ -129,7 +128,7 @@ class Roster extends Component {
           </Row>
           <Row>
             <Col >
-              <Dropdown className = "teacherMenu"> 
+              <Dropdown className="teacherMenu">
                 <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
                   Co-Teacher's Name(s)
                 </Dropdown.Toggle>
@@ -143,10 +142,7 @@ class Roster extends Component {
             </Col>
             <Col>
               <Form>
-                <div className= "txtInputButton flex"> 
-                  <Form.Control className="form-control form-control-sm inputBox" type="text" placeholder=""></Form.Control>
-                  <Button type="button" className="btn"><Image className ="xButton" src="./x.png"/></Button>
-                </div>
+                <RosterEntry name="student" />
               </Form>
             </Col>
           </Row>
@@ -160,11 +156,11 @@ class Roster extends Component {
           </Row>
           <Row>
             <Col >
-              <Dropdown className = "studentMenu"> 
+              <Dropdown className="studentMenu">
                 <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
                   Student's Name(s)
                 </Dropdown.Toggle>
-                <Dropdown.Menu  as={CustomMenu}>
+                <Dropdown.Menu as={CustomMenu}>
                   <Dropdown.Item eventKey="0">Jenny Jones</Dropdown.Item>
                   <Dropdown.Item eventKey="1">Jerry Springer</Dropdown.Item>
                   <Dropdown.Item eventKey="2">Oprah Winfrey</Dropdown.Item>
@@ -174,12 +170,10 @@ class Roster extends Component {
             </Col>
             <Col md={6}>
               <Form>
-                <div className= "txtInputButton flex">
-                  <Form.Control className="form-control form-control-sm inputBox" type="text" placeholder=""></Form.Control>
-                  <Button type="button" className="btn"><Image className ="xButton" src="./x.png"/></Button>
-                </div>      
+                <RosterEntry name="test1" />
+                <RosterEntry name="test2" />
               </Form>
-            </Col>  
+            </Col>
           </Row>
         </Container>
       </div>
