@@ -1,5 +1,5 @@
 
-import React, { Component, useEffect, useState } from "react";
+import React, { Component, useState } from "react";
 import "./Roster.css";
 import Menubar from "./MenuBar"
 import Environment from "./Environment";
@@ -11,16 +11,17 @@ import Col from 'react-bootstrap/Col';
 import { toastr } from 'react-redux-toastr'
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 import RefreshToken from "../RefreshToken"
-import { Dropdown, MenuItem, DropdownButton } from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 import FormControl from 'react-bootstrap/FormControl'
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 import Image from 'react-bootstrap/Image';
 
 // The forwardRef is important!!
 // Dropdown needs access to the DOM node in order to position the Menu
 const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
   <a
-    href=""
+    href="."
     ref={ref}
     onClick={(e) => {
       e.preventDefault();
@@ -67,6 +68,15 @@ const CustomMenu = React.forwardRef(
 
 class Roster extends Component {
 
+  env;
+  constructor() {
+    super();
+    this.handleTeacherDropdownSelection = this.handleTeacherDropdownSelection.bind(this);
+
+    this.env = new Environment();
+
+  }
+
   populatePageTitle_roster() {
     var url = this.env.getRootUrl() + "/users/" + sessionStorage.getItem("email");
     fetch(url, {
@@ -89,6 +99,10 @@ class Roster extends Component {
           toastr.error('Error', "Failed to get profile.\nPlease log in again.")
         }
       });
+  }
+
+  handleTeacherDropdownSelection(e) {
+    console.log(e);
   }
 
 
@@ -119,7 +133,7 @@ class Roster extends Component {
                 <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
                   Co-Teacher's Name(s)
                 </Dropdown.Toggle>
-                <Dropdown.Menu as={CustomMenu}>
+                <Dropdown.Menu as={CustomMenu} onSelect={this.handleTeacherDropdownSelection}>
                   <Dropdown.Item eventKey="0">Megatron Jones</Dropdown.Item>
                   <Dropdown.Item eventKey="1">Boris Kudjoe</Dropdown.Item>
                   <Dropdown.Item eventKey="2">Boris Valley</Dropdown.Item>
@@ -128,12 +142,12 @@ class Roster extends Component {
               </Dropdown>
             </Col>
             <Col>
-              <form>
+              <Form>
                 <div className= "txtInputButton flex"> 
-                  <input  className="form-control form-control-sm inputBox" type="text" placeholder=""></input>
-                  <button type="button" class="btn"><Image className ="xButton" src="./x.png"/></button>
+                  <Form.Control className="form-control form-control-sm inputBox" type="text" placeholder=""></Form.Control>
+                  <Button type="button" className="btn"><Image className ="xButton" src="./x.png"/></Button>
                 </div>
-              </form>
+              </Form>
             </Col>
           </Row>
           <Row>
@@ -159,12 +173,12 @@ class Roster extends Component {
               </Dropdown>
             </Col>
             <Col md={6}>
-              <form>
+              <Form>
                 <div className= "txtInputButton flex">
-                  <input  className="form-control form-control-sm inputBox" type="text" placeholder=""></input>
-                  <button type="button" class="btn"><Image className ="xButton" src="./x.png"/></button>
+                  <Form.Control className="form-control form-control-sm inputBox" type="text" placeholder=""></Form.Control>
+                  <Button type="button" className="btn"><Image className ="xButton" src="./x.png"/></Button>
                 </div>      
-              </form>
+              </Form>
             </Col>  
           </Row>
         </Container>
