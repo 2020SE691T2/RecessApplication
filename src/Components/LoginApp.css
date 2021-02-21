@@ -76,22 +76,21 @@
   border: 1px solid #bdbdbd;
   border-radius: 5px;
   box-shadow: 10px 5px 10px black;
-  font-size: 36px;
+  font-size: 28px !important;
   font-family: Chalkduster, sans-serif;
   font-weight: bold;
   color: black;
 }
 
 .forgotPassword {
-  color: white;
+  color: white !important;
   text-shadow: 1px 2px black;
-  font-size: 36px;
+  font-size: 28px !important;
   font-family: Chalkduster, sans-serif;
   font-weight: bold;
 }
 
 .Submit_Login {
-  color:#ffffff;
- 	font-size:64px;
+  font-size: 28px !important;
   font-family: Chalkduster, sans-serif;
 }

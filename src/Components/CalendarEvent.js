@@ -16,8 +16,7 @@ class CalendarEvent extends Component {
         var hours = parseInt(unformattedTime.substring(0, 2));
         var timeOfDay = selectAMPM(hours);
         hours = hourAdjust(hours);
-        var formattedTime = hours.toString() + unformattedTime.substring(2) + timeOfDay;
-        return formattedTime;
+        return hours.toString() + unformattedTime.substring(2) + timeOfDay;
     }
     
     componentDidMount() {
