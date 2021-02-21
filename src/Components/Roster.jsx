@@ -68,9 +68,13 @@ const CustomMenu = React.forwardRef(
 class Roster extends Component {
 
   env;
+  teachers = [];
+  students = [];
   constructor() {
     super();
     this.handleTeacherDropdownSelection = this.handleTeacherDropdownSelection.bind(this);
+    this.handleStudentDropdownSelection = this.handleStudentDropdownSelection.bind(this);
+
 
     this.env = new Environment();
 
@@ -102,7 +106,15 @@ class Roster extends Component {
 
   handleTeacherDropdownSelection(e) {
     console.log(e);
+    this.teachers.push(e);
+    console.log(this.teachers);
   }
+
+  handleStudentDropdownSelection(e) {
+    console.log(e);
+    this.students.push(e);
+    console.log(this.students)
+  }  
 
 
   render() {
@@ -128,11 +140,11 @@ class Roster extends Component {
           </Row>
           <Row>
             <Col >
-              <Dropdown className="teacherMenu">
+              <Dropdown className="teacherMenu" onSelect={this.handleTeacherDropdownSelection}>
                 <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
                   Co-Teacher's Name(s)
                 </Dropdown.Toggle>
-                <Dropdown.Menu as={CustomMenu} onSelect={this.handleTeacherDropdownSelection}>
+                <Dropdown.Menu as={CustomMenu}>
                   <Dropdown.Item eventKey="0">Megatron Jones</Dropdown.Item>
                   <Dropdown.Item eventKey="1">Boris Kudjoe</Dropdown.Item>
                   <Dropdown.Item eventKey="2">Boris Valley</Dropdown.Item>
@@ -156,12 +168,12 @@ class Roster extends Component {
           </Row>
           <Row>
             <Col >
-              <Dropdown className="studentMenu">
+              <Dropdown className="studentMenu" onSelect={this.handleStudentDropdownSelection}>
                 <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
                   Student's Name(s)
                 </Dropdown.Toggle>
                 <Dropdown.Menu as={CustomMenu}>
-                  <Dropdown.Item eventKey="0">Jenny Jones</Dropdown.Item>
+                  <Dropdown.Item eventKey="test@email.com">Jenny Jones</Dropdown.Item>
                   <Dropdown.Item eventKey="1">Jerry Springer</Dropdown.Item>
                   <Dropdown.Item eventKey="2">Oprah Winfrey</Dropdown.Item>
                   <Dropdown.Item eventKey="3">Tiny Tim</Dropdown.Item>
