@@ -117,7 +117,7 @@ class Roster extends Component {
           <Row className="justify-content-md-center">
             <Col>
               <br />
-              <h2 id="pageTitle_roster"></h2>
+              <h2 id="pageTitle_roster"> </h2>
             </Col>
           </Row>
           <br />
