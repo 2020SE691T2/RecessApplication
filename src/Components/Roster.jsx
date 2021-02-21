@@ -157,7 +157,7 @@ class Roster extends Component {
               </Dropdown>
             </Col>
             <Col>
-              <Form>
+              <Form id="teacherListForm">
                 <RosterEntry name="student" />
               </Form>
             </Col>
@@ -185,7 +185,7 @@ class Roster extends Component {
               </Dropdown>
             </Col>
             <Col md={6}>
-              <Form>
+              <Form id="studentListForm">
                 <RosterEntry name="test1" />
                 <RosterEntry name="test2" />
               </Form>
