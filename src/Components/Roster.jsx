@@ -63,8 +63,6 @@ const CustomMenu = React.forwardRef(
   },
 );
 
-
-
 class Roster extends Component {
 
   env;
@@ -122,7 +120,6 @@ class Roster extends Component {
     this.forceUpdate();
   }
 
-
   render() {
     return (
       <div >
@@ -161,7 +158,7 @@ class Roster extends Component {
             <Col>
               <Form id="teacherListForm">
                 {
-                  this.teachers.map(email => (           
+                  this.teachers.map(email => (
                     <RosterEntry name={email} />
                   ))
                 }
@@ -193,7 +190,7 @@ class Roster extends Component {
             <Col md={6}>
               <Form id="studentListForm">
                 {
-                  this.students.map(email => (           
+                  this.students.map(email => (
                     <RosterEntry name={email} />
                   ))
                 }
