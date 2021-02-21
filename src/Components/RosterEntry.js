@@ -10,7 +10,8 @@ class RosterEntry extends Component {
     }
 
     xButtonClicked() {
-        document.getElementById("rosterEntry").remove();
+        var id = "rosterEntry" + this.props.name;
+        document.getElementById(id).remove();
     }
 
     componentDidMount() {
@@ -18,10 +19,10 @@ class RosterEntry extends Component {
     }
     render() {
         return (
-            <div className="txtInputButton flex" id="rosterEntry">
+            <div className="txtInputButton flex" id={"rosterEntry" + this.props.name}>
                 <p className="form-control form-control-sm inputBox" type="text" id={this.props.name} disabled />
                 <button type="button" class="btn"><Image className="xButton" src="./x.png" onClick={this.xButtonClicked} /></button>
-            </div>
+            </div >
         );
     }
 }
