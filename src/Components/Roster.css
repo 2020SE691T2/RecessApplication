@@ -42,7 +42,7 @@
 
 input[type="text"] {
   background-color: #dedee6;
-  border: 1px black solid;
+  border: 0px;
 }
 
 .xButton {
