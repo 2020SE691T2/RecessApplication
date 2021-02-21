@@ -256,7 +256,7 @@ class CreateAccount extends Component {
               </Col>
               <Col md={3} xs={6}>
                 <Form.Group controlId="pictureFormGroup">
-                  <Button onClick={this.onButtonClicked} variant="light" className="Button_CA">
+                  <Button onClick={this.onButtonClicked} variant="light" className="ChooseFileButton_CA">
                     <Form.Control
                       name="profilePicture"
                       className="chooseFileButton_Login"
@@ -274,7 +274,7 @@ class CreateAccount extends Component {
             </Row>
             <br />
             <Row className="justify-content-md-center">
-              <Button variant="light" className="Button_CA" onClick={this.createAccount}>Create Account</Button>
+              <Button variant="light" className="CreateAccountButton_CA" onClick={this.createAccount}>Create Account</Button>
             </Row>
           </Form>
         </Container>

@@ -64,7 +64,12 @@
   font-family: Chalkduster, sans-serif;
 }
 
-.Button_CA {
+.CreateAccountButton_CA {
   font-size: 28px !important;
+  font-family: Chalkduster, sans-serif;
+}
+
+.ChooseFileButton_CA {
+  font-size: 14px !important;
   font-family: Chalkduster, sans-serif;
 }
