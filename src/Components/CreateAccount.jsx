@@ -37,10 +37,11 @@ class CreateAccount extends Component {
     this.changeEmail = this.changeEmail.bind(this);
     this.changeBirthday = this.changeBirthday.bind(this);
     this.changePassword = this.changePassword.bind(this);
-    this.creatAccount = this.creatAccount.bind(this);
+    this.createAccount = this.createAccount.bind(this);
     this.changeRole = this.changeRole.bind(this);
     this.changeProfilePicture = this.changeProfilePicture.bind(this);
     this.onButtonClicked = this.onButtonClicked.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
     this.env = new Environment();
   }
 
@@ -87,7 +88,14 @@ class CreateAccount extends Component {
     this.hiddenFileInput.current.click();
   }
 
-  creatAccount(event) {
+  handleKeyPress(event) {
+    //13 is the char code for enter
+    if (event.charCode === 13) {
+      this.createAccount(event);
+    }
+  }
+
+  createAccount(event) {
     event.preventDefault();
     if (this.state.role === "") {
       toastr.error('Error', "You must select a role to create an account.");
@@ -138,7 +146,7 @@ class CreateAccount extends Component {
       <div>
         <Menubar />
         <Container className="background_CA" fluid>
-          <Form onSubmit={this.creatAccount}>
+          <Form onSubmit={this.createAccount} onKeyPress={this.handleKeyPress}>
             <Row className="justify-content-md-center">
               <Col md={6} xs={12}>
                 <a href="/"> <Image src="./Recess_logo.png" alt={'Recess Logo'} fluid /></a>
@@ -259,7 +267,7 @@ class CreateAccount extends Component {
               </Col>
               <Col md={3} xs={6}>
                 <Form.Group controlId="pictureFormGroup">
-                  <Button onClick={this.onButtonClicked}>
+                  <Button onClick={this.onButtonClicked} variant="light" className="ChooseFileButton_CA">
                     <Form.Control
                       name="profilePicture"
                       className="chooseFileButton_Login"
@@ -278,7 +286,7 @@ class CreateAccount extends Component {
             <br />
             <Row className="justify-content-md-center">
               <Col>
-                <input className="Submit_CA " type="submit" value="" />
+                <Button variant="light" className="CreateAccountButton_CA" onClick={this.createAccount}>Create Account</Button>
               </Col>
             </Row>
           </Form>

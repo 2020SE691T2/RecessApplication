@@ -64,16 +64,12 @@
   font-family: Chalkduster, sans-serif;
 }
 
-.Submit_CA {
-  display: inline-block;
-  width: 56%;
-  height: 63px;
-  border: 1px solid #bdbdbd;
-  border-radius: 5px;
-  box-shadow: 10px 5px 10px black;
-  background-image: url(/createaccountbutton.jpg);
-  background-position: 0px;
-  background-size: 100%;
-  background-color: #828481;
-  background-repeat: no-repeat;
+.CreateAccountButton_CA {
+  font-size: 28px !important;
+  font-family: Chalkduster, sans-serif;
+}
+
+.ChooseFileButton_CA {
+  font-size: 14px !important;
+  font-family: Chalkduster, sans-serif;
 }
