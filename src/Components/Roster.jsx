@@ -142,12 +142,22 @@ class Roster extends Component {
                   <Dropdown.Item eventKey="2">Boris Valley</Dropdown.Item>
                   <Dropdown.Item eventKey="3">Tommy Pickles</Dropdown.Item>
                 </Dropdown.Menu>
-              </Dropdown>,
+              </Dropdown>
 
                 </Col>
 
                 <Col>
                 <form>
+
+                <div className= "txtInputButton flex"> 
+               
+                
+               <input  className="form-control form-control-sm inputBox" type="text" placeholder=""></input>
+              
+      
+               <button type="button" class="btn"><Image className ="xButton" src="./x.png"/></button>
+              
+               </div>
 
   </form>
                 
@@ -185,7 +195,7 @@ class Roster extends Component {
                   <Dropdown.Item eventKey="2">Oprah Winfrey</Dropdown.Item>
                   <Dropdown.Item eventKey="3">Tiny Tim</Dropdown.Item>
                 </Dropdown.Menu>
-              </Dropdown>,
+              </Dropdown>
 
                 </Col>
 
