@@ -89,35 +89,40 @@ class CreateAccount extends Component {
 
   creatAccount(event) {
     event.preventDefault();
-    var json = JSON.stringify({
-      "email_address": this.state.email,
-      "first_name": this.state.firstName,
-      "last_name": this.state.lastName,
-      "preferred_name": this.state.preferredName,
-      "password": this.state.password,
-      "physical_id_num": "1",
-      "dob": this.state.birthday,
-      "role": this.state.role,
-      "photo": this.state.profilePicture,
-      "is_staff": false,
-      "is_superuser": false
-    });
-    fetch(this.env.getRootUrl() + "/api-auth/register/", {
-      method: "POST",
-      body: json,
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }).then((resp) => {
-      if (resp.status === 200) {
-        resp.json().then((results) => {
-          StoreSessionKeys(this, results, "Failed to create account.", '/Profile');
-        });
-      }
-      else {
-        toastr.error('Error', "Failed to create account.\nPlease enter all information.")
-      }
-    });
+    if (this.state.role === "") {
+      toastr.error('Error', "You must select a role to create an account.");
+    }
+    else {
+      var json = JSON.stringify({
+        "email_address": this.state.email,
+        "first_name": this.state.firstName,
+        "last_name": this.state.lastName,
+        "preferred_name": this.state.preferredName,
+        "password": this.state.password,
+        "physical_id_num": "1",
+        "dob": this.state.birthday,
+        "role": this.state.role,
+        "photo": this.state.profilePicture,
+        "is_staff": false,
+        "is_superuser": false
+      });
+      fetch(this.env.getRootUrl() + "/api-auth/register/", {
+        method: "POST",
+        body: json,
+        headers: {
+          "Content-Type": "application/json"
+        }
+      }).then((resp) => {
+        if (resp.status === 200) {
+          resp.json().then((results) => {
+            StoreSessionKeys(this, results, "Failed to create account.", '/Profile');
+          });
+        }
+        else {
+          toastr.error('Error', "Failed to create account.\nPlease enter all information.")
+        }
+      });
+    }
   }
 
   componentDidMount() {
@@ -155,6 +160,7 @@ class CreateAccount extends Component {
                     value={this.state.firstName}
                     onChange={this.changefirstName}
                     style={{ height: 64 }}
+                    required
                   />
                 </Form.Group>
               </Col>
@@ -168,6 +174,7 @@ class CreateAccount extends Component {
                     value={this.state.lastName}
                     onChange={this.changeLastName}
                     style={{ height: 64 }}
+                    required
                   />
                 </Form.Group>
               </Col>
@@ -182,6 +189,7 @@ class CreateAccount extends Component {
                     value={this.state.email}
                     onChange={this.changeEmail}
                     style={{ height: 64 }}
+                    required
                   />
                 </Form.Group>
               </Col>
@@ -210,6 +218,7 @@ class CreateAccount extends Component {
                     onChange={this.changeBirthday}
                     placeholder="Date of Birth"
                     style={{ height: 64 }}
+                    required
                   />
                 </Form.Group>
               </Col>
@@ -223,6 +232,7 @@ class CreateAccount extends Component {
                     value={this.state.password}
                     onChange={this.changePassword}
                     style={{ height: 64 }}
+                    required
                   />
                 </Form.Group>
               </Col>
@@ -236,6 +246,7 @@ class CreateAccount extends Component {
                     value={this.state.role}
                     onChange={this.changeRole}
                     style={{ height: 64 }}
+                    required
                   >
                     <option value="Role" hidden={this.state.role !== ""}>Role:</option>
                     <option value="Student">Student</option>
