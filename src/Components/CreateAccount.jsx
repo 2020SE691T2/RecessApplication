@@ -274,7 +274,9 @@ class CreateAccount extends Component {
             </Row>
             <br />
             <Row className="justify-content-md-center">
-              <Button variant="light" className="CreateAccountButton_CA" onClick={this.createAccount}>Create Account</Button>
+              <Col>
+                <Button variant="light" className="CreateAccountButton_CA" onClick={this.createAccount}>Create Account</Button>
+              </Col>
             </Row>
           </Form>
         </Container>
