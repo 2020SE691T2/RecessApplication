@@ -118,7 +118,7 @@ class Roster extends Component {
     console.log(e);
     this.students.push(e);
     console.log(this.students)
-  }  
+  }
 
 
   render() {
@@ -134,7 +134,7 @@ class Roster extends Component {
           </Row>
           <br />
           <br />
-          <Row>
+          <Row className="justify-content-md-center">
             <Col>
               <h4 className="addTeacherHeading"> Add Teacher(s)</h4>
             </Col>
@@ -142,7 +142,7 @@ class Roster extends Component {
               <h4 className="teacherField">Teacher</h4>
             </Col>
           </Row>
-          <Row>
+          <Row className="justify-content-md-center">
             <Col >
               <Dropdown className="teacherMenu" onSelect={this.handleTeacherDropdownSelection}>
                 <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
@@ -162,7 +162,7 @@ class Roster extends Component {
               </Form>
             </Col>
           </Row>
-          <Row>
+          <Row className="justify-content-md-center">
             <Col>
               <h4 className="addStudentHeading"> Add Student(s)</h4>
             </Col>
@@ -170,7 +170,7 @@ class Roster extends Component {
               <h4 className="studentField">Student</h4>
             </Col>
           </Row>
-          <Row>
+          <Row className="justify-content-md-center">
             <Col >
               <Dropdown className="studentMenu" onSelect={this.handleStudentDropdownSelection}>
                 <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
