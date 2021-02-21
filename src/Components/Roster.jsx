@@ -4,7 +4,6 @@ import "./Roster.css";
 import Menubar from "./MenuBar"
 import Environment from "./Environment";
 
-
 // Bootstrap Components
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -38,8 +37,6 @@ const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
 const CustomMenu = React.forwardRef(
   ({ children, style, className, 'aria-labelledby': labeledBy }, ref) => {
     const [value, setValue] = useState('');
-
-  
 
     return (
       <div
@@ -80,7 +77,6 @@ class Roster extends Component {
     })
       .then((resp) => resp.json())
       .then((results) => {
-
         if (RefreshToken(results)) {
           if (results.preferred_name === "") {
             document.getElementById("pageTitle_roster").innerText = results.first_name + "'s Class Roster";
@@ -101,41 +97,28 @@ class Roster extends Component {
       <div >
         <Menubar />
         <Container className="background_roster" fluid>
-
-
           <Row className="justify-content-md-center">
             <Col>
               <br />
               <h2 id="pageTitle_roster"> Mrs. Prayer's Class Roster</h2>
             </Col>
           </Row>
-
          <br />
          <br />
-
           <Row>
             <Col>
               <h4 className="addTeacherHeading"> Add Teacher(s)</h4>
-
             </Col>
             <Col>
-                
-                <h4 className="teacherField">Teacher</h4>
-                 
-                 
-                 
-                 </Col>
-
+              <h4 className="teacherField">Teacher</h4>
+            </Col>
           </Row>
-
           <Row>
-
             <Col >
               <Dropdown className = "teacherMenu"> 
                 <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
                   Co-Teacher's Name(s)
-    </Dropdown.Toggle>
-
+                </Dropdown.Toggle>
                 <Dropdown.Menu as={CustomMenu}>
                   <Dropdown.Item eventKey="0">Megatron Jones</Dropdown.Item>
                   <Dropdown.Item eventKey="1">Boris Kudjoe</Dropdown.Item>
@@ -143,52 +126,30 @@ class Roster extends Component {
                   <Dropdown.Item eventKey="3">Tommy Pickles</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-
-                </Col>
-
-                <Col>
-                <form>
-
+            </Col>
+            <Col>
+              <form>
                 <div className= "txtInputButton flex"> 
-               
-                
-               <input  className="form-control form-control-sm inputBox" type="text" placeholder=""></input>
-              
-      
-               <button type="button" class="btn"><Image className ="xButton" src="./x.png"/></button>
-              
-               </div>
-
-  </form>
-                
-                </Col>
-
-                
+                  <input  className="form-control form-control-sm inputBox" type="text" placeholder=""></input>
+                  <button type="button" class="btn"><Image className ="xButton" src="./x.png"/></button>
+                </div>
+              </form>
+            </Col>
           </Row>
-
           <Row>
             <Col>
               <h4 className="addStudentHeading"> Add Student(s)</h4>
-
             </Col>
             <Col>
-                
-                <h4 className="studentField">Student</h4>
-                 
-                 
-                 
-                 </Col>
-
+              <h4 className="studentField">Student</h4>
+            </Col>
           </Row>
-
           <Row>
-
             <Col >
               <Dropdown className = "studentMenu"> 
                 <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
                   Student's Name(s)
-    </Dropdown.Toggle>
-
+                </Dropdown.Toggle>
                 <Dropdown.Menu  as={CustomMenu}>
                   <Dropdown.Item eventKey="0">Jenny Jones</Dropdown.Item>
                   <Dropdown.Item eventKey="1">Jerry Springer</Dropdown.Item>
@@ -196,34 +157,16 @@ class Roster extends Component {
                   <Dropdown.Item eventKey="3">Tiny Tim</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-
-                </Col>
-
-
-
-                <Col md={6}>
-                
-                <form>
-
-               <div className= "txtInputButton flex"> 
-               
-                
-               <input  className="form-control form-control-sm inputBox" type="text" placeholder=""></input>
-              
-      
-               <button type="button" class="btn"><Image className ="xButton" src="./x.png"/></button>
-              
-               </div>
-               
-                
-  </form>
-   
-                </Col>
-
-                
+            </Col>
+            <Col md={6}>
+              <form>
+                <div className= "txtInputButton flex">
+                  <input  className="form-control form-control-sm inputBox" type="text" placeholder=""></input>
+                  <button type="button" class="btn"><Image className ="xButton" src="./x.png"/></button>
+                </div>      
+              </form>
+            </Col>  
           </Row>
-
-
         </Container>
       </div>
     );
