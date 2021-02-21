@@ -21,7 +21,9 @@ class RosterEntry extends Component {
         return (
             <div className="txtInputButton flex" id={"rosterEntry" + this.props.name}>
                 <p className="inputBox" type="text" id={this.props.name} disabled />
-                <button type="button" className="btn"><Image className="xButton" src="./x.png" onClick={this.xButtonClicked} /></button>
+                <button type="button" className="btn">
+                    <Image className="xButton" src="./x.png" onClick={this.xButtonClicked} />
+                </button>
             </div >
         );
     }
