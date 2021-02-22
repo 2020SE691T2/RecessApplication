@@ -63,16 +63,20 @@ const CustomMenu = React.forwardRef(
   },
 );
 
+
+
 class Roster extends Component {
 
   env;
   teachers = [];
   students = [];
+  eligibleTeachers = {};
+  eligibleStudents = {};
   constructor() {
     super();
     this.handleTeacherDropdownSelection = this.handleTeacherDropdownSelection.bind(this);
     this.handleStudentDropdownSelection = this.handleStudentDropdownSelection.bind(this);
-
+    this.loadEligibleParticipants = this.loadEligibleParticipants.bind(this);
 
     this.env = new Environment();
 
@@ -80,6 +84,33 @@ class Roster extends Component {
 
   componentDidMount() {
     this.populatePageTitle_roster();
+    this.loadEligibleParticipants();
+  }
+
+  loadEligibleParticipants() {
+    var url = this.env.getRootUrl() + "/api/participants";
+    fetch(url, {
+      method: "GET",
+      headers: new Headers({
+        'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+      })
+    })
+      .then((resp) => resp.json())
+      .then((results) => {
+        if (RefreshToken(results)) {
+          var participants = JSON.parse(results.data);
+          participants.students.forEach(student => {
+            this.eligibleStudents[student.emailaddress] = student;
+          });
+          participants.teachers.forEach(teacher => {
+            this.eligibleTeachers[teacher.emailaddress] = teacher;
+          })
+        }
+        else {
+          toastr.error('Error', "Failed to get profile.\nPlease log in again.")
+        }
+        this.forceUpdate();
+      });
   }
 
   populatePageTitle_roster() {
@@ -107,18 +138,24 @@ class Roster extends Component {
   }
 
   handleTeacherDropdownSelection(e) {
-    console.log(e);
-    this.teachers.push(e);
-    console.log(this.teachers);
+    this.eligibleTeachers[e]["Selected"] = true;
+    console.log(this.eligibleTeachers);
     this.forceUpdate();
   }
 
   handleStudentDropdownSelection(e) {
-    console.log(e);
-    this.students.push(e);
-    console.log(this.students);
+    this.eligibleStudents[e]["Selected"] = true;
+    console.log(this.eligibleStudents);
     this.forceUpdate();
   }
+
+  createDropdownItem(participant) {
+    var fullName = participant.firstname + " " + participant.lastname;
+    return (
+      <Dropdown.Item eventKey={participant.emailaddress}>{fullName}</Dropdown.Item>
+    )
+  }
+
 
   render() {
     return (
@@ -148,17 +185,19 @@ class Roster extends Component {
                   Co-Teacher's Name(s)
                 </Dropdown.Toggle>
                 <Dropdown.Menu as={CustomMenu}>
-                  <Dropdown.Item eventKey="0">Megatron Jones</Dropdown.Item>
-                  <Dropdown.Item eventKey="1">Boris Kudjoe</Dropdown.Item>
-                  <Dropdown.Item eventKey="2">Boris Valley</Dropdown.Item>
-                  <Dropdown.Item eventKey="3">Tommy Pickles</Dropdown.Item>
+                  {
+                    Object.keys(this.eligibleTeachers).map(teacher => {
+                      var participant = this.eligibleTeachers[teacher];
+                      return this.createDropdownItem(participant);
+                    })
+                  }
                 </Dropdown.Menu>
               </Dropdown>
             </Col>
             <Col>
               <Form id="teacherListForm">
                 {
-                  this.teachers.map(email => (
+                  this.teachers.map(email => (           
                     <RosterEntry name={email} />
                   ))
                 }
@@ -180,17 +219,19 @@ class Roster extends Component {
                   Student's Name(s)
                 </Dropdown.Toggle>
                 <Dropdown.Menu as={CustomMenu}>
-                  <Dropdown.Item eventKey="test@email.com">Jenny Jones</Dropdown.Item>
-                  <Dropdown.Item eventKey="1">Jerry Springer</Dropdown.Item>
-                  <Dropdown.Item eventKey="2">Oprah Winfrey</Dropdown.Item>
-                  <Dropdown.Item eventKey="3">Tiny Tim</Dropdown.Item>
+                {
+                    Object.keys(this.eligibleStudents).map(student => {
+                      var participant = this.eligibleStudents[student];
+                      return this.createDropdownItem(participant);
+                    })
+                  }
                 </Dropdown.Menu>
               </Dropdown>
             </Col>
             <Col md={6}>
               <Form id="studentListForm">
                 {
-                  this.students.map(email => (
+                  this.students.map(email => (           
                     <RosterEntry name={email} />
                   ))
                 }
