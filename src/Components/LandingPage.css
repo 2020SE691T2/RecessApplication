@@ -4,7 +4,7 @@
 }
 
 .background_LP {
-  background-image: url(/LandingBG.jpeg);
+  background-image: url(/landingBG.jpeg);
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
@@ -55,17 +55,14 @@
 
 .whiteSpace {
   background-color: white;
-
-  width: 100vw;
-  margin-left: -20px;
 }
 
 .offerText {
-  margin-top: 100px;
   font-family: Chalkduster, sans-serif;
+  background-color: white;
 }
 .calImage {
-  width: 500px;
+  width: 100%;
 }
 
 .content-right {
