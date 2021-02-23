@@ -201,7 +201,7 @@ class Roster extends Component {
           "email_address": email
         });
       }
-      return true;
+      return rosterJson;
     });
 
     // load students
@@ -213,7 +213,7 @@ class Roster extends Component {
           "email_address": email
         });
       }
-      return true;
+      return rosterJson;
     });
 
     this.submitRoster(JSON.stringify(rosterJson));
