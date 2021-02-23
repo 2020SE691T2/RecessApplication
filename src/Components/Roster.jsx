@@ -68,12 +68,16 @@ const CustomMenu = React.forwardRef(
 class Roster extends Component {
 
   env;
-  teachers = [];
-  students = [];
   eligibleTeachers = {};
   eligibleStudents = {};
   constructor() {
     super();
+
+    this.state = {
+      rosterName: ""
+    }
+
+
     this.handleTeacherDropdownSelection = this.handleTeacherDropdownSelection.bind(this);
     this.handleStudentDropdownSelection = this.handleStudentDropdownSelection.bind(this);
     this.loadEligibleParticipants = this.loadEligibleParticipants.bind(this);
@@ -81,6 +85,7 @@ class Roster extends Component {
     this.xButtonClicked = this.xButtonClicked.bind(this);
     this.prepareFinalRoster = this.prepareFinalRoster.bind(this);
     this.submitRoster = this.submitRoster.bind(this);
+    this.rosterNameChange = this.rosterNameChange.bind(this);
 
     this.env = new Environment();
 
@@ -185,10 +190,13 @@ class Roster extends Component {
     );
   }
 
+  rosterNameChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });  }
+
   prepareFinalRoster() {
     //prepare body
     var rosterJson = {
-      "roster_name": "Test Roster",
+      "roster_name": this.state.rosterName,
       "participants": []
     }
 
@@ -201,7 +209,6 @@ class Roster extends Component {
           "email_address": email
         });
       }
-      return rosterJson;
     });
 
     // load students
@@ -213,34 +220,37 @@ class Roster extends Component {
           "email_address": email
         });
       }
-      return rosterJson;
     });
 
     this.submitRoster(JSON.stringify(rosterJson));
   }
 
   submitRoster(rosterJson) {
-    console.log(rosterJson);
-    // fetch(this.env.getRootUrl() + "/roster", {
-    //   method: "POST",
-    //   body: rosterJson,
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //     'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
-    //   }
-    // }).then((resp) => resp.json())
-    //   .then((results) => {
-    //     if (RefreshToken(results)) {
-    //       toastr.success('Created Class Roster', "Created your roster. You must now associate it with a class when ready.")
-    //       this.props.history.push({
-    //         pathname: '/Calendar',
-    //         state: { classId: results.class_id }
-    //       })
-    //     }
-    //     else {
-    //       toastr.error('Error', "Failed to create roster. Please check network traffic for error information", "Error")
-    //     }
-    //   });
+    if (this.state.rosterName.trim() !== "") {
+      fetch(this.env.getRootUrl() + "/roster", {
+        method: "POST",
+        body: rosterJson,
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+        }
+      }).then((resp) => resp.json())
+        .then((results) => {
+          if (RefreshToken(results)) {
+            toastr.success('Created Class Roster', "Created your roster. You must now associate it with a class when ready.")
+            this.props.history.push({
+              pathname: '/Calendar',
+              state: { classId: results.class_id }
+            })
+          }
+          else {
+            toastr.error('Error', "Failed to create roster. Please check network traffic for error information", "Error")
+          }
+        });
+    } else {
+      toastr.error('Error', "Failed to create roster. You must provide a roster name", "Error")
+    }
+    
   }
 
   render() {
@@ -256,6 +266,19 @@ class Roster extends Component {
           </Row>
           <br />
           <br />
+          <Row>
+            <Col>
+              <Form.Control
+                type="text"
+                name="rosterName"
+                value={this.state.rosterName}
+                onChange={this.rosterNameChange}
+                placeholder="Roster Name"
+                />
+            </Col>
+          </Row>
+          <br />
+          <br/>
           <Row className="justify-content-md-center">
             <Col>
               <h4 className="addTeacherHeading"> Add Teacher(s)</h4>
