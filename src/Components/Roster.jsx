@@ -3,7 +3,6 @@ import React, { Component, useState } from "react";
 import "./Roster.css";
 import Menubar from "./MenuBar"
 import Environment from "./Environment";
-import RosterEntry from "./RosterEntry";
 
 // Bootstrap Components
 import Container from 'react-bootstrap/Container';
@@ -12,9 +11,10 @@ import Col from 'react-bootstrap/Col';
 import { toastr } from 'react-redux-toastr'
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 import RefreshToken from "../RefreshToken"
-import { Dropdown } from "react-bootstrap";
+import { Button, Dropdown } from "react-bootstrap";
 import FormControl from 'react-bootstrap/FormControl'
 import Form from 'react-bootstrap/Form';
+import Image from 'react-bootstrap/Image';
 
 // The forwardRef is important!!
 // Dropdown needs access to the DOM node in order to position the Menu
@@ -77,6 +77,10 @@ class Roster extends Component {
     this.handleTeacherDropdownSelection = this.handleTeacherDropdownSelection.bind(this);
     this.handleStudentDropdownSelection = this.handleStudentDropdownSelection.bind(this);
     this.loadEligibleParticipants = this.loadEligibleParticipants.bind(this);
+    this.createRosterEntry = this.createRosterEntry.bind(this);
+    this.xButtonClicked = this.xButtonClicked.bind(this);
+    this.prepareFinalRoster = this.prepareFinalRoster.bind(this);
+    this.submitRoster = this.submitRoster.bind(this);
 
     this.env = new Environment();
 
@@ -138,14 +142,12 @@ class Roster extends Component {
   }
 
   handleTeacherDropdownSelection(e) {
-    this.eligibleTeachers[e]["Selected"] = true;
-    console.log(this.eligibleTeachers);
+    this.eligibleTeachers[e]["selected"] = true;
     this.forceUpdate();
   }
 
   handleStudentDropdownSelection(e) {
-    this.eligibleStudents[e]["Selected"] = true;
-    console.log(this.eligibleStudents);
+    this.eligibleStudents[e]["selected"] = true;
     this.forceUpdate();
   }
 
@@ -156,6 +158,87 @@ class Roster extends Component {
     )
   }
 
+  xButtonClicked(event) {
+    var node = event.target;
+    var type = node.dataset["type"];
+    var email = node.dataset["email"];
+
+    if (type === "teacher") {
+      this.eligibleTeachers[email]["selected"] = false;
+    }
+
+    if (type === "student") {
+      this.eligibleStudents[email]["selected"] = false;
+    }
+    this.forceUpdate();
+}
+
+  createRosterEntry(email, type) {
+    return (
+      <div className="txtInputButton flex" id={"roster+" + email}>
+          <p className="inputBox" type="text" disabled />
+          {email}
+          <button type="button" className="btn">
+              <Image className="xButton" src="./x.png" data-email={email} data-type={type} onClick={this.xButtonClicked} />
+          </button>
+      </div >
+    );
+  }
+
+  prepareFinalRoster() {
+    //prepare body
+    var rosterJson = {
+      "roster_name": "Test Roster",
+      "participants": []
+    }
+
+    //load teachers
+    Object.keys(this.eligibleTeachers).map(teacher => {
+      var participant = this.eligibleTeachers[teacher];
+      if (participant["selected"] === true) {
+        var email = participant["emailaddress"];
+        rosterJson.participants.push({
+          "email_address": email
+        });
+      }
+    });
+
+    // load students
+    Object.keys(this.eligibleStudents).map(student => {
+      var participant = this.eligibleStudents[student];
+      if (participant["selected"] === true) {
+        var email = participant["emailaddress"];
+        rosterJson.participants.push({
+          "email_address": email
+        });
+      }
+    });
+
+    this.submitRoster(JSON.stringify(rosterJson));
+  }
+
+  submitRoster(rosterJson) {
+    fetch(this.env.getRootUrl() + "/roster", {
+      method: "POST",
+      body: rosterJson,
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+      }
+    }).then((resp) => resp.json())
+      .then((results) => {
+        if (RefreshToken(results)) {
+          toastr.success('Created Class Roster', "Created your roster. You must now associate it with a class when ready.")
+          this.props.history.push({
+            pathname: '/Calendar',
+            state: { classId: results.class_id }
+          })
+        }
+        else {
+          toastr.error('Error', "Failed to create roster. Please check network traffic for error information", "Error")
+        }
+      });
+  }
 
   render() {
     return (
@@ -197,9 +280,13 @@ class Roster extends Component {
             <Col>
               <Form id="teacherListForm">
                 {
-                  this.teachers.map(email => (           
-                    <RosterEntry name={email} />
-                  ))
+                  Object.keys(this.eligibleTeachers).map(teacher => {
+                    var selectedTeacher = this.eligibleTeachers[teacher];
+                    if (selectedTeacher["selected"] === true) {
+                      return this.createRosterEntry(selectedTeacher["emailaddress"], "teacher");
+                    }
+                    return ""
+                  })
                 }
               </Form>
             </Col>
@@ -231,11 +318,20 @@ class Roster extends Component {
             <Col md={6}>
               <Form id="studentListForm">
                 {
-                  this.students.map(email => (           
-                    <RosterEntry name={email} />
-                  ))
+                  Object.keys(this.eligibleStudents).map(student => {
+                    var selectedStudent = this.eligibleStudents[student];
+                    if (selectedStudent["selected"] === true) {
+                      return this.createRosterEntry(selectedStudent["emailaddress"], "student");
+                    }
+                    return ""
+                  })
                 }
               </Form>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+            <Button onClick={this.prepareFinalRoster}>Click to Complete Roster</Button>
             </Col>
           </Row>
         </Container>
