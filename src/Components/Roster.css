@@ -4,17 +4,14 @@
 
 .addTeacherHeading {
   float: left;
-  margin-left: 250px;
 }
 
 .teacherMenu {
   float: left;
-  margin-left: 250px;
 }
 
 .teacherField {
   float: right;
-  margin-right: 350px;
   padding: 10px;
   background-color: #759f5d;
   border: 1px black solid;
@@ -23,17 +20,14 @@
 
 .addStudentHeading {
   float: left;
-  margin-left: 250px;
 }
 
 .studentMenu {
   float: left;
-  margin-left: 250px;
 }
 
 .studentField {
   float: right;
-  margin-right: 350px;
   padding: 10px;
   background-color: #759f5d;
   border: 1px black solid;
