@@ -77,7 +77,6 @@ class Roster extends Component {
       rosterName: ""
     }
 
-
     this.handleTeacherDropdownSelection = this.handleTeacherDropdownSelection.bind(this);
     this.handleStudentDropdownSelection = this.handleStudentDropdownSelection.bind(this);
     this.loadEligibleParticipants = this.loadEligibleParticipants.bind(this);
@@ -176,22 +175,23 @@ class Roster extends Component {
       this.eligibleStudents[email]["selected"] = false;
     }
     this.forceUpdate();
-}
+  }
 
   createRosterEntry(email, type) {
     return (
       <div className="txtInputButton flex" id={"roster+" + email} key={email}>
-          <p className="inputBox" type="text" disabled />
-          {email}
-          <button type="button" className="btn">
-              <Image className="xButton" src="./x.png" data-email={email} data-type={type} onClick={this.xButtonClicked} />
-          </button>
+        <p className="inputBox" type="text" disabled />
+        {email}
+        <button type="button" className="btn">
+          <Image className="xButton" src="./x.png" data-email={email} data-type={type} onClick={this.xButtonClicked} />
+        </button>
       </div >
     );
   }
 
   rosterNameChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });  }
+    this.setState({ [e.target.name]: e.target.value });
+  }
 
   prepareFinalRoster() {
     //prepare body
@@ -204,7 +204,7 @@ class Roster extends Component {
 
     //load teachers
     var teachers = Object.keys(this.eligibleTeachers);
-    for(var teacher in teachers) {
+    for (var teacher in teachers) {
       participant = this.eligibleTeachers[teachers[teacher]];
       if (participant["selected"] === true) {
         email = participant["emailaddress"];
@@ -254,7 +254,7 @@ class Roster extends Component {
     } else {
       toastr.error('Error', "Failed to create roster. You must provide a roster name", "Error")
     }
-    
+
   }
 
   render() {
@@ -263,36 +263,36 @@ class Roster extends Component {
         <Menubar />
         <Container className="background_roster" fluid>
           <Row className="justify-content-md-center">
-            <Col>
+            <Col xs={5}>
               <br />
               <h2 id="pageTitle_roster"> </h2>
             </Col>
           </Row>
           <br />
           <br />
-          <Row>
-            <Col>
+          <Row className="justify-content-md-center">
+            <Col xs={5}>
               <Form.Control
                 type="text"
                 name="rosterName"
                 value={this.state.rosterName}
                 onChange={this.rosterNameChange}
                 placeholder="Roster Name"
-                />
+              />
             </Col>
           </Row>
           <br />
-          <br/>
+          <br />
           <Row className="justify-content-md-center">
-            <Col>
+            <Col xs={5}>
               <h4 className="addTeacherHeading"> Add Teacher(s)</h4>
             </Col>
-            <Col>
+            <Col xs={5}>
               <h4 className="teacherField">Teacher</h4>
             </Col>
           </Row>
           <Row className="justify-content-md-center">
-            <Col >
+            <Col xs={5}>
               <Dropdown className="teacherMenu" onSelect={this.handleTeacherDropdownSelection}>
                 <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
                   Co-Teacher's Name(s)
@@ -307,7 +307,7 @@ class Roster extends Component {
                 </Dropdown.Menu>
               </Dropdown>
             </Col>
-            <Col>
+            <Col xs={5}>
               <Form id="teacherListForm">
                 {
                   Object.keys(this.eligibleTeachers).map(teacher => {
@@ -322,21 +322,21 @@ class Roster extends Component {
             </Col>
           </Row>
           <Row className="justify-content-md-center">
-            <Col>
+            <Col xs={5}>
               <h4 className="addStudentHeading"> Add Student(s)</h4>
             </Col>
-            <Col>
+            <Col xs={5}>
               <h4 className="studentField">Student</h4>
             </Col>
           </Row>
           <Row className="justify-content-md-center">
-            <Col >
+            <Col xs={5}>
               <Dropdown className="studentMenu" onSelect={this.handleStudentDropdownSelection}>
                 <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
                   Student's Name(s)
                 </Dropdown.Toggle>
                 <Dropdown.Menu as={CustomMenu}>
-                {
+                  {
                     Object.keys(this.eligibleStudents).map(student => {
                       var participant = this.eligibleStudents[student];
                       return this.createDropdownItem(participant);
@@ -345,7 +345,7 @@ class Roster extends Component {
                 </Dropdown.Menu>
               </Dropdown>
             </Col>
-            <Col md={6}>
+            <Col xs={5}>
               <Form id="studentListForm">
                 {
                   Object.keys(this.eligibleStudents).map(student => {
@@ -359,9 +359,9 @@ class Roster extends Component {
               </Form>
             </Col>
           </Row>
-          <Row>
-            <Col>
-            <Button onClick={this.prepareFinalRoster}>Click to Complete Roster</Button>
+          <Row className="justify-content-md-center">
+            <Col xs={12} md={6}>
+              <Button onClick={this.prepareFinalRoster}>Click to Complete Roster</Button>
             </Col>
           </Row>
         </Container>
