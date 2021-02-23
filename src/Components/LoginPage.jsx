@@ -116,12 +116,16 @@ class LoginPage extends Component {
               </Col>
             </Row>
             <Row className="justify-content-md-center">
+              <Col>
                 <Button variant="light" className="Submit_Login" onClick={this.loginClicked}>Login</Button>
+              </Col>
             </Row>
           </Form>
-          <br/>
+          <br />
           <Row className="justify-content-md-center">
+            <Col>
               <Button variant="link" className="forgotPassword" href="/ForgotPassword">"Forgot your password?"</Button>
+            </Col>
           </Row>
         </Container>
       </div>
