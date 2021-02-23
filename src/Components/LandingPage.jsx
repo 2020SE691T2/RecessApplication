@@ -97,7 +97,7 @@ class LandingPage extends Component {
 
             <Col xs ={12} md={6}>
               
-              <Image className="calImage" src="/Calendarss.png"></Image>
+              <Image className="calImage" src="/calendarss.png"></Image>
               
               </Col>
 
