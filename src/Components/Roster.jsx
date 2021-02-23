@@ -154,7 +154,7 @@ class Roster extends Component {
   createDropdownItem(participant) {
     var fullName = participant.firstname + " " + participant.lastname;
     return (
-      <Dropdown.Item eventKey={participant.emailaddress}>{fullName}</Dropdown.Item>
+      <Dropdown.Item eventKey={participant.emailaddress} key={participant.emailaddress}>{fullName}</Dropdown.Item>
     )
   }
 
@@ -175,7 +175,7 @@ class Roster extends Component {
 
   createRosterEntry(email, type) {
     return (
-      <div className="txtInputButton flex" id={"roster+" + email}>
+      <div className="txtInputButton flex" id={"roster+" + email} key={email}>
           <p className="inputBox" type="text" disabled />
           {email}
           <button type="button" className="btn">
@@ -201,6 +201,7 @@ class Roster extends Component {
           "email_address": email
         });
       }
+      return true;
     });
 
     // load students
@@ -212,32 +213,34 @@ class Roster extends Component {
           "email_address": email
         });
       }
+      return true;
     });
 
     this.submitRoster(JSON.stringify(rosterJson));
   }
 
   submitRoster(rosterJson) {
-    fetch(this.env.getRootUrl() + "/roster", {
-      method: "POST",
-      body: rosterJson,
-      headers: {
-        "Content-Type": "application/json",
-        'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
-      }
-    }).then((resp) => resp.json())
-      .then((results) => {
-        if (RefreshToken(results)) {
-          toastr.success('Created Class Roster', "Created your roster. You must now associate it with a class when ready.")
-          this.props.history.push({
-            pathname: '/Calendar',
-            state: { classId: results.class_id }
-          })
-        }
-        else {
-          toastr.error('Error', "Failed to create roster. Please check network traffic for error information", "Error")
-        }
-      });
+    console.log(rosterJson);
+    // fetch(this.env.getRootUrl() + "/roster", {
+    //   method: "POST",
+    //   body: rosterJson,
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //     'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+    //   }
+    // }).then((resp) => resp.json())
+    //   .then((results) => {
+    //     if (RefreshToken(results)) {
+    //       toastr.success('Created Class Roster', "Created your roster. You must now associate it with a class when ready.")
+    //       this.props.history.push({
+    //         pathname: '/Calendar',
+    //         state: { classId: results.class_id }
+    //       })
+    //     }
+    //     else {
+    //       toastr.error('Error', "Failed to create roster. Please check network traffic for error information", "Error")
+    //     }
+    //   });
   }
 
   render() {
