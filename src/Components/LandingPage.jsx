@@ -61,7 +61,7 @@ class LandingPage extends Component {
             <div className="content_right">
               <Row className="justify-content-md-center">
                 <Col xs={12} md={6}>
-                  <Image className="calImage" src="/Calendarss.png"></Image>
+                  <Image className="calImage" src="/calendarss.png"></Image>
                 </Col>
                 <Col xs={12} md={6}>
                   <h4>
