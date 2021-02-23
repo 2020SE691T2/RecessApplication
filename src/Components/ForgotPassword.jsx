@@ -66,7 +66,7 @@ class ForgotPassword extends Component {
     return (
       <div>
         <Menubar />
-        <Container className="background_FP" fluid>
+        <Container className="background_FP">
           <Form onSubmit={this.forgotPassword}>
             <Row>
               <Col>
