@@ -199,28 +199,32 @@ class Roster extends Component {
       "roster_name": this.state.rosterName,
       "participants": []
     }
+    var participant;
+    var email;
 
     //load teachers
-    Object.keys(this.eligibleTeachers).map(teacher => {
-      var participant = this.eligibleTeachers[teacher];
+    var teachers = Object.keys(this.eligibleTeachers);
+    for(var teacher in teachers) {
+      participant = this.eligibleTeachers[teachers[teacher]];
       if (participant["selected"] === true) {
-        var email = participant["emailaddress"];
+        email = participant["emailaddress"];
         rosterJson.participants.push({
           "email_address": email
         });
       }
-    });
+    }
 
     // load students
-    Object.keys(this.eligibleStudents).map(student => {
-      var participant = this.eligibleStudents[student];
+    var students = Object.keys(this.eligibleStudents);
+    for (var student in students) {
+      participant = this.eligibleStudents[students[student]];
       if (participant["selected"] === true) {
-        var email = participant["emailaddress"];
+        email = participant["emailaddress"];
         rosterJson.participants.push({
           "email_address": email
         });
       }
-    });
+    }
 
     this.submitRoster(JSON.stringify(rosterJson));
   }
