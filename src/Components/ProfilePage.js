@@ -236,10 +236,10 @@ class ProfilePage extends Component {
                         </Row>
                         <Row className="justify-content-md-center">
                             <Col xs={12} lg={10}>
-                                <Button block id="editButton" className="profileButton" style={{ visibility: "visible" }} onClick={this.onFormSubmitted}>Edit</Button>
+                                <Button variant="light" id="editButton" className="profileButton" style={{ visibility: "visible" }} onClick={this.onFormSubmitted}>Edit</Button>
                             </Col>
                             <Col xs={12} lg={10}>
-                                <Button block variant="success" id="saveButton" className="profileButton" style={{ visibility: "hidden" }} onClick={this.onFormSubmitted}>Save</Button>
+                                <Button variant="light" id="saveButton" className="profileButton" style={{ visibility: "hidden" }} onClick={this.onFormSubmitted}>Save</Button>
                             </Col>
                         </Row>
                     </Form>
