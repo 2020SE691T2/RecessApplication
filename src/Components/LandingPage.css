@@ -4,11 +4,67 @@
 }
 
 .background_LP {
-  background-size: 100%;
-  background-attachment: scroll;
+  background-image: url(/landingBG.jpeg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
   border: 1px solid;
   min-height: 100vh;
-  background-image: url(/LandingPageBackground.jpg);
-  background-repeat: no-repeat;
-  background-color: #749e5c;
+  background-color: white;
+}
+
+.header_lp {
+  color: white;
+  width: 100%;
+  text-shadow: 2px 2px black;
+  margin-top: -40px;
+  -webkit-text-stroke: 1px black;
+}
+
+.box1_lp {
+  background-color: #5da843;
+  border: 0px solid #448e13;
+}
+
+.box2_lp {
+  background-color: #672531;
+  border: 0px solid #8e133f;
+}
+
+.box3_lp {
+  background-color: #d6933a;
+  border: 0px solid #8e6a14;
+}
+
+.box4_lp {
+  background-color: #0659b5;
+  border: 0px solid #136690;
+}
+
+.infoBox {
+  margin-top: 300px;
+  color: white;
+}
+
+.subtitle {
+  color: #a0df76;
+}
+.imageIcons {
+  width: 75px;
+}
+
+.whiteSpace {
+  background-color: white;
+}
+
+.offerText {
+  font-family: Chalkduster, sans-serif;
+  background-color: white;
+}
+.calImage {
+  width: 100%;
+}
+
+.content-right {
+  text-align: left;
 }
