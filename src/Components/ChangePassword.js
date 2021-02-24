@@ -84,6 +84,7 @@ class ChangePassword extends Component {
                 <Menubar />
                 <Container fluid className={'background'}>
                     <Container>
+                        <br />
                         <Form onSubmit={this.onFormSubmitted}>
                             <Row>
                                 <Col xs={12} lg={6}>
@@ -101,7 +102,7 @@ class ChangePassword extends Component {
                             </Row>
                             <Row>
                                 <Col xs={12}>
-                                    <Button block variant="success" id="saveButton" onClick={this.onFormSubmitted}>Change Password</Button>
+                                    <Button variant="light" id="saveButton" className="changePasswordButton" onClick={this.onFormSubmitted}>Change Password</Button>
                                 </Col>
                             </Row>
                         </Form>

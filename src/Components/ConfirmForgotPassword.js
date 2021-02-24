@@ -74,32 +74,32 @@ class ConfirmForgotPassword extends Component {
         return (
             <div>
                 <Menubar />
-                <Container fluid className={'background'}>
+                <Container fluid className={'confirmPasswordForgetBackground'}>
                     <Container>
                         <Form onSubmit={this.onFormSubmitted}>
                             <br />
                             <Row className="justify-content-md-center">
                                 <Col xs={12} lg={6}>
-                                    <h2 className="textLabel">Check your email for your token</h2>
+                                    <h2 className="textLabelConfirmForgotPassword">Check your email for your token</h2>
                                 </Col>
                             </Row>
                             <Row className="justify-content-md-center">
                                 <Col xs={12} lg={6}>
                                     <Form.Group controlId="tokenFormGroup">
-                                        <Form.Label className="textLabel">Token:</Form.Label>
+                                        <Form.Label className="textLabelConfirmForgotPassword">Token:</Form.Label>
                                         <Form.Control type="text" name="tokenInput" value={this.state.token} onChange={this.editToken} />
                                     </Form.Group>
                                 </Col>
                                 <Col xs={12} lg={6}>
                                     <Form.Group controlId="passwordFormGroup">
-                                        <Form.Label className="textLabel">New Password:</Form.Label>
+                                        <Form.Label className="textLabelConfirmForgotPassword">New Password:</Form.Label>
                                         <Form.Control type="password" name="passwordInput" value={this.state.password} onChange={this.editPassword} />
                                     </Form.Group>
                                 </Col>
                             </Row>
                             <Row className="justify-content-md-center">
                                 <Col xs={12}>
-                                    <Button block variant="success" id="saveButton" onClick={this.onFormSubmitted}>Update Password</Button>
+                                    <Button className="confirmForgotPasswordButton" variant="light" id="saveButton" onClick={this.onFormSubmitted}>Update Password</Button>
                                 </Col>
                             </Row>
                         </Form>

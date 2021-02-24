@@ -176,10 +176,10 @@ class ViewEvent extends Component {
             </Row>
             <Row className="justify-content-md-center">
               <Col xs={12} md={10}>
-                <Button block id="editEventButton" style={{ visibility: "visible" }} onClick={this.onFormSubmitted}>Edit Event</Button>
+                <Button variant="light" id="editEventButton" className="viewEventButton" style={{ visibility: "visible" }} onClick={this.onFormSubmitted}>Edit Event</Button>
               </Col>
               <Col xs={12} md={10}>
-                <Button block variant="success" id="saveEventeButton" style={{ visibility: "hidden" }} onClick={this.onFormSubmitted}>Save Event</Button>
+                <Button variant="light" id="saveEventeButton" className="viewEventButton" style={{ visibility: "hidden" }} onClick={this.onFormSubmitted}>Save Event</Button>
               </Col>
             </Row>
           </Form>
