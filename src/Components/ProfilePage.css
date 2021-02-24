@@ -4,7 +4,7 @@
 }
 
 .backgroundProfilePage {
-  background-image: url(/CalChalk.jpeg);
+  background-image: url(/fpbackground.jpg);
   background-repeat: no-repeat;
   background-size:cover;
   background-color: #6a6a73;
@@ -12,8 +12,14 @@
 }
 
 .textLabelProfilePage {
-  background-color:  #d38d5c;
-  border-color: #80e46a;
-  border-width: thin;
-  border-style: solid;
+  font-size: 20px;
+  background-repeat: no-repeat;
+  font-family: Chalkduster, sans-serif;
+  font-weight: bold;
+  color: white;
+}
+
+.profileButton {
+  font-size: 28px !important;
+  font-family: Chalkduster, sans-serif;
 }
