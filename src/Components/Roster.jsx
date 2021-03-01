@@ -55,7 +55,7 @@ const CustomMenu = React.forwardRef(
         <ul className="list-unstyled">
           {React.Children.toArray(children).filter(
             (child) =>
-              !value || child.props.children.toLowerCase().startsWith(value),
+              !value || child.props.children.toLowerCase().includes(value),
           )}
         </ul>
       </div>
@@ -261,20 +261,20 @@ class Roster extends Component {
     return (
       <div >
         <Menubar />
-        <Container className="background_roster" fluid>
+        <Container fluid className={'backgroundRosterPage'}>
+          <br />
           <Row className="justify-content-md-center">
             <Col xs={5}>
-              <br />
-              <h2 id="pageTitle_roster"> </h2>
+              <h2 className="textLabelRosterPage" id="pageTitle_roster"> </h2>
             </Col>
           </Row>
-          <br />
           <br />
           <Row className="justify-content-md-center">
             <Col xs={5}>
               <Form.Control
                 type="text"
                 name="rosterName"
+                className="textLabelRosterPage"
                 value={this.state.rosterName}
                 onChange={this.rosterNameChange}
                 placeholder="Roster Name"
@@ -297,7 +297,7 @@ class Roster extends Component {
                 <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
                   Co-Teacher's Name(s)
                 </Dropdown.Toggle>
-                <Dropdown.Menu as={CustomMenu}>
+                <Dropdown.Menu className="dropdownScroll" as={CustomMenu}>
                   {
                     Object.keys(this.eligibleTeachers).map(teacher => {
                       var participant = this.eligibleTeachers[teacher];
@@ -321,6 +321,7 @@ class Roster extends Component {
               </Form>
             </Col>
           </Row>
+          <br />
           <Row className="justify-content-md-center">
             <Col xs={5}>
               <h4 className="addStudentHeading"> Add Student(s)</h4>
@@ -335,7 +336,7 @@ class Roster extends Component {
                 <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components">
                   Student's Name(s)
                 </Dropdown.Toggle>
-                <Dropdown.Menu as={CustomMenu}>
+                <Dropdown.Menu className="dropdownScroll" as={CustomMenu}>
                   {
                     Object.keys(this.eligibleStudents).map(student => {
                       var participant = this.eligibleStudents[student];
@@ -361,7 +362,7 @@ class Roster extends Component {
           </Row>
           <Row className="justify-content-md-center">
             <Col xs={12} md={6}>
-              <Button onClick={this.prepareFinalRoster}>Click to Complete Roster</Button>
+              <Button variant="light" className="createRosterButton" onClick={this.prepareFinalRoster}>Click to Complete Roster</Button>
             </Col>
           </Row>
         </Container>
