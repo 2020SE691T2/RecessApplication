@@ -15,7 +15,7 @@ class Environment {
   }
 
   getRootUrl() {
-    let rootUrl = 'http://127.0.0.1:8000'
+    let rootUrl = 'https://recess-api.herokuapp.com'
     if (this.isHeroku()) {
       rootUrl = "https://recess-api.herokuapp.com";
     } 
