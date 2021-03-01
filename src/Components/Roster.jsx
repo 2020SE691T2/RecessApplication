@@ -15,6 +15,8 @@ import { Button, Dropdown } from "react-bootstrap";
 import FormControl from 'react-bootstrap/FormControl'
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
+import * as Ladda from 'ladda';
+
 
 // The forwardRef is important!!
 // Dropdown needs access to the DOM node in order to position the Menu
@@ -68,6 +70,7 @@ const CustomMenu = React.forwardRef(
 class Roster extends Component {
 
   env;
+  laddaButton;
   eligibleTeachers = {};
   eligibleStudents = {};
   constructor() {
@@ -91,6 +94,7 @@ class Roster extends Component {
   }
 
   componentDidMount() {
+    this.laddaButton = Ladda.create(document.querySelector('#createRosterButton'));
     this.populatePageTitle_roster();
     this.loadEligibleParticipants();
   }
@@ -230,6 +234,7 @@ class Roster extends Component {
   }
 
   submitRoster(rosterJson) {
+    this.laddaButton.start();
     if (this.state.rosterName.trim() !== "") {
       fetch(this.env.getRootUrl() + "/roster", {
         method: "POST",
@@ -241,6 +246,7 @@ class Roster extends Component {
       }).then((resp) => resp.json())
         .then((results) => {
           if (RefreshToken(results)) {
+            this.laddaButton.stop();
             toastr.success('Created Class Roster', "Created your roster. You must now associate it with a class when ready.")
             this.props.history.push({
               pathname: '/Calendar',
@@ -248,10 +254,12 @@ class Roster extends Component {
             })
           }
           else {
+            this.laddaButton.stop();
             toastr.error('Error', "Failed to create roster. Please check network traffic for error information", "Error")
           }
         });
     } else {
+      this.laddaButton.stop();
       toastr.error('Error', "Failed to create roster. You must provide a roster name", "Error")
     }
 
@@ -361,7 +369,9 @@ class Roster extends Component {
           </Row>
           <Row className="justify-content-md-center">
             <Col xs={12} md={6}>
-              <Button onClick={this.prepareFinalRoster}>Click to Complete Roster</Button>
+              <Button onClick={this.prepareFinalRoster} className="ladda-button" data-style="zoom-in" data-spinner-color="#000" id="createRosterButton">
+                <span className="ladda-label">Click to Complete Roster</span>
+              </Button>
             </Col>
           </Row>
         </Container>

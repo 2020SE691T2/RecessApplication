@@ -123,7 +123,7 @@ class LoginPage extends Component {
             </Row>
             <Row className="justify-content-md-center">
               <Col>
-                <Button variant="light" className="Submit_Login ladda-button" id="loginButton" data-style="zoom-in" onClick={this.loginClicked}>
+                <Button variant="light" className="Submit_Login ladda-button" id="loginButton" data-style="zoom-in" data-spinner-color="#000" onClick={this.loginClicked}>
                   <span className="ladda-label">Login</span>
                 </Button>
               </Col>

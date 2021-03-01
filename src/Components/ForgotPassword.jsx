@@ -103,7 +103,7 @@ class ForgotPassword extends Component {
             </Row>
             <Row className="justify-content-md-center">
               <Col>
-                <Button className="Submit_FP btn btn-light ladda-button" data-style="zoom-in" id="forgotPasswordButton" type="submit">
+                <Button className="Submit_FP btn btn-light ladda-button" data-style="zoom-in" data-spinner-color="#000" id="forgotPasswordButton" type="submit">
                   <span className="ladda-label">Submit</span>
                 </Button>
               </Col>

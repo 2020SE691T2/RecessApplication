@@ -293,7 +293,7 @@ class CreateAccount extends Component {
             <br />
             <Row className="justify-content-md-center">
               <Col>
-                <Button variant="light" className="CreateAccountButton_CA ladda-button" data-style="zoom-in" id="createAccountButton" onClick={this.createAccount}>
+                <Button variant="light" className="CreateAccountButton_CA ladda-button" data-style="zoom-in" data-spinner-color="#000" id="createAccountButton" onClick={this.createAccount}>
                   <span className="ladda-label">Create Account</span>
                 </Button>
               </Col>

@@ -8,13 +8,17 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
+import Button from 'react-bootstrap/Button';
 import RefreshToken from "../RefreshToken";
 import { toastr } from 'react-redux-toastr'
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
+import * as Ladda from 'ladda';
+
 
 class CreateEvent extends Component {
   
   env;
+  laddaButton;
   constructor(props) {
     super(props);
     this.state = {
@@ -82,6 +86,7 @@ class CreateEvent extends Component {
   // FIX THIS - THIS IS WHERE SHIT IS SENT TO THE BACKEND
   createEvent(event) {
     event.preventDefault();
+    this.laddaButton.start();
     if (!this.valid_input()) {
         window.alert("Please fill out form completely!");
     } else {        
@@ -104,6 +109,7 @@ class CreateEvent extends Component {
           .then((results) => {
             if (RefreshToken(results)) {
               if (results.class_id) {
+                this.laddaButton.stop();
                 this.props.history.push({
                   pathname: '/ViewEvent',
                   state: { classId: results.class_id }
@@ -111,6 +117,7 @@ class CreateEvent extends Component {
               }
             }
             else {
+              this.laddaButton.stop();
               toastr.error('Error', "Failed to create event. Please enter all information.", "Error")
             }
           });
@@ -119,6 +126,7 @@ class CreateEvent extends Component {
   }
 
   componentDidMount() {
+    this.laddaButton = Ladda.create(document.querySelector('#createEventButton'));
     if (!sessionStorage.getItem("refreshToken")) {
       this.props.history.push({
         pathname: '/login'
@@ -264,7 +272,9 @@ class CreateEvent extends Component {
             
             <Row className="justify-content-md-center">
               <Col>
-                  <a href="/#" className="CE_Button" onClick={this.createEvent}>Create New Event</a>
+                  <Button href="/#" className="CE_Button ladda-button" onClick={this.createEvent} data-style="zoom-in" data-spinner-color="#000" id="createEventButton">
+                    <span className="ladda-label">Create New Event</span>
+                  </Button>
               </Col>
             </Row >
           </Form >
