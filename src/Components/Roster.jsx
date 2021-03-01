@@ -264,13 +264,13 @@ class Roster extends Component {
         <Container fluid className={'backgroundRosterPage'}>
           <br />
           <Row className="justify-content-md-center">
-            <Col xs={5}>
+            <Col xs={10}>
               <h2 className="textLabelRosterPage" id="pageTitle_roster"> </h2>
             </Col>
           </Row>
           <br />
           <Row className="justify-content-md-center">
-            <Col xs={5}>
+            <Col xs={10} md={5}>
               <Form.Control
                 type="text"
                 name="rosterName"
@@ -360,6 +360,7 @@ class Roster extends Component {
               </Form>
             </Col>
           </Row>
+          <br />
           <Row className="justify-content-md-center">
             <Col xs={12} md={6}>
               <Button variant="light" className="createRosterButton" onClick={this.prepareFinalRoster}>Click to Complete Roster</Button>

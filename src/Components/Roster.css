@@ -7,7 +7,6 @@
 }
 
 .addTeacherHeading {
-  float: left;
   background-repeat: no-repeat;
   font-family: Chalkduster, sans-serif;
   font-weight: bold;
@@ -15,7 +14,6 @@
 }
 
 .teacherMenu {
-  float: left;
   background-repeat: no-repeat;
   font-family: Chalkduster, sans-serif;
   font-weight: bold;
@@ -29,7 +27,6 @@
 }
 
 .teacherField {
-  float: right;
   opacity: 0.8;
   background-repeat: no-repeat;
   font-family: Chalkduster, sans-serif;
@@ -38,7 +35,6 @@
 }
 
 .addStudentHeading {
-  float: left;
   background-repeat: no-repeat;
   font-family: Chalkduster, sans-serif;
   font-weight: bold;
@@ -46,7 +42,6 @@
 }
 
 .studentMenu {
-  float: left;
   background-repeat: no-repeat;
   font-family: Chalkduster, sans-serif;
   font-weight: bold;
@@ -54,7 +49,6 @@
 }
 
 .studentField {
-  float: right;
   opacity: 0.8;
   background-repeat: no-repeat;
   font-family: Chalkduster, sans-serif;
@@ -80,8 +74,6 @@
 }
 
 .txtInputButton {
-  margin-right: 270px;
-  margin-left: 200px;
   background-repeat: no-repeat;
   font-family: Chalkduster, sans-serif;
   font-weight: bold;
