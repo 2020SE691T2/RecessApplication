@@ -12,10 +12,12 @@ import Button from 'react-bootstrap/Button'
 import Nav from 'react-bootstrap/Nav';
 import { toastr } from 'react-redux-toastr'
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
+import * as Ladda from 'ladda';
 
 class ViewEvent extends Component {
 
   env;
+  laddaButton;
   constructor(props) {
     super(props);
     this.state = {
@@ -52,6 +54,7 @@ class ViewEvent extends Component {
   }
 
   componentDidMount() {
+    this.laddaButton = Ladda.create(document.querySelector('#saveEventeButton'));
     if (!sessionStorage.getItem("refreshToken")) {
       this.props.history.push({
         pathname: '/login'
@@ -96,6 +99,7 @@ class ViewEvent extends Component {
       document.getElementById("saveEventeButton").style.visibility = "visible";
     }
     else {
+      this.laddaButton.start();
       this.setState({
         disabled: true
       });
@@ -120,6 +124,7 @@ class ViewEvent extends Component {
       }).then((resp) => resp.json())
         .then((results) => {
           if (RefreshToken(results)) {
+            this.laddaButton.stop();
             this.setState({
               classId: results.class_id,
               className: results.class_name,
@@ -129,6 +134,7 @@ class ViewEvent extends Component {
             });
           }
           else {
+            this.laddaButton.stop();
             toastr.error('Error', "Failed to update event.  Please try again.");
           }
         });
@@ -179,7 +185,9 @@ class ViewEvent extends Component {
                 <Button variant="light" id="editEventButton" className="viewEventButton" style={{ visibility: "visible" }} onClick={this.onFormSubmitted}>Edit Event</Button>
               </Col>
               <Col xs={12} md={10}>
-                <Button variant="light" id="saveEventeButton" className="viewEventButton" style={{ visibility: "hidden" }} onClick={this.onFormSubmitted}>Save Event</Button>
+                <Button variant="light" id="saveEventeButton" className="viewEventButton ladda-button" style={{ visibility: "hidden" }} data-style="zoom-in" data-spinner-color="#000" onClick={this.onFormSubmitted}>
+                  <span className="ladda-label">Save Event</span>
+                </Button>
               </Col>
             </Row>
           </Form>

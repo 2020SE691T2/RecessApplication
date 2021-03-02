@@ -11,10 +11,13 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import { toastr } from 'react-redux-toastr'
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
+import * as Ladda from 'ladda';
+
 
 class ChangePassword extends Component {
 
     env;
+    laddaButton;
     constructor() {
         super();
         this.state = {
@@ -38,6 +41,7 @@ class ChangePassword extends Component {
 
     onFormSubmitted(e) {
         e.preventDefault();
+        this.laddaButton.start();
         var json = JSON.stringify({
             "old_password": this.state.oldPassword,
             "new_password": this.state.newPassword
@@ -53,6 +57,7 @@ class ChangePassword extends Component {
         }).then((resp) => resp.json())
             .then((results) => {
                 if (RefreshToken(results)) {
+                    this.laddaButton.stop();
                     this.setState({ oldPassword: '' });
                     this.setState({ newPassword: '' });
                     if (results.code === 200) {
@@ -65,12 +70,14 @@ class ChangePassword extends Component {
                     }
                 }
                 else {
+                    this.laddaButton.stop();
                     toastr.error('Error', "Failed to change password.  Please try again.");
                 }
             });
     }
 
     componentDidMount() {
+        this.laddaButton = Ladda.create(document.querySelector('#saveButton'));
         if (!sessionStorage.getItem("refreshToken")) {
             this.props.history.push({
                 pathname: '/login'
@@ -102,7 +109,9 @@ class ChangePassword extends Component {
                             </Row>
                             <Row>
                                 <Col xs={12}>
-                                    <Button variant="light" id="saveButton" className="changePasswordButton" onClick={this.onFormSubmitted}>Change Password</Button>
+                                    <Button variant="light" id="saveButton" className="changePasswordButton ladda-button" data-style="zoom-in" data-spinner-color="#000" onClick={this.onFormSubmitted}>
+                                        <span className="ladda-label">Change Password</span>
+                                    </Button>
                                 </Col>
                             </Row>
                         </Form>

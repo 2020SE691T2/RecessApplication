@@ -10,10 +10,12 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
 import StoreSessionKeys from "../StoreSessionKeys";
+import * as Ladda from 'ladda';
 
 class LoginPage extends Component {
 
   env;
+  laddaButton;
 
   constructor() {
     super();
@@ -41,6 +43,7 @@ class LoginPage extends Component {
 
   loginClicked(e) {
     e.preventDefault();
+    this.laddaButton.start();
     try {
       var url = this.env.getRootUrl() + "/api-auth/auth/";
       fetch(url, {
@@ -57,14 +60,17 @@ class LoginPage extends Component {
         .then((resp) => resp.json())
         .then((results) => {
           StoreSessionKeys(this, results, 'Incorrect username or password. Please try again.', '/Calendar');
+          this.laddaButton.stop();
         });
     } catch (error) {
+      this.laddaButton.stop();
       console.log(error);
       console.log("--------------------------");
     }
   }
 
   componentDidMount() {
+    this.laddaButton= Ladda.create(document.querySelector('#loginButton'));
     if (sessionStorage.getItem("refreshToken")) {
       this.props.history.push({
         pathname: '/Calendar'
@@ -117,7 +123,9 @@ class LoginPage extends Component {
             </Row>
             <Row className="justify-content-md-center">
               <Col>
-                <Button variant="light" className="Submit_Login" onClick={this.loginClicked}>Login</Button>
+                <Button variant="light" className="Submit_Login ladda-button" id="loginButton" data-style="zoom-in" data-spinner-color="#000" onClick={this.loginClicked}>
+                  <span className="ladda-label">Login</span>
+                </Button>
               </Col>
             </Row>
           </Form>

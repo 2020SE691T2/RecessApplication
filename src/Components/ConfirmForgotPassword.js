@@ -10,10 +10,14 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import { toastr } from 'react-redux-toastr'
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
+import * as Ladda from 'ladda';
+
 
 class ConfirmForgotPassword extends Component {
 
     env;
+    laddaButton;
+
     constructor() {
         super();
         this.state = {
@@ -37,6 +41,7 @@ class ConfirmForgotPassword extends Component {
 
     onFormSubmitted(e) {
         e.preventDefault();
+        this.laddaButton.start();
         var json = JSON.stringify({
             "token": this.state.token,
             "password": this.state.password
@@ -53,16 +58,19 @@ class ConfirmForgotPassword extends Component {
                 this.setState({ password: '' });
                 if (results.code === 200) {
                     toastr.success('Password Updated');
+                    this.laddaButton.stop();
                     this.props.history.push({
                         pathname: '/Calendar'
                     });
                 } else {
+                    this.laddaButton.stop();
                     toastr.error('Error', "Failed to update password. Please ensure token is correct.");
                 }
             });
     }
 
     componentDidMount() {
+        this.laddaButton = Ladda.create(document.querySelector('#forgotPasswordButton'));
         if (sessionStorage.getItem("refreshToken")) {
             this.props.history.push({
                 pathname: '/Calendar'
@@ -99,7 +107,9 @@ class ConfirmForgotPassword extends Component {
                             </Row>
                             <Row className="justify-content-md-center">
                                 <Col xs={12}>
-                                    <Button className="confirmForgotPasswordButton" variant="light" id="saveButton" onClick={this.onFormSubmitted}>Update Password</Button>
+                                    <Button className="confirmForgotPasswordButton btn btn-light ladda-button" data-style="zoom-in" data-spinner-color="#000" id="forgotPasswordButton" type="submit">
+                                        <span className="ladda-label">Update Password</span>
+                                    </Button>
                                 </Col>
                             </Row>
                         </Form>

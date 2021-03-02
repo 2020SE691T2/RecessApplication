@@ -13,10 +13,13 @@ import Image from 'react-bootstrap/Image';
 import { PencilSquare } from 'react-bootstrap-icons';
 import { toastr } from 'react-redux-toastr'
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
+import * as Ladda from 'ladda';
+
 
 class ProfilePage extends Component {
 
     env;
+    laddaButton;
     constructor() {
         super();
         this.state = {
@@ -44,6 +47,7 @@ class ProfilePage extends Component {
     }
 
     componentDidMount() {
+        this.laddaButton = Ladda.create(document.querySelector('#saveButton'));
         try {
             var url = this.env.getRootUrl() + "/users/" + sessionStorage.getItem("email");
             fetch(url, {
@@ -85,6 +89,7 @@ class ProfilePage extends Component {
             document.getElementById("saveButton").style.visibility = "visible";
         }
         else {
+            this.laddaButton.start();
             this.setState({
                 disabled: true
             });
@@ -111,6 +116,7 @@ class ProfilePage extends Component {
             }).then((resp) => resp.json())
                 .then((results) => {
                     if (RefreshToken(results)) {
+                        this.laddaButton.stop();
                         this.setState({
                             firstName: results.first_name,
                             lastName: results.last_name,
@@ -122,6 +128,7 @@ class ProfilePage extends Component {
                         });
                     }
                     else {
+                        this.laddaButton.stop();
                         toastr.error('Error', "Failed to update profile.  Please try again.");
                     }
                 });
@@ -239,7 +246,9 @@ class ProfilePage extends Component {
                                 <Button variant="light" id="editButton" className="profileButton" style={{ visibility: "visible" }} onClick={this.onFormSubmitted}>Edit</Button>
                             </Col>
                             <Col xs={12} lg={10}>
-                                <Button variant="light" id="saveButton" className="profileButton" style={{ visibility: "hidden" }} onClick={this.onFormSubmitted}>Save</Button>
+                                <Button variant="light" id="saveButton" className="profileButton ladda-button" data-style="zoom-in" data-spinner-color="#000" style={{ visibility: "hidden" }} onClick={this.onFormSubmitted}>
+                                    <span className="ladda-label">Save</span>
+                                </Button>
                             </Col>
                         </Row>
                     </Form>

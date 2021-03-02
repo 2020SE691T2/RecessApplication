@@ -12,10 +12,12 @@ import Button from 'react-bootstrap/Button';
 import StoreSessionKeys from "../StoreSessionKeys";
 import { toastr } from 'react-redux-toastr'
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
+import * as Ladda from 'ladda';
 
 class CreateAccount extends Component {
 
   env;
+  laddaButton;
 
   constructor(props) {
     super(props);
@@ -97,7 +99,9 @@ class CreateAccount extends Component {
 
   createAccount(event) {
     event.preventDefault();
+    this.laddaButton.start();
     if (this.state.role === "") {
+      this.laddaButton.stop();
       toastr.error('Error', "You must select a role to create an account.");
     }
     else {
@@ -122,11 +126,13 @@ class CreateAccount extends Component {
         }
       }).then((resp) => {
         if (resp.status === 200) {
+          this.laddaButton.stop();
           resp.json().then((results) => {
             StoreSessionKeys(this, results, "Failed to create account.", '/Profile');
           });
         }
         else {
+          this.laddaButton.stop();
           toastr.error('Error', "Failed to create account.\nPlease enter all information.")
         }
       });
@@ -134,6 +140,7 @@ class CreateAccount extends Component {
   }
 
   componentDidMount() {
+    this.laddaButton = Ladda.create(document.querySelector('#createAccountButton'));
     if (sessionStorage.getItem("refreshToken")) {
       this.props.history.push({
         pathname: '/Calendar'
@@ -286,7 +293,9 @@ class CreateAccount extends Component {
             <br />
             <Row className="justify-content-md-center">
               <Col>
-                <Button variant="light" className="CreateAccountButton_CA" onClick={this.createAccount}>Create Account</Button>
+                <Button variant="light" className="CreateAccountButton_CA ladda-button" data-style="zoom-in" data-spinner-color="#000" id="createAccountButton" onClick={this.createAccount}>
+                  <span className="ladda-label">Create Account</span>
+                </Button>
               </Col>
             </Row>
           </Form>
