@@ -1,41 +1,67 @@
-.background_roster {
-  background-color: #dedee6;
+.backgroundRosterPage {
+  background-image: url(/fpbackground.jpg);
+  background-repeat: no-repeat;
+  background-size:cover;
+  background-color: #6a6a73;
+  min-height: 100vh;
 }
 
 .addTeacherHeading {
-  float: left;
+  background-repeat: no-repeat;
+  font-family: Chalkduster, sans-serif;
+  font-weight: bold;
+  color: white;
 }
 
 .teacherMenu {
-  float: left;
+  background-repeat: no-repeat;
+  font-family: Chalkduster, sans-serif;
+  font-weight: bold;
+  color: white;
+}
+
+.dropdownScroll {
+  height: 300px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .teacherField {
-  float: right;
-  padding: 10px;
-  background-color: #759f5d;
-  border: 1px black solid;
   opacity: 0.8;
+  background-repeat: no-repeat;
+  font-family: Chalkduster, sans-serif;
+  font-weight: bold;
+  color: white;
 }
 
 .addStudentHeading {
-  float: left;
+  background-repeat: no-repeat;
+  font-family: Chalkduster, sans-serif;
+  font-weight: bold;
+  color: white;
 }
 
 .studentMenu {
-  float: left;
+  background-repeat: no-repeat;
+  font-family: Chalkduster, sans-serif;
+  font-weight: bold;
+  color: white;
 }
 
 .studentField {
-  float: right;
-  padding: 10px;
-  background-color: #759f5d;
-  border: 1px black solid;
   opacity: 0.8;
+  background-repeat: no-repeat;
+  font-family: Chalkduster, sans-serif;
+  font-weight: bold;
+  color: white;
 }
 
 .inputBox {
   text-align: center;
+  background-repeat: no-repeat;
+  font-family: Chalkduster, sans-serif;
+  font-weight: bold;
+  color: white;
 }
 
 .flex {
@@ -48,11 +74,26 @@
 }
 
 .txtInputButton {
-  margin-right: 270px;
-  margin-left: 200px;
+  background-repeat: no-repeat;
+  font-family: Chalkduster, sans-serif;
+  font-weight: bold;
+  color: white;
 }
 
 input[type="text"] {
   background-color: #dedee6;
   border: 0px;
+}
+
+.textLabelRosterPage {
+  font-size: 20px;
+  background-repeat: no-repeat;
+  font-family: Chalkduster, sans-serif;
+  font-weight: bold;
+  color: white;
+}
+
+.createRosterButton {
+  font-size: 28px !important;
+  font-family: Chalkduster, sans-serif;
 }
