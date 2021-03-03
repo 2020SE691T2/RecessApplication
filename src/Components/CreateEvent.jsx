@@ -82,9 +82,6 @@ class CreateEvent extends Component {
     if (event.target.value !== "") {
       this.setState({ "selectedRoster": this.rosters[event.target.value].roster_id });
     }
-    else {
-      toastr.error('ALERT', "ALERT", "ALERT")
-    }
   }
 
   createDropdownItems() {
