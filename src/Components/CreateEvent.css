@@ -35,7 +35,8 @@
   box-shadow: 10px 5px 10px black;
   background-repeat: no-repeat;
   background-size: cover;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   font-family: Chalkduster, sans-serif;
   font-weight: bold;
 }
