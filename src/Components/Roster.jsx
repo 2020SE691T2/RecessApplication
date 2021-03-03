@@ -95,8 +95,22 @@ class Roster extends Component {
 
   componentDidMount() {
     this.laddaButton = Ladda.create(document.querySelector('#createRosterButton'));
-    this.populatePageTitle_roster();
-    this.loadEligibleParticipants();
+    if (!sessionStorage.getItem("refreshToken")) {
+      this.props.history.push({
+        pathname: '/login'
+      });
+    }
+    else {
+      if (sessionStorage.getItem("role") !== "Teacher") {
+        this.props.history.push({
+          pathname: '/Calendar'
+        });
+      }
+      else {
+        this.populatePageTitle_roster();
+        this.loadEligibleParticipants();
+      }
+    }
   }
 
   loadEligibleParticipants() {
