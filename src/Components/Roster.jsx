@@ -246,12 +246,18 @@ class Roster extends Component {
       }).then((resp) => resp.json())
         .then((results) => {
           if (RefreshToken(results)) {
-            this.laddaButton.stop();
-            toastr.success('Created Class Roster', "Created your roster. You must now associate it with a class when ready.")
-            this.props.history.push({
-              pathname: '/Calendar',
-              state: { classId: results.class_id }
-            })
+            if (results.roster_id) {
+              this.laddaButton.stop();
+              toastr.success('Created Class Roster', "Created your roster. You must now associate it with a class when ready.")
+              this.props.history.push({
+                pathname: '/Calendar',
+                state: { classId: results.class_id }
+              })
+            }
+            else {
+              this.laddaButton.stop();
+              toastr.error('Error', "Failed to create roster. Please check network traffic for error information", "Error")
+            }
           }
           else {
             this.laddaButton.stop();
