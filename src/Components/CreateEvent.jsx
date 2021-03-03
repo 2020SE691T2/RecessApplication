@@ -16,9 +16,11 @@ import * as Ladda from 'ladda';
 
 
 class CreateEvent extends Component {
-  
+
   env;
   laddaButton;
+  rosters = [];
+
   constructor(props) {
     super(props);
     this.state = {
@@ -28,9 +30,10 @@ class CreateEvent extends Component {
       days: '',
       startTime: '',
       endTime: '',
-      section: ''
+      section: '',
+      selectedRoster: ''
     };
-    
+
     this.changeId = this.changeId.bind(this);
     this.changeName = this.changeName.bind(this);
     this.changeYear = this.changeYear.bind(this);
@@ -39,89 +42,126 @@ class CreateEvent extends Component {
     this.changeEnd = this.changeEnd.bind(this);
     this.changeSection = this.changeSection.bind(this);
     this.createEvent = this.createEvent.bind(this);
-    
+    this.changeRoster = this.changeRoster.bind(this);
+    this.populateRosterList = this.populateRosterList.bind(this);
+    this.createDropdownItems = this.createDropdownItems.bind(this);
+
     this.env = new Environment();
   }
-  
+
   changeId(event) {
     this.setState({ "id": event.target.value });
   }
-  
+
   changeName(event) {
     this.setState({ "name": event.target.value });
   }
-  
+
   changeYear(event) {
     this.setState({ "year": event.target.value });
   }
-  
+
   changeStart(event) {
     this.setState({ "startTime": event.target.value });
   }
-  
+
   changeEnd(event) {
     this.setState({ "endTime": event.target.value });
   }
-  
+
   changeDays(event) {
     let values = Array.from(event.target.selectedOptions, option => option.value);
     this.setState({ "days": values });
   }
-    
+
   changeSection(event) {
     this.setState({ "section": event.target.value });
   }
-  
+
+  changeRoster(event) {
+    if (event.target.value !== "") {
+      this.setState({ "selectedRoster": this.rosters[event.target.value].roster_id });
+    }
+  }
+
+  createDropdownItems() {
+    let items = [];
+    this.rosters.forEach(roster => (
+      items.push(<option key={roster.roster_id} value={roster.roster_id}>{roster.roster_name}</option>)
+    ));
+    return items;
+  }
+
+  populateRosterList() {
+    fetch(this.env.getRootUrl() + "/roster", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+      }
+    }).then((resp) => resp.json())
+      .then((results) => {
+        if (RefreshToken(results)) {
+          var temp = results.results;
+          temp.forEach(roster => {
+            this.rosters[roster.roster_id] = roster;
+          });
+        }
+        this.forceUpdate();
+      });
+  }
+
   valid_input() {
-      
+
     if (this.state.name === "" ||
-        this.state.year === "" || 
-        this.state.startTime === "" ||
-        this.state.endTime === "" ||
-        this.state.startTime >= this.state.endTime)
-        return false;
+      this.state.year === "" ||
+      this.state.startTime === "" ||
+      this.state.endTime === "" ||
+      this.state.startTime >= this.state.endTime)
+      return false;
     return true;
   }
 
-  // FIX THIS - THIS IS WHERE SHIT IS SENT TO THE BACKEND
   createEvent(event) {
     event.preventDefault();
     this.laddaButton.start();
     if (!this.valid_input()) {
-        window.alert("Please fill out form completely!");
-    } else {        
-        var json = JSON.stringify({
-          "class_name": this.state.name,
-          "year": this.state.year,
-          "days" : this.state.days,
-          "start" : this.state.startTime,
-          "end" : this.state.endTime,
-          "section" : this.state.section
-        });
-        fetch(this.env.getRootUrl() + "/api/create-class/", {
-          method: "POST",
-          body: json,
-          headers: {
-            "Content-Type": "application/json",
-            'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
-          }
-        }).then((resp) => resp.json())
-          .then((results) => {
-            if (RefreshToken(results)) {
-              if (results.class_id) {
-                this.laddaButton.stop();
-                this.props.history.push({
-                  pathname: '/ViewEvent',
-                  state: { classId: results.class_id }
-                })
-              }
-            }
-            else {
+      this.laddaButton.stop();
+      window.alert("Please fill out form completely!");
+    } else {
+      var json = JSON.stringify({
+        "class_name": this.state.name,
+        "year": this.state.year,
+        "days": this.state.days,
+        "start": this.state.startTime,
+        "end": this.state.endTime,
+        "section": this.state.section,
+        "roster": this.state.selectedRoster
+      });
+      fetch(this.env.getRootUrl() + "/api/create-class/", {
+        method: "POST",
+        body: json,
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+        }
+      }).then((resp) => resp.json())
+        .then((results) => {
+          if (RefreshToken(results)) {
+            if (results.class_id) {
               this.laddaButton.stop();
-              toastr.error('Error', "Failed to create event. Please enter all information.", "Error")
+              this.props.history.push({
+                pathname: '/ViewEvent',
+                state: { classId: results.class_id }
+              })
             }
-          });
-        return false;
+          }
+          else {
+            this.laddaButton.stop();
+            toastr.error('Error', "Failed to create event. Please enter all information.", "Error")
+          }
+        });
+      return false;
     }
   }
 
@@ -139,6 +179,7 @@ class CreateEvent extends Component {
         });
       }
     }
+    this.populateRosterList();
   }
 
   render() {
@@ -154,7 +195,7 @@ class CreateEvent extends Component {
             </Row>
             <Row className="justify-content-md-center">
               <Col md={3} xs={12}>
-                <p className="textPlaceholder_CE">Class name: </p>
+                <p className="textPlaceholder_CE">Class Name: </p>
               </Col>
               <Col md={3} xs={12}>
                 <Form.Group controlId="nameFormGroup">
@@ -162,7 +203,6 @@ class CreateEvent extends Component {
                     className="textInput_CE"
                     name="name"
                     type="text"
-                    
                     value={this.state.name}
                     onChange={this.changeName}
                     style={{ height: 64 }}
@@ -170,17 +210,16 @@ class CreateEvent extends Component {
                 </Form.Group>
               </Col>
             </Row>
-            
+
             <Row className="justify-content-md-center">
               <Col md={3} xs={12}>
-                <p className="textPlaceholder_CE">School year: </p>
+                <p className="textPlaceholder_CE">School Year: </p>
               </Col>
               <Col md={3} xs={12}>
                 <Form.Group controlId="yearFormGroup">
                   <Form.Control
                     className="textInput_CE"
                     type="number" min="2019" max="2025"
-                    
                     value={this.state.year}
                     onChange={this.changeYear}
                     style={{ height: 64 }}
@@ -191,11 +230,11 @@ class CreateEvent extends Component {
 
             <Row className="justify-content-md-center">
               <Col md={3} xs={12}>
-                <p className="textPlaceholder_CE">Meeting days: </p>
+                <p className="textPlaceholder_CE">Meeting Days: </p>
               </Col>
               <Col md={3} xs={12}>
                 <Form.Group controlId="daySelectFormGroup">
-                  <Form.Control as="select" multiple 
+                  <Form.Control as="select" multiple
                     className="daySelect_CE"
                     name="days"
                     value={this.props.arrayOfOptionValues}
@@ -208,12 +247,12 @@ class CreateEvent extends Component {
                     <option value={4}>Friday</option>
                   </Form.Control>
                 </Form.Group>
-              </Col>         
+              </Col>
             </Row>
-            
+
             <Row className="justify-content-md-center">
               <Col md={3} xs={12}>
-                <p className="textPlaceholder_CE">Start time: </p>
+                <p className="textPlaceholder_CE">Start Time: </p>
               </Col>
               <Col md={3} xs={12}>
                 <Form.Group controlId="StartTimeFormGroup">
@@ -221,7 +260,6 @@ class CreateEvent extends Component {
                     className="textInput_CE"
                     name="start-time"
                     type="time" min="9:00" max="17:00"
-                    
                     value={this.state.startTime}
                     onChange={this.changeStart}
                     style={{ height: 64 }}
@@ -229,10 +267,10 @@ class CreateEvent extends Component {
                 </Form.Group>
               </Col>
             </Row>
-            
+
             <Row className="justify-content-md-center">
               <Col md={3} xs={12}>
-                <p className="textPlaceholder_CE">End time: </p>
+                <p className="textPlaceholder_CE">End Time: </p>
               </Col>
               <Col md={3} xs={12}>
                 <Form.Group controlId="endTimeFormGroup">
@@ -240,7 +278,6 @@ class CreateEvent extends Component {
                     className="textInput_CE"
                     name="end-time"
                     type="time" min="9:00" max="17:00"
-                    
                     value={this.state.endTime}
                     onChange={this.changeEnd}
                     style={{ height: 64 }}
@@ -248,7 +285,25 @@ class CreateEvent extends Component {
                 </Form.Group>
               </Col>
             </Row>
-            
+
+            <Row className="justify-content-md-center">
+              <Col md={3} xs={12}>
+                <p className="textPlaceholder_CE">Roster: </p>
+              </Col>
+              <Col md={3} xs={12}>
+                <Form.Group controlId="rosterSelectFormGroup">
+                  <Form.Control as="select"
+                    className="daySelect_CE"
+                    name="roster"
+                    value={this.state.selectedRoster}
+                    onChange={this.changeRoster}>
+                    <option disabled selected value="" key={-1}>select</option>
+                    {this.createDropdownItems()}
+                  </Form.Control>
+                </Form.Group>
+              </Col>
+            </Row>
+
             <Row className="justify-content-md-center">
               <Col md={3} xs={12}>
                 <p className="textPlaceholder_CE">Section: </p>
@@ -267,14 +322,12 @@ class CreateEvent extends Component {
                 </Form.Group>
               </Col>
             </Row>
-            
-            <br/>
-            
+            <br />
             <Row className="justify-content-md-center">
               <Col>
-                  <Button href="/#" className="CE_Button ladda-button" onClick={this.createEvent} data-style="zoom-in" data-spinner-color="#000" id="createEventButton">
-                    <span className="ladda-label">Create New Event</span>
-                  </Button>
+                <Button href="/#" className="CE_Button ladda-button" onClick={this.createEvent} data-style="zoom-in" data-spinner-color="#000" id="createEventButton">
+                  <span className="ladda-label">Create New Event</span>
+                </Button>
               </Col>
             </Row >
           </Form >
