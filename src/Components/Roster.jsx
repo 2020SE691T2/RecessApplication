@@ -83,6 +83,7 @@ class Roster extends Component {
     this.handleTeacherDropdownSelection = this.handleTeacherDropdownSelection.bind(this);
     this.handleStudentDropdownSelection = this.handleStudentDropdownSelection.bind(this);
     this.loadEligibleParticipants = this.loadEligibleParticipants.bind(this);
+    this.populateExisting = this.populateExisting.bind(this);
     this.createRosterEntry = this.createRosterEntry.bind(this);
     this.xButtonClicked = this.xButtonClicked.bind(this);
     this.prepareFinalRoster = this.prepareFinalRoster.bind(this);
@@ -97,6 +98,26 @@ class Roster extends Component {
     this.laddaButton = Ladda.create(document.querySelector('#createRosterButton'));
     this.populatePageTitle_roster();
     this.loadEligibleParticipants();
+  }
+
+  populateExisting() {
+    fetch(this.env.getRootUrl() + "/roster/18", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+      }
+    }).then((resp) => resp.json())
+      .then((results) => {
+        if (RefreshToken(results)) {
+          this.setState({ rosterName: results.roster_name });
+          results.participants.forEach(individual => {
+            this.handleStudentDropdownSelection(individual.email_address, false);
+            this.handleTeacherDropdownSelection(individual.email_address, false);
+          });
+          this.forceUpdate();
+        }
+      });
   }
 
   loadEligibleParticipants() {
@@ -121,6 +142,7 @@ class Roster extends Component {
         else {
           toastr.error('Error', "Failed to get profile.\nPlease log in again.")
         }
+        this.populateExisting();
         this.forceUpdate();
       });
   }
@@ -149,14 +171,22 @@ class Roster extends Component {
       });
   }
 
-  handleTeacherDropdownSelection(e) {
-    this.eligibleTeachers[e]["selected"] = true;
-    this.forceUpdate();
+  handleTeacherDropdownSelection(e, update = true) {
+    if (this.eligibleTeachers[e]) {
+      this.eligibleTeachers[e]["selected"] = true;
+      if (update) {
+        this.forceUpdate();
+      }
+    }
   }
 
-  handleStudentDropdownSelection(e) {
-    this.eligibleStudents[e]["selected"] = true;
-    this.forceUpdate();
+  handleStudentDropdownSelection(e, update = true) {
+    if (this.eligibleStudents[e]) {
+      this.eligibleStudents[e]["selected"] = true;
+      if (update) {
+        this.forceUpdate();
+      }
+    }
   }
 
   createDropdownItem(participant) {
@@ -246,12 +276,18 @@ class Roster extends Component {
       }).then((resp) => resp.json())
         .then((results) => {
           if (RefreshToken(results)) {
-            this.laddaButton.stop();
-            toastr.success('Created Class Roster', "Created your roster. You must now associate it with a class when ready.")
-            this.props.history.push({
-              pathname: '/Calendar',
-              state: { classId: results.class_id }
-            })
+            if (results.roster_id) {
+              this.laddaButton.stop();
+              toastr.success('Created Class Roster', "Created your roster. You must now associate it with a class when ready.")
+              this.props.history.push({
+                pathname: '/Calendar',
+                state: { classId: results.class_id }
+              })
+            }
+            else {
+              this.laddaButton.stop();
+              toastr.error('Error', "Failed to create roster. Please check network traffic for error information", "Error")
+            }
           }
           else {
             this.laddaButton.stop();
