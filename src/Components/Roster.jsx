@@ -150,17 +150,13 @@ class Roster extends Component {
   }
 
   handleTeacherDropdownSelection(e) {
-    if (this.eligibleTeachers[e]) {
-      this.eligibleTeachers[e]["selected"] = true;
-      this.forceUpdate();
-    }
+    this.eligibleTeachers[e]["selected"] = true;
+    this.forceUpdate();
   }
 
   handleStudentDropdownSelection(e) {
-    if (this.eligibleStudents[e]) {
-      this.eligibleStudents[e]["selected"] = true;
-      this.forceUpdate();
-    }
+    this.eligibleStudents[e]["selected"] = true;
+    this.forceUpdate();
   }
 
   createDropdownItem(participant) {
@@ -250,18 +246,12 @@ class Roster extends Component {
       }).then((resp) => resp.json())
         .then((results) => {
           if (RefreshToken(results)) {
-            if (results.roster_id) {
-              this.laddaButton.stop();
-              toastr.success('Created Class Roster', "Created your roster. You must now associate it with a class when ready.")
-              this.props.history.push({
-                pathname: '/Calendar',
-                state: { classId: results.class_id }
-              })
-            }
-            else {
-              this.laddaButton.stop();
-              toastr.error('Error', "Failed to create roster. Please check network traffic for error information", "Error")
-            }
+            this.laddaButton.stop();
+            toastr.success('Created Class Roster', "Created your roster. You must now associate it with a class when ready.")
+            this.props.history.push({
+              pathname: '/Calendar',
+              state: { classId: results.class_id }
+            })
           }
           else {
             this.laddaButton.stop();
