@@ -95,8 +95,22 @@ class Roster extends Component {
 
   componentDidMount() {
     this.laddaButton = Ladda.create(document.querySelector('#createRosterButton'));
-    this.populatePageTitle_roster();
-    this.loadEligibleParticipants();
+    if (!sessionStorage.getItem("refreshToken")) {
+      this.props.history.push({
+        pathname: '/login'
+      });
+    }
+    else {
+      if (sessionStorage.getItem("role") !== "Teacher") {
+        this.props.history.push({
+          pathname: '/Calendar'
+        });
+      }
+      else {
+        this.populatePageTitle_roster();
+        this.loadEligibleParticipants();
+      }
+    }
   }
 
   loadEligibleParticipants() {
@@ -246,12 +260,18 @@ class Roster extends Component {
       }).then((resp) => resp.json())
         .then((results) => {
           if (RefreshToken(results)) {
-            this.laddaButton.stop();
-            toastr.success('Created Class Roster', "Created your roster. You must now associate it with a class when ready.")
-            this.props.history.push({
-              pathname: '/Calendar',
-              state: { classId: results.class_id }
-            })
+            if (results.roster_id) {
+              this.laddaButton.stop();
+              toastr.success('Created Class Roster', "Created your roster. You must now associate it with a class when ready.")
+              this.props.history.push({
+                pathname: '/Calendar',
+                state: { classId: results.class_id }
+              })
+            }
+            else {
+              this.laddaButton.stop();
+              toastr.error('Error', "Failed to create roster. Please check network traffic for error information", "Error")
+            }
           }
           else {
             this.laddaButton.stop();
