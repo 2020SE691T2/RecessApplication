@@ -13,7 +13,7 @@ import { toastr } from 'react-redux-toastr'
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 
 class Calendar extends Component {
-    
+
     env;
     mondayEvents = [];
     tuesdayEvents = [];
@@ -27,9 +27,9 @@ class Calendar extends Component {
         this.prepareEventComponent = this.prepareEventComponent.bind(this);
         this.sortDailyEvents = this.sortDailyEvents.bind(this);
         this.env = new Environment();
-    
+
     }
-    
+
     populatePageTitle() {
         var url = this.env.getRootUrl() + "/users/" + sessionStorage.getItem("email");
         fetch(url, {
@@ -40,7 +40,7 @@ class Calendar extends Component {
         })
             .then((resp) => resp.json())
             .then((results) => {
-                
+
                 if (RefreshToken(results)) {
                     if (results.preferred_name === "") {
                         document.getElementById("pageTitle").innerText = results.first_name + "'s Weekly Class Calendar";
@@ -54,7 +54,7 @@ class Calendar extends Component {
                 }
             });
     }
-    
+
     getEventsFromDatabase(year, week) {
         var url = this.env.getRootUrl() + "/api/classes?year=" + year + "&week=" + week;
         fetch(url, {
@@ -66,43 +66,45 @@ class Calendar extends Component {
             .then((resp) => resp.json())
             .then((results) => {
                 //need to sort the events by day of week and the time
-                if (results.schedules) {
-                    results.schedules.forEach(event => {
-                        switch (event.weekday.toLowerCase()) {
-                            case "monday":
-                                this.mondayEvents.push(event);
-                                break;
-                            case "tuesday":
-                                this.tuesdayEvents.push(event);
-                                break;
-                            case "wednesday":
-                                this.wednesdayEvents.push(event);
-                                break;
-                            case "thursday":
-                                this.thursdayEvents.push(event);
-                                break;
-                            case "friday":
-                                this.fridayEvents.push(event);
-                                break;
-                            default:
-                            
-                        }
-                    });
-                    
-                    this.mondayEvents = this.sortDailyEvents(this.mondayEvents);
-                    this.tuesdayEvents = this.sortDailyEvents(this.tuesdayEvents);
-                    this.wednesdayEvents = this.sortDailyEvents(this.wednesdayEvents);
-                    this.thursdayEvents = this.sortDailyEvents(this.thursdayEvents);
-                    this.fridayEvents = this.sortDailyEvents(this.fridayEvents);
+                if (RefreshToken(results)) {
+                    if (results.schedules) {
+                        results.schedules.forEach(event => {
+                            switch (event.weekday.toLowerCase()) {
+                                case "monday":
+                                    this.mondayEvents.push(event);
+                                    break;
+                                case "tuesday":
+                                    this.tuesdayEvents.push(event);
+                                    break;
+                                case "wednesday":
+                                    this.wednesdayEvents.push(event);
+                                    break;
+                                case "thursday":
+                                    this.thursdayEvents.push(event);
+                                    break;
+                                case "friday":
+                                    this.fridayEvents.push(event);
+                                    break;
+                                default:
+
+                            }
+                        });
+
+                        this.mondayEvents = this.sortDailyEvents(this.mondayEvents);
+                        this.tuesdayEvents = this.sortDailyEvents(this.tuesdayEvents);
+                        this.wednesdayEvents = this.sortDailyEvents(this.wednesdayEvents);
+                        this.thursdayEvents = this.sortDailyEvents(this.thursdayEvents);
+                        this.fridayEvents = this.sortDailyEvents(this.fridayEvents);
+                    }
+                    this.forceUpdate();
                 }
-                this.forceUpdate();
             });
     }
 
     sortDailyEvents(dailyEventArray) {
         return dailyEventArray.sort((a, b) => (a.start_time > b.start_time) ? 1 : -1)
     }
-    
+
     componentDidMount() {
         if (!sessionStorage.getItem("refreshToken")) {
             this.props.history.push({
@@ -128,13 +130,13 @@ class Calendar extends Component {
     prepareEventComponent(data) {
         return (
             <CalendarEvent startTime={data.start_time}
-            endTime={data.end_time}
-            link={data.meeting_link}
-            className={data.class_name}
-            day={data.weekday} />
+                endTime={data.end_time}
+                link={data.meeting_link}
+                className={data.class_name}
+                day={data.weekday} />
         )
     }
-    
+
     render() {
         return (
             <div>
@@ -142,13 +144,13 @@ class Calendar extends Component {
                 <Container className="backgroundNewCal" fluid>
                     <Row className="justify-content-md-center">
                         <Col>
-                            <br/>
+                            <br />
                             <h2 id="pageTitle"> </h2>
                         </Col>
                     </Row>
                     <Row className="justify-content-md-center">
                         <Col>
-                            <br/>
+                            <br />
                             <CalDate />
                         </Col>
                     </Row>
@@ -156,9 +158,9 @@ class Calendar extends Component {
                         <p></p>
                     </div>
                     <Row className="justify-content-md-center">
-                        <br/>
+                        <br />
                         <Col xs={2}>
-                            <h3 style={{color:'#a0df76'}}>Monday </h3>
+                            <h3 style={{ color: '#a0df76' }}>Monday </h3>
                             <div className="box1 calendarDay">
                                 {
                                     this.mondayEvents.map(event => this.prepareEventComponent(event))
@@ -166,7 +168,7 @@ class Calendar extends Component {
                             </div>
                         </Col>
                         <Col xs={2}>
-                            <h3 style={{color:'#ec1c6a'}}>Tuesday</h3>
+                            <h3 style={{ color: '#ec1c6a' }}>Tuesday</h3>
                             <div className="box2 calendarDay">
                                 {
                                     this.tuesdayEvents.map(event => this.prepareEventComponent(event))
@@ -174,7 +176,7 @@ class Calendar extends Component {
                             </div>
                         </Col>
                         <Col xs={2}>
-                            <h3 style={{color:'#fcb005'}}>Wednesday</h3>
+                            <h3 style={{ color: '#fcb005' }}>Wednesday</h3>
                             <div className="box3 calendarDay">
                                 {
                                     this.wednesdayEvents.map(event => this.prepareEventComponent(event))
@@ -182,7 +184,7 @@ class Calendar extends Component {
                             </div>
                         </Col>
                         <Col xs={2}>
-                            <h3 style={{color:'#20a9ed'}}> Thursday</h3>
+                            <h3 style={{ color: '#20a9ed' }}> Thursday</h3>
                             <div className="box4 calendarDay">
                                 {
                                     this.thursdayEvents.map(event => this.prepareEventComponent(event))
@@ -190,7 +192,7 @@ class Calendar extends Component {
                             </div>
                         </Col>
                         <Col xs={2}>
-                            <h3 style={{color:'#885cbb'}}> Friday</h3>
+                            <h3 style={{ color: '#885cbb' }}> Friday</h3>
                             <div className="box5 calendarDay">
                                 {
                                     this.fridayEvents.map(event => this.prepareEventComponent(event))
