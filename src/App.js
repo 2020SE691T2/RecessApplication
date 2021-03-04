@@ -33,9 +33,9 @@ function App() {
   return (
 
     <div className="App">
-        <Helmet>
-          <title>{ 'Recess' }</title>
-        </Helmet>
+      <Helmet>
+        <title>{'Recess'}</title>
+      </Helmet>
 
       <BrowserRouter>
         <Switch>
@@ -51,7 +51,7 @@ function App() {
           <Route exact path="/Logout" component={LogoutPage} />
           <Route exact path="/Calendar" component={Calendar} />
           <Route exact path="/ChangePassword" component={ChangePassword} />
-          <Route exact path="/Roster" component={Roster} />
+          <Route exact path="/CreateRoster" component={Roster} />
         </Switch>
       </BrowserRouter>
       <Provider store={store}>
