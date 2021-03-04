@@ -367,7 +367,7 @@ class CreateRoster extends Component {
           <br />
           <Row className="justify-content-md-center">
             <Col xs={12} md={6}>
-              <Button variant="light" onClick={this.prepareFinalRoster} className="createRosterButton ladda-button" data-style="zoom-in" data-spinner-color="#000" id="createRosterButton">
+              <Button variant="light" onClick={this.prepareFinalRoster} className="rosterButton ladda-button" data-style="zoom-in" data-spinner-color="#000" id="createRosterButton">
                 <span className="ladda-label">Click to Complete Roster</span>
               </Button>
             </Col>

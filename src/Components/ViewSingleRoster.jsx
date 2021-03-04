@@ -398,7 +398,7 @@ class ViewSingleRoster extends Component {
           <br />
           <Row className="justify-content-md-center">
             <Col xs={12} md={6}>
-              <Button variant="light" onClick={this.prepareFinalRoster} className="updateRosterButton ladda-button" data-style="zoom-in" data-spinner-color="#000" id="updateRosterButton">
+              <Button variant="light" onClick={this.prepareFinalRoster} className="rosterButton ladda-button" data-style="zoom-in" data-spinner-color="#000" id="updateRosterButton">
                 <span className="ladda-label">Update Roster</span>
               </Button>
             </Col>
