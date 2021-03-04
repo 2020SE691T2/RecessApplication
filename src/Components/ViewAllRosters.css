@@ -1,0 +1,27 @@
+.backgroundRosterPage {
+  background-image: url(/fpbackground.jpg);
+  background-repeat: no-repeat;
+  background-size:cover;
+  background-color: #6a6a73;
+  min-height: 100vh;
+}
+
+.createRosterButton {
+  font-family: Chalkduster, sans-serif;
+}
+
+.updateRosterButton {
+  font-size: 28px !important;
+  font-family: Chalkduster, sans-serif;
+}
+
+.rosterTable {
+  font-family: Chalkduster, sans-serif;
+  color: #fff !important;
+  height: 100%;
+}
+
+.rosterTableHolder {
+  overflow-y: scroll;
+  max-height: 60vh;
+}
