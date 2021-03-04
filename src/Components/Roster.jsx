@@ -107,7 +107,6 @@ class Roster extends Component {
         });
       }
       else {
-        this.populatePageTitle_roster();
         this.loadEligibleParticipants();
       }
     }
@@ -136,30 +135,6 @@ class Roster extends Component {
           toastr.error('Error', "Failed to get profile.\nPlease log in again.")
         }
         this.forceUpdate();
-      });
-  }
-
-  populatePageTitle_roster() {
-    var url = this.env.getRootUrl() + "/users/" + sessionStorage.getItem("email");
-    fetch(url, {
-      method: "GET",
-      headers: new Headers({
-        'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
-      })
-    })
-      .then((resp) => resp.json())
-      .then((results) => {
-        if (RefreshToken(results)) {
-          if (results.preferred_name === "") {
-            document.getElementById("pageTitle_roster").innerHTML = results.first_name + "'s Class Roster";
-          }
-          else {
-            document.getElementById("pageTitle_roster").innerHTML = results.preferred_name + "'s Class Roster";
-          }
-        }
-        else {
-          toastr.error('Error', "Failed to get profile.\nPlease log in again.")
-        }
       });
   }
 
@@ -293,7 +268,7 @@ class Roster extends Component {
           <br />
           <Row className="justify-content-md-center">
             <Col xs={10}>
-              <h2 className="textLabelRosterPage" id="pageTitle_roster"> </h2>
+              <h2 className="textLabelRosterPage" id="pageTitle_roster">Create New Roster</h2>
             </Col>
           </Row>
           <br />
