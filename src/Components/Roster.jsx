@@ -274,26 +274,23 @@ class Roster extends Component {
         }
       }).then((resp) => resp.json())
         .then((results) => {
+          this.laddaButton.stop();
           if (RefreshToken(results)) {
             if (results.roster_id) {
-              this.laddaButton.stop();
               toastr.success('Updated Class Roster', "Updated your roster.")
               this.props.history.push({
                 pathname: '/RosterList'
               })
             }
             else {
-              this.laddaButton.stop();
               toastr.error('Error', "Failed to update roster.", "Error")
             }
           }
           else {
-            this.laddaButton.stop();
             toastr.error('Error', "Failed to update roster.", "Error")
           }
         });
     } else {
-      this.laddaButton.stop();
       toastr.error('Error', "Failed to update roster. You must provide a roster name", "Error")
     }
   }
