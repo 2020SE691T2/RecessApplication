@@ -1,6 +1,6 @@
 
 import React, { Component, useState } from "react";
-import "./Roster.css";
+import "./ViewSingleRoster.css";
 import Menubar from "./MenuBar"
 import Environment from "./Environment";
 
@@ -67,7 +67,7 @@ const CustomMenu = React.forwardRef(
 
 
 
-class Roster extends Component {
+class ViewSingleRoster extends Component {
 
   env;
   laddaButton;
@@ -77,14 +77,15 @@ class Roster extends Component {
     super();
 
     this.state = {
-      rosterName: ""
+      rosterName: "",
+      currentRosterId: ""
     }
 
     this.handleTeacherDropdownSelection = this.handleTeacherDropdownSelection.bind(this);
     this.handleStudentDropdownSelection = this.handleStudentDropdownSelection.bind(this);
     this.loadEligibleParticipants = this.loadEligibleParticipants.bind(this);
     this.populateExisting = this.populateExisting.bind(this);
-    this.createRosterEntry = this.createRosterEntry.bind(this);
+    this.updateRosterEntry = this.updateRosterEntry.bind(this);
     this.xButtonClicked = this.xButtonClicked.bind(this);
     this.prepareFinalRoster = this.prepareFinalRoster.bind(this);
     this.submitRoster = this.submitRoster.bind(this);
@@ -95,13 +96,13 @@ class Roster extends Component {
   }
 
   componentDidMount() {
-    this.laddaButton = Ladda.create(document.querySelector('#createRosterButton'));
+    this.laddaButton = Ladda.create(document.querySelector('#updateRosterButton'));
     this.populatePageTitle_roster();
     this.loadEligibleParticipants();
   }
 
   populateExisting() {
-    fetch(this.env.getRootUrl() + "/roster/18", {
+    fetch(this.env.getRootUrl() + "/roster/" + this.state.currentRosterId, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -111,10 +112,12 @@ class Roster extends Component {
       .then((results) => {
         if (RefreshToken(results)) {
           this.setState({ rosterName: results.roster_name });
-          results.participants.forEach(individual => {
-            this.handleStudentDropdownSelection(individual.email_address, false);
-            this.handleTeacherDropdownSelection(individual.email_address, false);
-          });
+          if (results.participants) {
+            results.participants.forEach(individual => {
+              this.handleStudentDropdownSelection(individual.email_address, false);
+              this.handleTeacherDropdownSelection(individual.email_address, false);
+            });
+          }
           this.forceUpdate();
         }
       });
@@ -211,7 +214,7 @@ class Roster extends Component {
     this.forceUpdate();
   }
 
-  createRosterEntry(email, type) {
+  updateRosterEntry(email, type) {
     return (
       <div className="txtInputButton flex" id={"roster+" + email} key={email}>
         <p className="inputBox" type="text" disabled />
@@ -266,8 +269,8 @@ class Roster extends Component {
   submitRoster(rosterJson) {
     this.laddaButton.start();
     if (this.state.rosterName.trim() !== "") {
-      fetch(this.env.getRootUrl() + "/roster", {
-        method: "POST",
+      fetch(this.env.getRootUrl() + "/roster/" + this.state.currentRosterId, {
+        method: "PATCH",
         body: rosterJson,
         headers: {
           "Content-Type": "application/json",
@@ -278,7 +281,7 @@ class Roster extends Component {
           if (RefreshToken(results)) {
             if (results.roster_id) {
               this.laddaButton.stop();
-              toastr.success('Created Class Roster', "Created your roster. You must now associate it with a class when ready.")
+              toastr.success('Updated Class Roster', "Updated your roster. You must now associate it with a class when ready.")
               this.props.history.push({
                 pathname: '/Calendar',
                 state: { classId: results.class_id }
@@ -286,17 +289,17 @@ class Roster extends Component {
             }
             else {
               this.laddaButton.stop();
-              toastr.error('Error', "Failed to create roster. Please check network traffic for error information", "Error")
+              toastr.error('Error', "Failed to update roster. Please check network traffic for error information", "Error")
             }
           }
           else {
             this.laddaButton.stop();
-            toastr.error('Error', "Failed to create roster. Please check network traffic for error information", "Error")
+            toastr.error('Error', "Failed to update roster. Please check network traffic for error information", "Error")
           }
         });
     } else {
       this.laddaButton.stop();
-      toastr.error('Error', "Failed to create roster. You must provide a roster name", "Error")
+      toastr.error('Error', "Failed to update roster. You must provide a roster name", "Error")
     }
 
   }
@@ -357,7 +360,7 @@ class Roster extends Component {
                   Object.keys(this.eligibleTeachers).map(teacher => {
                     var selectedTeacher = this.eligibleTeachers[teacher];
                     if (selectedTeacher["selected"] === true) {
-                      return this.createRosterEntry(selectedTeacher["emailaddress"], "teacher");
+                      return this.updateRosterEntry(selectedTeacher["emailaddress"], "teacher");
                     }
                     return ""
                   })
@@ -396,7 +399,7 @@ class Roster extends Component {
                   Object.keys(this.eligibleStudents).map(student => {
                     var selectedStudent = this.eligibleStudents[student];
                     if (selectedStudent["selected"] === true) {
-                      return this.createRosterEntry(selectedStudent["emailaddress"], "student");
+                      return this.updateRosterEntry(selectedStudent["emailaddress"], "student");
                     }
                     return ""
                   })
@@ -407,8 +410,8 @@ class Roster extends Component {
           <br />
           <Row className="justify-content-md-center">
             <Col xs={12} md={6}>
-              <Button variant="light" onClick={this.prepareFinalRoster} className="createRosterButton ladda-button" data-style="zoom-in" data-spinner-color="#000" id="createRosterButton">
-                <span className="ladda-label">Click to Complete Roster</span>
+              <Button variant="light" onClick={this.prepareFinalRoster} className="updateRosterButton ladda-button" data-style="zoom-in" data-spinner-color="#000" id="updateRosterButton">
+                <span className="ladda-label">Update Roster</span>
               </Button>
             </Col>
           </Row>
@@ -417,4 +420,4 @@ class Roster extends Component {
     );
   }
 }
-export default Roster;
+export default ViewSingleRoster;
