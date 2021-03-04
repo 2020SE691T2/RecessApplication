@@ -134,6 +134,7 @@ class Roster extends Component {
         else {
           toastr.error('Error', "Failed to get profile.\nPlease log in again.")
         }
+        this.handleTeacherDropdownSelection(sessionStorage.getItem("email"));
         this.forceUpdate();
       });
   }
