@@ -21,8 +21,7 @@ import ReduxToastr, { reducer as toastrReducer } from 'react-redux-toastr'
 import { createStore, combineReducers } from 'redux'
 import Calendar from './Components/Calendar'
 import { Helmet } from 'react-helmet'
-import CreateRoster from './Components/CreateRoster';
-import ViewSingleRoster from './Components/ViewSingleRoster';
+import Roster from './Components/Roster';
 import ViewAllRosters from './Components/ViewAllRosters';
 
 const reducers = {
@@ -53,8 +52,8 @@ function App() {
           <Route exact path="/Logout" component={LogoutPage} />
           <Route exact path="/Calendar" component={Calendar} />
           <Route exact path="/ChangePassword" component={ChangePassword} />
-          <Route exact path="/CreateRoster" component={CreateRoster} />
-          <Route exact path="/ViewRoster" component={ViewSingleRoster} />
+          <Route exact path="/CreateRoster" component={Roster} />
+          <Route exact path="/ViewRoster" component={Roster} />
           <Route exact path="/RosterList" component={ViewAllRosters} />
         </Switch>
       </BrowserRouter>
