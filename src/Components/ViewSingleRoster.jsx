@@ -32,13 +32,13 @@ class ViewSingleRoster extends Component {
 
     this.handleTeacherDropdownSelection = this.handleTeacherDropdownSelection.bind(this);
     this.handleStudentDropdownSelection = this.handleStudentDropdownSelection.bind(this);
-    this.loadEligibleParticipants = this.loadEligibleParticipants.bind(this);
+    this.loadEligibleParticipants = this.loadEligibleUsers.bind(this);
     this.populateExisting = this.populateExisting.bind(this);
     this.updateRosterEntry = this.updateRosterEntry.bind(this);
     this.xButtonClicked = this.xButtonClicked.bind(this);
     this.prepareFinalRoster = this.prepareFinalRoster.bind(this);
-    this.submitRoster = this.submitRoster.bind(this);
-    this.rosterNameChange = this.rosterNameChange.bind(this);
+    this.updateRoster = this.updateRoster.bind(this);
+    this.updateRosterName = this.updateRosterName.bind(this);
 
     this.env = new Environment();
 
@@ -58,7 +58,7 @@ class ViewSingleRoster extends Component {
         });
       }
       else {
-        this.loadEligibleParticipants();
+        this.loadEligibleUsers();
       }
     }
   }
@@ -85,7 +85,7 @@ class ViewSingleRoster extends Component {
       });
   }
 
-  loadEligibleParticipants() {
+  loadEligibleUsers() {
     var url = this.env.getRootUrl() + "/api/participants";
     fetch(url, {
       method: "GET",
@@ -164,7 +164,7 @@ class ViewSingleRoster extends Component {
     );
   }
 
-  rosterNameChange = (e) => {
+  updateRosterName = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   }
 
@@ -201,10 +201,10 @@ class ViewSingleRoster extends Component {
       }
     }
 
-    this.submitRoster(JSON.stringify(rosterJson));
+    this.updateRoster(JSON.stringify(rosterJson));
   }
 
-  submitRoster(rosterJson) {
+  updateRoster(rosterJson) {
     this.laddaButton.start();
     if (this.state.rosterName.trim() !== "") {
       fetch(this.env.getRootUrl() + "/roster/" + this.props.location.state.currentRosterId, {
@@ -221,8 +221,7 @@ class ViewSingleRoster extends Component {
               this.laddaButton.stop();
               toastr.success('Updated Class Roster', "Updated your roster. You must now associate it with a class when ready.")
               this.props.history.push({
-                pathname: '/Calendar',
-                state: { classId: results.class_id }
+                pathname: '/RosterList'
               })
             }
             else {
@@ -261,7 +260,7 @@ class ViewSingleRoster extends Component {
                 name="rosterName"
                 className="textLabelRosterPage"
                 value={this.state.rosterName}
-                onChange={this.rosterNameChange}
+                onChange={this.updateRosterName}
                 placeholder="Roster Name"
               />
             </Col>
