@@ -277,19 +277,19 @@ class Roster extends Component {
           if (RefreshToken(results)) {
             if (results.roster_id) {
               this.laddaButton.stop();
-              toastr.success('Updated Class Roster', "Updated your roster. You must now associate it with a class when ready.")
+              toastr.success('Updated Class Roster', "Updated your roster.")
               this.props.history.push({
                 pathname: '/RosterList'
               })
             }
             else {
               this.laddaButton.stop();
-              toastr.error('Error', "Failed to update roster. Please check network traffic for error information", "Error")
+              toastr.error('Error', "Failed to update roster.", "Error")
             }
           }
           else {
             this.laddaButton.stop();
-            toastr.error('Error', "Failed to update roster. Please check network traffic for error information", "Error")
+            toastr.error('Error', "Failed to update roster.", "Error")
           }
         });
     } else {
