@@ -77,8 +77,7 @@ class ViewSingleRoster extends Component {
     super();
 
     this.state = {
-      rosterName: "",
-      currentRosterId: ""
+      rosterName: ""
     }
 
     this.handleTeacherDropdownSelection = this.handleTeacherDropdownSelection.bind(this);
@@ -115,7 +114,7 @@ class ViewSingleRoster extends Component {
   }
 
   populateExisting() {
-    fetch(this.env.getRootUrl() + "/roster/" + this.state.currentRosterId, {
+    fetch(this.env.getRootUrl() + "/roster/" + this.props.location.state.currentRosterId, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -258,7 +257,7 @@ class ViewSingleRoster extends Component {
   submitRoster(rosterJson) {
     this.laddaButton.start();
     if (this.state.rosterName.trim() !== "") {
-      fetch(this.env.getRootUrl() + "/roster/" + this.state.currentRosterId, {
+      fetch(this.env.getRootUrl() + "/roster/" + this.props.location.state.currentRosterId, {
         method: "PATCH",
         body: rosterJson,
         headers: {
