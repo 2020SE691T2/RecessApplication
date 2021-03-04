@@ -21,8 +21,8 @@ class ViewSingleRoster extends Component {
 
   env;
   laddaButton;
-  eligibleTeachers = {};
-  eligibleStudents = {};
+  allTeachers = {};
+  allStudents = {};
   constructor() {
     super();
 
@@ -98,10 +98,10 @@ class ViewSingleRoster extends Component {
         if (RefreshToken(results)) {
           var participants = JSON.parse(results.data);
           participants.students.forEach(student => {
-            this.eligibleStudents[student.emailaddress] = student;
+            this.allStudents[student.emailaddress] = student;
           });
           participants.teachers.forEach(teacher => {
-            this.eligibleTeachers[teacher.emailaddress] = teacher;
+            this.allTeachers[teacher.emailaddress] = teacher;
           })
         }
         else {
@@ -113,8 +113,8 @@ class ViewSingleRoster extends Component {
   }
 
   handleTeacherDropdownSelection(e, update = true) {
-    if (this.eligibleTeachers[e]) {
-      this.eligibleTeachers[e]["selected"] = true;
+    if (this.allTeachers[e]) {
+      this.allTeachers[e]["selected"] = true;
       if (update) {
         this.forceUpdate();
       }
@@ -122,8 +122,8 @@ class ViewSingleRoster extends Component {
   }
 
   handleStudentDropdownSelection(e, update = true) {
-    if (this.eligibleStudents[e]) {
-      this.eligibleStudents[e]["selected"] = true;
+    if (this.allStudents[e]) {
+      this.allStudents[e]["selected"] = true;
       if (update) {
         this.forceUpdate();
       }
@@ -143,11 +143,11 @@ class ViewSingleRoster extends Component {
     var email = node.dataset["email"];
 
     if (type === "teacher") {
-      this.eligibleTeachers[email]["selected"] = false;
+      this.allTeachers[email]["selected"] = false;
     }
 
     if (type === "student") {
-      this.eligibleStudents[email]["selected"] = false;
+      this.allStudents[email]["selected"] = false;
     }
     this.forceUpdate();
   }
@@ -178,9 +178,9 @@ class ViewSingleRoster extends Component {
     var email;
 
     //load teachers
-    var teachers = Object.keys(this.eligibleTeachers);
+    var teachers = Object.keys(this.allTeachers);
     for (var teacher in teachers) {
-      participant = this.eligibleTeachers[teachers[teacher]];
+      participant = this.allTeachers[teachers[teacher]];
       if (participant["selected"] === true) {
         email = participant["emailaddress"];
         rosterJson.participants.push({
@@ -190,9 +190,9 @@ class ViewSingleRoster extends Component {
     }
 
     // load students
-    var students = Object.keys(this.eligibleStudents);
+    var students = Object.keys(this.allStudents);
     for (var student in students) {
-      participant = this.eligibleStudents[students[student]];
+      participant = this.allStudents[students[student]];
       if (participant["selected"] === true) {
         email = participant["emailaddress"];
         rosterJson.participants.push({
@@ -284,8 +284,8 @@ class ViewSingleRoster extends Component {
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="dropdownScroll" as={CustomMenu}>
                   {
-                    Object.keys(this.eligibleTeachers).map(teacher => {
-                      var participant = this.eligibleTeachers[teacher];
+                    Object.keys(this.allTeachers).map(teacher => {
+                      var participant = this.allTeachers[teacher];
                       return this.createDropdownItem(participant);
                     })
                   }
@@ -295,8 +295,8 @@ class ViewSingleRoster extends Component {
             <Col xs={5}>
               <Form id="teacherListForm">
                 {
-                  Object.keys(this.eligibleTeachers).map(teacher => {
-                    var selectedTeacher = this.eligibleTeachers[teacher];
+                  Object.keys(this.allTeachers).map(teacher => {
+                    var selectedTeacher = this.allTeachers[teacher];
                     if (selectedTeacher["selected"] === true) {
                       return this.updateRosterEntry(selectedTeacher["emailaddress"], "teacher");
                     }
@@ -323,8 +323,8 @@ class ViewSingleRoster extends Component {
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="dropdownScroll" as={CustomMenu}>
                   {
-                    Object.keys(this.eligibleStudents).map(student => {
-                      var participant = this.eligibleStudents[student];
+                    Object.keys(this.allStudents).map(student => {
+                      var participant = this.allStudents[student];
                       return this.createDropdownItem(participant);
                     })
                   }
@@ -334,8 +334,8 @@ class ViewSingleRoster extends Component {
             <Col xs={5}>
               <Form id="studentListForm">
                 {
-                  Object.keys(this.eligibleStudents).map(student => {
-                    var selectedStudent = this.eligibleStudents[student];
+                  Object.keys(this.allStudents).map(student => {
+                    var selectedStudent = this.allStudents[student];
                     if (selectedStudent["selected"] === true) {
                       return this.updateRosterEntry(selectedStudent["emailaddress"], "student");
                     }
