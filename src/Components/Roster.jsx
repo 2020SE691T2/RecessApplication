@@ -39,6 +39,7 @@ class Roster extends Component {
     this.prepareFinalRoster = this.prepareFinalRoster.bind(this);
     this.submitRoster = this.submitRoster.bind(this);
     this.updateRoster = this.updateRoster.bind(this);
+    this.deleteRoster = this.deleteRoster.bind(this);
     this.createPageTitle = this.createPageTitle.bind(this);
     this.rosterNameChange = this.rosterNameChange.bind(this);
 
@@ -242,8 +243,7 @@ class Roster extends Component {
               this.laddaButton.stop();
               toastr.success('Created Class Roster', "Created your roster. You must now associate it with a class when ready.")
               this.props.history.push({
-                pathname: '/Calendar',
-                state: { classId: results.class_id }
+                pathname: '/RosterList'
               })
             }
             else {
@@ -298,6 +298,25 @@ class Roster extends Component {
     }
   }
 
+  deleteRoster() {
+    fetch(this.env.getRootUrl() + "/roster/" + this.props.location.state.currentRosterId, {
+      method: "DELETE",
+      headers: {
+        'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+      }
+    }).then((resp) => {
+      if (resp.status === 204) {
+        toastr.success('Deleted Class Roster', "Successfully deleted the roster.");
+        this.props.history.push({
+          pathname: '/RosterList'
+        });
+      }
+      else {
+        toastr.error('Error', "Failed to delete roster.")
+      }
+    });
+
+  }
   render() {
     return (
       <div >
@@ -406,6 +425,13 @@ class Roster extends Component {
             <Col xs={12} md={6}>
               <Button variant="light" onClick={this.prepareFinalRoster} className="rosterButton ladda-button" data-style="zoom-in" data-spinner-color="#000" id="createRosterButton">
                 <span className="ladda-label">Click to Complete Roster</span>
+              </Button>
+            </Col>
+          </Row>
+          <Row className="justify-content-md-center">
+            <Col xs={12} md={6}>
+              <Button variant="light" hidden={this.props.location.state ? false : true} onClick={this.deleteRoster} className="rosterButton ladda-button" data-style="zoom-in" data-spinner-color="#000" id="deleteRosterButton">
+                <span className="ladda-label">Delete Roster</span>
               </Button>
             </Col>
           </Row>
