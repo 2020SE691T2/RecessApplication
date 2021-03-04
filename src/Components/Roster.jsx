@@ -265,7 +265,7 @@ class Roster extends Component {
               toastr.success('Created Class Roster', "Created your roster. You must now associate it with a class when ready.")
               this.props.history.push({
                 pathname: '/Calendar',
-                state: { classId: results.class_id }
+                state: { eventId: results.event_id }
               })
             }
             else {

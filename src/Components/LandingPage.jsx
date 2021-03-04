@@ -66,7 +66,7 @@ class LandingPage extends Component {
                 <Col xs={12} md={6}>
                   <h4>
                     This user user-friendly calendar allows educators to create Zoom integrated video meetings and calendar events for their students. The events
-                    are easily accesible by young learners and include bright colors for enhanced interactivity!
+                    are easily accessible by young learners and include bright colors for enhanced interactivity!
                   </h4>
                 </Col>
               </Row>
@@ -78,7 +78,7 @@ class LandingPage extends Component {
                 </Col>
                 <Col xs={12} md={6}>
                   <h4>
-                    Educators can create events seamlessly with the simple interface. Simply, input the requested information and the events are magicaclly created for both the educator and the young learners!
+                    Educators can create events seamlessly with the simple interface. Simply, input the requested information and the events are magically created for both the educator and the young learners!
                   </h4>
                 </Col>
               </Row>

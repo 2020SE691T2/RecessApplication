@@ -22,14 +22,14 @@ class ViewEvent extends Component {
     super(props);
     this.state = {
       disabled: true,
-      classId: '',
+      eventId: '',
       className: '',
       meetingLink: '',
       year: '',
       section: ''
     };
 
-    this.changeClassId = this.changeClassId.bind(this);
+    this.changeeventId = this.changeeventId.bind(this);
     this.changeClassName = this.changeClassName.bind(this);
     this.changeYear = this.changeYear.bind(this);
     this.changeSection = this.changeSection.bind(this);
@@ -37,8 +37,8 @@ class ViewEvent extends Component {
     this.env = new Environment();
   }
 
-  changeClassId(event) {
-    this.setState({ classId: event.target.value });
+  changeeventId(event) {
+    this.setState({ eventId: event.target.value });
   }
 
   changeClassName(event) {
@@ -62,8 +62,8 @@ class ViewEvent extends Component {
     }
     else {
       if (typeof this.props.location.state !== 'undefined' &&
-        typeof this.props.location.state.classId !== 'undefined') {
-        var url = this.env.getRootUrl() + "/class_info/" + this.props.location.state.classId;
+        typeof this.props.location.state.eventId !== 'undefined') {
+        var url = this.env.getRootUrl() + "/event_info/" + this.props.location.state.eventId;
         fetch(url, {
           method: "GET",
           headers: new Headers({
@@ -74,8 +74,8 @@ class ViewEvent extends Component {
           .then((results) => {
             if (RefreshToken(results)) {
               this.setState({
-                classId: results.class_id,
-                className: results.class_name,
+                eventId: results.event_id,
+                className: results.event_name,
                 meetingLink: results.meeting_link,
                 year: results.year,
                 section: results.section
@@ -108,12 +108,12 @@ class ViewEvent extends Component {
 
 
       var json = JSON.stringify({
-        "class_id": this.state.classId,
-        "class_name": this.state.className,
+        "event_id": this.state.eventId,
+        "event_name": this.state.className,
         "year": this.state.year,
         "section": this.state.section
       });
-      var url = this.env.getRootUrl() + "/class_info/" + this.state.classId;
+      var url = this.env.getRootUrl() + "/event_info/" + this.state.eventId;
       fetch(url, {
         method: "PATCH",
         body: json,
@@ -126,8 +126,8 @@ class ViewEvent extends Component {
           if (RefreshToken(results)) {
             this.laddaButton.stop();
             this.setState({
-              classId: results.class_id,
-              className: results.class_name,
+              eventId: results.event_id,
+              className: results.event_name,
               meetingLink: results.meeting_link,
               year: results.year,
               section: results.section
@@ -152,9 +152,9 @@ class ViewEvent extends Component {
             </Row>
             <Row className="justify-content-md-center">
               <Col xs={12} md={5}>
-                <Form.Group controlId="classIdFormGroup">
+                <Form.Group controlId="eventIdFormGroup">
                   <Form.Label className="rowStyle">Class Id:</Form.Label>
-                  <Form.Control type="text" name="classIdInput" disabled={this.state.disabled} value={this.state.classId} onChange={this.changeClassId} />
+                  <Form.Control type="text" name="eventIdInput" disabled={this.state.disabled} value={this.state.eventId} onChange={this.changeeventId} />
                 </Form.Group>
               </Col>
               <Col xs={12} md={5}>
