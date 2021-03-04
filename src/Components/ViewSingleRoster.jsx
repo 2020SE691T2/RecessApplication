@@ -1,5 +1,4 @@
-
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import "./Roster.css";
 import Menubar from "./MenuBar"
 import Environment from "./Environment";
@@ -12,60 +11,11 @@ import { toastr } from 'react-redux-toastr'
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 import RefreshToken from "../RefreshToken"
 import { Button, Dropdown } from "react-bootstrap";
-import FormControl from 'react-bootstrap/FormControl'
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
 import * as Ladda from 'ladda';
-
-
-// The forwardRef is important!!
-// Dropdown needs access to the DOM node in order to position the Menu
-const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
-  <a
-    href="."
-    ref={ref}
-    onClick={(e) => {
-      e.preventDefault();
-      onClick(e);
-    }}
-  >
-    {children}
-      &#x25bc;
-  </a>
-));
-
-// forwardRef again here!
-// Dropdown needs access to the DOM of the Menu to measure it
-const CustomMenu = React.forwardRef(
-  ({ children, style, className, 'aria-labelledby': labeledBy }, ref) => {
-    const [value, setValue] = useState('');
-
-    return (
-      <div
-        ref={ref}
-        style={style}
-        className={className}
-        aria-labelledby={labeledBy}
-      >
-        <FormControl
-          autoFocus
-          className="mx-3 my-2 w-auto"
-          placeholder="Type to filter..."
-          onChange={(e) => setValue(e.target.value)}
-          value={value}
-        />
-        <ul className="list-unstyled">
-          {React.Children.toArray(children).filter(
-            (child) =>
-              !value || child.props.children.toLowerCase().includes(value),
-          )}
-        </ul>
-      </div>
-    );
-  },
-);
-
-
+import CustomMenu from './CustomMenu';
+import CustomToggle from './CustomToggle';
 
 class ViewSingleRoster extends Component {
 
