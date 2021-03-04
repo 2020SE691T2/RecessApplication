@@ -97,7 +97,21 @@ class ViewSingleRoster extends Component {
 
   componentDidMount() {
     this.laddaButton = Ladda.create(document.querySelector('#updateRosterButton'));
-    this.loadEligibleParticipants();
+    if (!sessionStorage.getItem("refreshToken")) {
+      this.props.history.push({
+        pathname: '/login'
+      });
+    }
+    else {
+      if (sessionStorage.getItem("role") !== "Teacher") {
+        this.props.history.push({
+          pathname: '/Calendar'
+        });
+      }
+      else {
+        this.loadEligibleParticipants();
+      }
+    }
   }
 
   populateExisting() {
