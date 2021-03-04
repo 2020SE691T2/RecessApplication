@@ -1,6 +1,6 @@
 
 import React, { Component, useState } from "react";
-import "./Roster.css";
+import "./CreateRoster.css";
 import Menubar from "./MenuBar"
 import Environment from "./Environment";
 
@@ -67,7 +67,7 @@ const CustomMenu = React.forwardRef(
 
 
 
-class Roster extends Component {
+class CreateRoster extends Component {
 
   env;
   laddaButton;
@@ -377,4 +377,4 @@ class Roster extends Component {
     );
   }
 }
-export default Roster;
+export default CreateRoster;
