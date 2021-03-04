@@ -76,8 +76,8 @@ class ViewAllRosters extends Component {
           <Row className="justify-content-md-center">
             <Col xs={10}>
               <Button className="btn btn-light" href="/CreateRoster">Create a New Roster</Button>
-              <br/>
-              <br/>
+              <br />
+              <br />
             </Col>
           </Row>
           <Row className="justify-content-md-center">
