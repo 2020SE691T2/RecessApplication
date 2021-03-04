@@ -1,9 +1,13 @@
+import Environment from "./Components/Environment";
+
 function RefreshToken(fetchResults) {
+    var env = new Environment();
     if ("code" in fetchResults && fetchResults.code === "token_not_valid") {
-        var url = "https://recess-api.herokuapp.com/api/token/refresh/";
+        var url = env.getRootUrl() + "/api/token/refresh/";
         fetch(url, {
             method: "POST",
             headers: new Headers({
+                "Content-Type": "application/json",
                 'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
             }),
             body: ({
@@ -17,7 +21,7 @@ function RefreshToken(fetchResults) {
                     return true;
                 }
                 else {
-                    window.location.replace("/login");
+                    window.location.replace("/logout");
                     return false;
                 }
             });
