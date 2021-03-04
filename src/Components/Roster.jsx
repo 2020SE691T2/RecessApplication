@@ -46,7 +46,6 @@ class Roster extends Component {
   }
 
   componentDidMount() {
-    console.log(this);
     this.laddaButton = Ladda.create(document.querySelector('#createRosterButton'));
     if (!sessionStorage.getItem("refreshToken")) {
       this.props.history.push({
