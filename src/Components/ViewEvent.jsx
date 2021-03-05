@@ -54,7 +54,7 @@ class ViewEvent extends Component {
   }
 
   componentDidMount() {
-    this.laddaButton = Ladda.create(document.querySelector('#saveEventeButton'));
+    this.laddaButton = Ladda.create(document.querySelector('#saveEventsButton'));
     if (!sessionStorage.getItem("refreshToken")) {
       this.props.history.push({
         pathname: '/login'
@@ -96,7 +96,7 @@ class ViewEvent extends Component {
         disabled: false
       });
       document.getElementById("editEventButton").style.visibility = "hidden";
-      document.getElementById("saveEventeButton").style.visibility = "visible";
+      document.getElementById("saveEventsButton").style.visibility = "visible";
     }
     else {
       this.laddaButton.start();
@@ -104,7 +104,7 @@ class ViewEvent extends Component {
         disabled: true
       });
       document.getElementById("editEventButton").style.visibility = "visible";
-      document.getElementById("saveEventeButton").style.visibility = "hidden";
+      document.getElementById("saveEventsButton").style.visibility = "hidden";
 
 
       var json = JSON.stringify({
@@ -185,7 +185,7 @@ class ViewEvent extends Component {
                 <Button variant="light" id="editEventButton" className="viewEventButton" style={{ visibility: "visible" }} onClick={this.onFormSubmitted}>Edit Event</Button>
               </Col>
               <Col xs={12} md={10}>
-                <Button variant="light" id="saveEventeButton" className="viewEventButton ladda-button" style={{ visibility: "hidden" }} data-style="zoom-in" data-spinner-color="#000" onClick={this.onFormSubmitted}>
+                <Button variant="light" id="saveEventsButton" className="viewEventButton ladda-button" style={{ visibility: "hidden" }} data-style="zoom-in" data-spinner-color="#000" onClick={this.onFormSubmitted}>
                   <span className="ladda-label">Save Event</span>
                 </Button>
               </Col>
