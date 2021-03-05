@@ -1,5 +1,4 @@
-
-import React, { Component, useState } from "react";
+import React, { Component } from "react";
 import "./Roster.css";
 import Menubar from "./MenuBar"
 import Environment from "./Environment";
@@ -12,60 +11,11 @@ import { toastr } from 'react-redux-toastr'
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 import RefreshToken from "../RefreshToken"
 import { Button, Dropdown } from "react-bootstrap";
-import FormControl from 'react-bootstrap/FormControl'
 import Form from 'react-bootstrap/Form';
 import Image from 'react-bootstrap/Image';
 import * as Ladda from 'ladda';
-
-
-// The forwardRef is important!!
-// Dropdown needs access to the DOM node in order to position the Menu
-const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
-  <a
-    href="."
-    ref={ref}
-    onClick={(e) => {
-      e.preventDefault();
-      onClick(e);
-    }}
-  >
-    {children}
-      &#x25bc;
-  </a>
-));
-
-// forwardRef again here!
-// Dropdown needs access to the DOM of the Menu to measure it
-const CustomMenu = React.forwardRef(
-  ({ children, style, className, 'aria-labelledby': labeledBy }, ref) => {
-    const [value, setValue] = useState('');
-
-    return (
-      <div
-        ref={ref}
-        style={style}
-        className={className}
-        aria-labelledby={labeledBy}
-      >
-        <FormControl
-          autoFocus
-          className="mx-3 my-2 w-auto"
-          placeholder="Type to filter..."
-          onChange={(e) => setValue(e.target.value)}
-          value={value}
-        />
-        <ul className="list-unstyled">
-          {React.Children.toArray(children).filter(
-            (child) =>
-              !value || child.props.children.toLowerCase().includes(value),
-          )}
-        </ul>
-      </div>
-    );
-  },
-);
-
-
+import CustomMenu from './CustomMenu';
+import CustomToggle from './CustomToggle';
 
 class Roster extends Component {
 
@@ -83,14 +33,17 @@ class Roster extends Component {
     this.handleTeacherDropdownSelection = this.handleTeacherDropdownSelection.bind(this);
     this.handleStudentDropdownSelection = this.handleStudentDropdownSelection.bind(this);
     this.loadEligibleParticipants = this.loadEligibleParticipants.bind(this);
+    this.populateExisting = this.populateExisting.bind(this);
     this.createRosterEntry = this.createRosterEntry.bind(this);
     this.xButtonClicked = this.xButtonClicked.bind(this);
     this.prepareFinalRoster = this.prepareFinalRoster.bind(this);
     this.submitRoster = this.submitRoster.bind(this);
+    this.updateRoster = this.updateRoster.bind(this);
+    this.deleteRoster = this.deleteRoster.bind(this);
+    this.createPageTitle = this.createPageTitle.bind(this);
     this.rosterNameChange = this.rosterNameChange.bind(this);
 
     this.env = new Environment();
-
   }
 
   componentDidMount() {
@@ -103,15 +56,46 @@ class Roster extends Component {
     else {
       if (sessionStorage.getItem("role") !== "Teacher") {
         this.props.history.push({
-          pathname: '/Calendar'
+          pathname: '/RosterList'
         });
       }
       else {
-        this.populatePageTitle_roster();
+        this.createPageTitle();
         this.loadEligibleParticipants();
       }
     }
   }
+
+  createPageTitle() {
+    if (this.props.location.state) {
+      document.getElementById("pageTitle_roster").innerHTML = "Edit Roster";
+    }
+    else {
+      document.getElementById("pageTitle_roster").innerHTML = "Create New Roster";
+    }
+  }
+  populateExisting() {
+    fetch(this.env.getRootUrl() + "/roster/" + this.props.location.state.currentRosterId, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+      }
+    }).then((resp) => resp.json())
+      .then((results) => {
+        if (RefreshToken(results)) {
+          this.setState({ rosterName: results.roster_name });
+          if (results.participants) {
+            results.participants.forEach(individual => {
+              this.handleStudentDropdownSelection(individual.email_address, false);
+              this.handleTeacherDropdownSelection(individual.email_address, false);
+            });
+          }
+          this.forceUpdate();
+        }
+      });
+  }
+
 
   loadEligibleParticipants() {
     var url = this.env.getRootUrl() + "/api/participants";
@@ -135,42 +119,32 @@ class Roster extends Component {
         else {
           toastr.error('Error', "Failed to get profile.\nPlease log in again.")
         }
+        if (this.props.location.state) {
+          this.populateExisting();
+        }
+        else {
+          this.handleTeacherDropdownSelection(sessionStorage.getItem("email"));
+        }
         this.forceUpdate();
       });
   }
 
-  populatePageTitle_roster() {
-    var url = this.env.getRootUrl() + "/users/" + sessionStorage.getItem("email");
-    fetch(url, {
-      method: "GET",
-      headers: new Headers({
-        'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
-      })
-    })
-      .then((resp) => resp.json())
-      .then((results) => {
-        if (RefreshToken(results)) {
-          if (results.preferred_name === "") {
-            document.getElementById("pageTitle_roster").innerHTML = results.first_name + "'s Class Roster";
-          }
-          else {
-            document.getElementById("pageTitle_roster").innerHTML = results.preferred_name + "'s Class Roster";
-          }
-        }
-        else {
-          toastr.error('Error', "Failed to get profile.\nPlease log in again.")
-        }
-      });
+  handleTeacherDropdownSelection(e, update = true) {
+    if (this.eligibleTeachers[e]) {
+      this.eligibleTeachers[e]["selected"] = true;
+      if (update) {
+        this.forceUpdate();
+      }
+    }
   }
 
-  handleTeacherDropdownSelection(e) {
-    this.eligibleTeachers[e]["selected"] = true;
-    this.forceUpdate();
-  }
-
-  handleStudentDropdownSelection(e) {
-    this.eligibleStudents[e]["selected"] = true;
-    this.forceUpdate();
+  handleStudentDropdownSelection(e, update = true) {
+    if (this.eligibleStudents[e]) {
+      this.eligibleStudents[e]["selected"] = true;
+      if (update) {
+        this.forceUpdate();
+      }
+    }
   }
 
   createDropdownItem(participant) {
@@ -244,7 +218,12 @@ class Roster extends Component {
       }
     }
 
-    this.submitRoster(JSON.stringify(rosterJson));
+    if (this.props.location.state) {
+      this.updateRoster(JSON.stringify(rosterJson));
+    }
+    else {
+      this.submitRoster(JSON.stringify(rosterJson));
+    }
   }
 
   submitRoster(rosterJson) {
@@ -264,8 +243,7 @@ class Roster extends Component {
               this.laddaButton.stop();
               toastr.success('Created Class Roster', "Created your roster. You must now associate it with a class when ready.")
               this.props.history.push({
-                pathname: '/Calendar',
-                state: { eventId: results.event_id }
+                pathname: '/RosterList'
               })
             }
             else {
@@ -282,9 +260,60 @@ class Roster extends Component {
       this.laddaButton.stop();
       toastr.error('Error', "Failed to create roster. You must provide a roster name", "Error")
     }
-
   }
 
+  updateRoster(rosterJson) {
+    this.laddaButton.start();
+    if (this.state.rosterName.trim() !== "") {
+      fetch(this.env.getRootUrl() + "/roster/" + this.props.location.state.currentRosterId, {
+        method: "PATCH",
+        body: rosterJson,
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+        }
+      }).then((resp) => resp.json())
+        .then((results) => {
+          this.laddaButton.stop();
+          if (RefreshToken(results)) {
+            if (results.roster_id) {
+              toastr.success('Updated Class Roster', "Updated your roster.")
+              this.props.history.push({
+                pathname: '/RosterList'
+              })
+            }
+            else {
+              toastr.error('Error', "Failed to update roster.", "Error")
+            }
+          }
+          else {
+            toastr.error('Error', "Failed to update roster.", "Error")
+          }
+        });
+    } else {
+      toastr.error('Error', "Failed to update roster. You must provide a roster name", "Error")
+    }
+  }
+
+  deleteRoster() {
+    fetch(this.env.getRootUrl() + "/roster/" + this.props.location.state.currentRosterId, {
+      method: "DELETE",
+      headers: {
+        'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+      }
+    }).then((resp) => {
+      if (resp.status === 204) {
+        toastr.success('Deleted Class Roster', "Successfully deleted the roster.");
+        this.props.history.push({
+          pathname: '/RosterList'
+        });
+      }
+      else {
+        toastr.error('Error', "Failed to delete roster.")
+      }
+    });
+
+  }
   render() {
     return (
       <div >
@@ -391,8 +420,15 @@ class Roster extends Component {
           <br />
           <Row className="justify-content-md-center">
             <Col xs={12} md={6}>
-              <Button variant="light" onClick={this.prepareFinalRoster} className="createRosterButton ladda-button" data-style="zoom-in" data-spinner-color="#000" id="createRosterButton">
+              <Button variant="light" onClick={this.prepareFinalRoster} className="rosterButton ladda-button" data-style="zoom-in" data-spinner-color="#000" id="createRosterButton">
                 <span className="ladda-label">Click to Complete Roster</span>
+              </Button>
+            </Col>
+          </Row>
+          <Row className="justify-content-md-center">
+            <Col xs={12} md={6}>
+              <Button variant="light" hidden={this.props.location.state ? false : true} onClick={this.deleteRoster} className="rosterButton ladda-button" data-style="zoom-in" data-spinner-color="#000" id="deleteRosterButton">
+                <span className="ladda-label">Delete Roster</span>
               </Button>
             </Col>
           </Row>
