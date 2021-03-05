@@ -29,7 +29,7 @@ class ViewEvent extends Component {
       section: ''
     };
 
-    this.changeEventId = this.changeEventId.bind(this);
+    this.changeClassId = this.changeClassId.bind(this);
     this.changeClassName = this.changeClassName.bind(this);
     this.changeYear = this.changeYear.bind(this);
     this.changeSection = this.changeSection.bind(this);
@@ -37,8 +37,8 @@ class ViewEvent extends Component {
     this.env = new Environment();
   }
 
-  changeEventId(event) {
-    this.setState({ eventId: event.target.value });
+  changeClassId(event) {
+    this.setState({ classId: event.target.value });
   }
 
   changeClassName(event) {
@@ -154,7 +154,7 @@ class ViewEvent extends Component {
               <Col xs={12} md={5}>
                 <Form.Group controlId="eventIdFormGroup">
                   <Form.Label className="rowStyle">Class Id:</Form.Label>
-                  <Form.Control type="text" name="eventIdInput" disabled={this.state.disabled} value={this.state.eventId} onChange={this.changeEventId} />
+                  <Form.Control type="text" name="eventIdInput" disabled={this.state.disabled} value={this.state.eventId} onChange={this.changeClassId} />
                 </Form.Group>
               </Col>
               <Col xs={12} md={5}>
