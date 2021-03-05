@@ -93,7 +93,7 @@ input[type="text"] {
   color: white;
 }
 
-.createRosterButton {
+.rosterButton {
   font-size: 28px !important;
   font-family: Chalkduster, sans-serif;
 }
