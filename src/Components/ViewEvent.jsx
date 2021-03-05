@@ -90,23 +90,17 @@ class ViewEvent extends Component {
   }
 
   onFormSubmitted(event) {
+    var isDisabled = this.state.disabled;
     event.preventDefault();
-    if (this.state.disabled) {
-      this.setState({
-        disabled: false
-      });
-      document.getElementById("editEventButton").style.visibility = "hidden";
-      document.getElementById("saveEventsButton").style.visibility = "visible";
-    }
-    else {
+    document.getElementById("editEventButton").style.visibility = this.state.disabled ? "hidden" : "visible";
+    document.getElementById("saveEventsButton").style.visibility = this.state.disabled ? "visible" : "hidden";
+    this.setState({
+      disabled: !this.state.disabled
+    });
+
+
+    if (!isDisabled) {
       this.laddaButton.start();
-      this.setState({
-        disabled: true
-      });
-      document.getElementById("editEventButton").style.visibility = "visible";
-      document.getElementById("saveEventsButton").style.visibility = "hidden";
-
-
       var json = JSON.stringify({
         "event_id": this.state.eventId,
         "event_name": this.state.className,
