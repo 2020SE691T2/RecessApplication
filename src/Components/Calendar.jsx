@@ -56,7 +56,7 @@ class Calendar extends Component {
     }
 
     getEventsFromDatabase(year, week) {
-        var url = this.env.getRootUrl() + "/api/classes?year=" + year + "&week=" + week;
+        var url = this.env.getRootUrl() + "/api/events?year=" + year + "&week=" + week;
         fetch(url, {
             method: "GET",
             headers: new Headers({
@@ -132,7 +132,7 @@ class Calendar extends Component {
             <CalendarEvent startTime={data.start_time}
                 endTime={data.end_time}
                 link={data.meeting_link}
-                className={data.class_name}
+                className={data.event_name}
                 day={data.weekday} />
         )
     }

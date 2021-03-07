@@ -22,7 +22,7 @@ class ViewEvent extends Component {
     super(props);
     this.state = {
       disabled: true,
-      classId: '',
+      eventId: '',
       className: '',
       meetingLink: '',
       year: '',
@@ -54,7 +54,7 @@ class ViewEvent extends Component {
   }
 
   componentDidMount() {
-    this.laddaButton = Ladda.create(document.querySelector('#saveEventeButton'));
+    this.laddaButton = Ladda.create(document.querySelector('#saveEventsButton'));
     if (!sessionStorage.getItem("refreshToken")) {
       this.props.history.push({
         pathname: '/login'
@@ -62,8 +62,8 @@ class ViewEvent extends Component {
     }
     else {
       if (typeof this.props.location.state !== 'undefined' &&
-        typeof this.props.location.state.classId !== 'undefined') {
-        var url = this.env.getRootUrl() + "/class_info/" + this.props.location.state.classId;
+        typeof this.props.location.state.eventId !== 'undefined') {
+        var url = this.env.getRootUrl() + "/event_info/" + this.props.location.state.eventId;
         fetch(url, {
           method: "GET",
           headers: new Headers({
@@ -74,8 +74,8 @@ class ViewEvent extends Component {
           .then((results) => {
             if (RefreshToken(results)) {
               this.setState({
-                classId: results.class_id,
-                className: results.class_name,
+                eventId: results.event_id,
+                className: results.event_name,
                 meetingLink: results.meeting_link,
                 year: results.year,
                 section: results.section
@@ -90,30 +90,24 @@ class ViewEvent extends Component {
   }
 
   onFormSubmitted(event) {
+    var isDisabled = this.state.disabled;
     event.preventDefault();
-    if (this.state.disabled) {
-      this.setState({
-        disabled: false
-      });
-      document.getElementById("editEventButton").style.visibility = "hidden";
-      document.getElementById("saveEventeButton").style.visibility = "visible";
-    }
-    else {
+    document.getElementById("editEventButton").style.visibility = this.state.disabled ? "hidden" : "visible";
+    document.getElementById("saveEventsButton").style.visibility = this.state.disabled ? "visible" : "hidden";
+    this.setState({
+      disabled: !this.state.disabled
+    });
+
+
+    if (!isDisabled) {
       this.laddaButton.start();
-      this.setState({
-        disabled: true
-      });
-      document.getElementById("editEventButton").style.visibility = "visible";
-      document.getElementById("saveEventeButton").style.visibility = "hidden";
-
-
       var json = JSON.stringify({
-        "class_id": this.state.classId,
-        "class_name": this.state.className,
+        "event_id": this.state.eventId,
+        "event_name": this.state.className,
         "year": this.state.year,
         "section": this.state.section
       });
-      var url = this.env.getRootUrl() + "/class_info/" + this.state.classId;
+      var url = this.env.getRootUrl() + "/event_info/" + this.state.eventId;
       fetch(url, {
         method: "PATCH",
         body: json,
@@ -126,8 +120,8 @@ class ViewEvent extends Component {
           if (RefreshToken(results)) {
             this.laddaButton.stop();
             this.setState({
-              classId: results.class_id,
-              className: results.class_name,
+              eventId: results.event_id,
+              className: results.event_name,
               meetingLink: results.meeting_link,
               year: results.year,
               section: results.section
@@ -152,9 +146,9 @@ class ViewEvent extends Component {
             </Row>
             <Row className="justify-content-md-center">
               <Col xs={12} md={5}>
-                <Form.Group controlId="classIdFormGroup">
+                <Form.Group controlId="eventIdFormGroup">
                   <Form.Label className="rowStyle">Class Id:</Form.Label>
-                  <Form.Control type="text" name="classIdInput" disabled={this.state.disabled} value={this.state.classId} onChange={this.changeClassId} />
+                  <Form.Control type="text" name="eventIdInput" disabled={this.state.disabled} value={this.state.eventId} onChange={this.changeClassId} />
                 </Form.Group>
               </Col>
               <Col xs={12} md={5}>
@@ -185,7 +179,7 @@ class ViewEvent extends Component {
                 <Button variant="light" id="editEventButton" className="viewEventButton" style={{ visibility: "visible" }} onClick={this.onFormSubmitted}>Edit Event</Button>
               </Col>
               <Col xs={12} md={10}>
-                <Button variant="light" id="saveEventeButton" className="viewEventButton ladda-button" style={{ visibility: "hidden" }} data-style="zoom-in" data-spinner-color="#000" onClick={this.onFormSubmitted}>
+                <Button variant="light" id="saveEventsButton" className="viewEventButton ladda-button" style={{ visibility: "hidden" }} data-style="zoom-in" data-spinner-color="#000" onClick={this.onFormSubmitted}>
                   <span className="ladda-label">Save Event</span>
                 </Button>
               </Col>

@@ -130,7 +130,7 @@ class CreateEvent extends Component {
       window.alert("Please fill out form completely!");
     } else {
       var json = JSON.stringify({
-        "class_name": this.state.name,
+        "event_name": this.state.name,
         "year": this.state.year,
         "days": this.state.days,
         "start": this.state.startTime,
@@ -138,7 +138,7 @@ class CreateEvent extends Component {
         "section": this.state.section,
         "roster": this.state.selectedRoster
       });
-      fetch(this.env.getRootUrl() + "/api/create-class/", {
+      fetch(this.env.getRootUrl() + "/api/create-event/", {
         method: "POST",
         body: json,
         headers: {
@@ -148,11 +148,11 @@ class CreateEvent extends Component {
       }).then((resp) => resp.json())
         .then((results) => {
           if (RefreshToken(results)) {
-            if (results.class_id) {
+            if (results.event_id) {
               this.laddaButton.stop();
               this.props.history.push({
                 pathname: '/ViewEvent',
-                state: { classId: results.class_id }
+                state: { eventId: results.event_id }
               })
             }
           }
