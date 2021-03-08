@@ -98,7 +98,7 @@ class CreateAccount extends Component {
   }
 
   isStaff() {
-    return ((this.state.role === "Teacher") || (this.state.role === "teacher")) ? true : false;
+    return this.state.role.toUpperCase() === "teacher".toUpperCase();
   }
 
   createAccount(event) {
