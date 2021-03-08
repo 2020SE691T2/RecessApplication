@@ -7,7 +7,6 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 import RefreshToken from "../RefreshToken";
 import { toastr } from 'react-redux-toastr'
@@ -24,7 +23,6 @@ class CreateEvent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: '',
       name: '',
       year: '',
       days: '',
@@ -34,7 +32,6 @@ class CreateEvent extends Component {
       selectedRoster: ''
     };
 
-    this.changeId = this.changeId.bind(this);
     this.changeName = this.changeName.bind(this);
     this.changeYear = this.changeYear.bind(this);
     this.changeDays = this.changeDays.bind(this);
@@ -42,15 +39,14 @@ class CreateEvent extends Component {
     this.changeEnd = this.changeEnd.bind(this);
     this.changeSection = this.changeSection.bind(this);
     this.createEvent = this.createEvent.bind(this);
+    this.deleteEvent = this.deleteEvent.bind(this);
     this.changeRoster = this.changeRoster.bind(this);
     this.populateRosterList = this.populateRosterList.bind(this);
     this.createDropdownItems = this.createDropdownItems.bind(this);
+    this.populateExisting = this.populateExisting.bind(this);
+    this.createPageTitle = this.createPageTitle.bind(this);
 
     this.env = new Environment();
-  }
-
-  changeId(event) {
-    this.setState({ "id": event.target.value });
   }
 
   changeName(event) {
@@ -92,6 +88,15 @@ class CreateEvent extends Component {
     return items;
   }
 
+  createPageTitle() {
+    if (this.props.location.state) {
+      document.getElementById("pageTitle_event").innerHTML = "Edit Event";
+    }
+    else {
+      document.getElementById("pageTitle_event").innerHTML = "Create New Event";
+    }
+  }
+
   populateRosterList() {
     fetch(this.env.getRootUrl() + "/roster", {
       method: "GET",
@@ -113,11 +118,7 @@ class CreateEvent extends Component {
 
   valid_input() {
 
-    if (this.state.name === "" ||
-      this.state.year === "" ||
-      this.state.startTime === "" ||
-      this.state.endTime === "" ||
-      this.state.startTime >= this.state.endTime)
+    if (this.state.startTime >= this.state.endTime)
       return false;
     return true;
   }
@@ -138,31 +139,76 @@ class CreateEvent extends Component {
         "section": this.state.section,
         "roster": this.state.selectedRoster
       });
-      fetch(this.env.getRootUrl() + "/api/create-event/", {
-        method: "POST",
-        body: json,
-        headers: {
-          "Content-Type": "application/json",
-          'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
-        }
-      }).then((resp) => resp.json())
-        .then((results) => {
-          if (RefreshToken(results)) {
-            if (results.event_id) {
-              this.laddaButton.stop();
-              this.props.history.push({
-                pathname: '/ViewEvent',
-                state: { eventId: results.event_id }
-              })
+      if (this.props.location.state) {
+        fetch(this.env.getRootUrl() + "/event_info/" + this.props.location.state.currentEventId, {
+          method: "PATCH",
+          body: json,
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+          }
+        }).then((resp) => resp.json())
+          .then((results) => {
+            if (RefreshToken(results)) {
+              if (results.event_id) {
+                this.laddaButton.stop();
+                this.props.history.push({
+                  pathname: '/Calendar'
+                })
+              }
             }
+            else {
+              this.laddaButton.stop();
+              toastr.error('Error', "Failed to edit event.", "Error")
+            }
+          });
+      }
+      else {
+        fetch(this.env.getRootUrl() + "/api/create-event/", {
+          method: "POST",
+          body: json,
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
           }
-          else {
+        }).then((resp) => resp.json())
+          .then((results) => {
             this.laddaButton.stop();
-            toastr.error('Error', "Failed to create event. Please enter all information.", "Error")
-          }
-        });
-      return false;
+            if (RefreshToken(results)) {
+              if (results.event_id) {
+                this.laddaButton.stop();
+                this.props.history.push({
+                  pathname: '/Calendar'
+                })
+              }
+            }
+            else {
+              this.laddaButton.stop();
+              toastr.error('Error', "Failed to create event. Please enter all information.", "Error")
+            }
+          });
+      }
     }
+  }
+
+  deleteEvent(event) {
+    event.preventDefault();
+    fetch(this.env.getRootUrl() + "/event_info/" + this.props.location.state.currentEventId, {
+      method: "DELETE",
+      headers: {
+        'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+      }
+    }).then((resp) => {
+      if (resp.status === 204) {
+        toastr.success('Deleted Class Event', "Successfully deleted the event.");
+        this.props.history.push({
+          pathname: '/Calendar'
+        });
+      }
+      else {
+        toastr.error('Error', "Failed to delete event.", "Error")
+      }
+    });
   }
 
   componentDidMount() {
@@ -179,7 +225,38 @@ class CreateEvent extends Component {
         });
       }
     }
+    this.createPageTitle();
     this.populateRosterList();
+    if (this.props.location.state) {
+      this.populateExisting();
+    }
+  }
+
+  populateExisting() {
+    fetch(this.env.getRootUrl() + "/event_info/" + this.props.location.state.currentEventId, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+      }
+    }).then((resp) => resp.json())
+      .then((results) => {
+        if (RefreshToken(results)) {
+          //"days": this.state.days,
+          this.setState({ name: results.event_name });
+          this.setState({ year: results.year });
+          //this.setState({ days: results.event_schedule[0].weekday });
+          if (results.event_schedule[0]) {
+            this.setState({ startTime: results.event_schedule[0].start_time });
+            this.setState({ endTime: results.event_schedule[0].end_time });
+          }
+          if (results.event_enrollment[0]) {
+            this.setState({ selectedRoster: results.event_enrollment[0].roster_id });
+          }
+          this.setState({ section: results.section });
+          this.forceUpdate();
+        }
+      });
   }
 
   render() {
@@ -188,11 +265,13 @@ class CreateEvent extends Component {
         <Menubar />
         <Container className="background_CE" align-content="center" fluid>
           <Form onSubmit={this.createEvent}>
+            <br />
             <Row className="justify-content-md-center">
-              <Col>
-                <a href="/"> <Image src="./Recess_logo.png" alt={'Recess Logo'} fluid /></a>
+              <Col xs={10}>
+                <h2 className="eventTitle" id="pageTitle_event"> </h2>
               </Col>
             </Row>
+            <br />
             <Row className="justify-content-md-center">
               <Col md={3} xs={12}>
                 <p className="textPlaceholder_CE">Class Name: </p>
@@ -206,6 +285,7 @@ class CreateEvent extends Component {
                     value={this.state.name}
                     onChange={this.changeName}
                     style={{ height: 64 }}
+                    required
                   />
                 </Form.Group>
               </Col>
@@ -223,6 +303,7 @@ class CreateEvent extends Component {
                     value={this.state.year}
                     onChange={this.changeYear}
                     style={{ height: 64 }}
+                    required
                   />
                 </Form.Group>
               </Col>
@@ -237,9 +318,10 @@ class CreateEvent extends Component {
                   <Form.Control as="select" multiple
                     className="daySelect_CE"
                     name="days"
-                    value={this.props.arrayOfOptionValues}
+                    value={this.state.days}
                     onChange={this.changeDays}
-                    style={{ height: 128 }}>
+                    style={{ height: 128 }}
+                    required>
                     <option value={0}>Monday</option>
                     <option value={1}>Tuesday</option>
                     <option value={2}>Wednesday</option>
@@ -263,6 +345,7 @@ class CreateEvent extends Component {
                     value={this.state.startTime}
                     onChange={this.changeStart}
                     style={{ height: 64 }}
+                    required
                   />
                 </Form.Group>
               </Col>
@@ -281,6 +364,7 @@ class CreateEvent extends Component {
                     value={this.state.endTime}
                     onChange={this.changeEnd}
                     style={{ height: 64 }}
+                    required
                   />
                 </Form.Group>
               </Col>
@@ -326,10 +410,18 @@ class CreateEvent extends Component {
             <Row className="justify-content-md-center">
               <Col>
                 <Button href="/#" className="CE_Button ladda-button" onClick={this.createEvent} data-style="zoom-in" data-spinner-color="#000" id="createEventButton">
-                  <span className="ladda-label">Create New Event</span>
+                  <span className="ladda-label">Click to Complete Event</span>
                 </Button>
               </Col>
             </Row >
+            <br />
+            <Row className="justify-content-md-center">
+              <Col xs={12} md={6}>
+                <Button variant="light" hidden={this.props.location.state ? false : true} onClick={this.deleteEvent} className="rosterButton ladda-button" data-style="zoom-in" data-spinner-color="#000" id="deleteEventButton">
+                  <span className="ladda-label">Delete Event</span>
+                </Button>
+              </Col>
+            </Row>
           </Form >
         </Container >
       </div >
