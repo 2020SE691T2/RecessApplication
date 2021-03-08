@@ -29,7 +29,12 @@ class Events extends Component {
       startTime: '',
       endTime: '',
       section: '',
-      selectedRoster: ''
+      selectedRoster: '',
+      mondaySelected: false,
+      tuesdaySelected: false,
+      wednesdaydaySelected: false,
+      thursdaydaySelected: false,
+      fridaySelected: false
     };
 
     this.changeName = this.changeName.bind(this);
@@ -184,7 +189,7 @@ class Events extends Component {
               if (results.event_id) {
                 this.laddaButton.stop();
                 this.props.history.push({
-                  pathname: '/Calendar'
+                  pathname: '/EventList'
                 })
               }
             }
@@ -209,7 +214,7 @@ class Events extends Component {
               if (results.event_id) {
                 this.laddaButton.stop();
                 this.props.history.push({
-                  pathname: '/Calendar'
+                  pathname: '/EventList'
                 })
               }
             }
@@ -233,7 +238,7 @@ class Events extends Component {
       if (resp.status === 204) {
         toastr.success('Deleted Class Event', "Successfully deleted the event.");
         this.props.history.push({
-          pathname: '/Calendar'
+          pathname: '/EventList'
         });
       }
       else {
@@ -354,11 +359,11 @@ class Events extends Component {
                     onChange={this.changeDays}
                     style={{ height: 128 }}
                     required>
-                    <option value={0}>Monday</option>
-                    <option value={1}>Tuesday</option>
-                    <option value={2}>Wednesday</option>
-                    <option value={3}>Thursday</option>
-                    <option value={4}>Friday</option>
+                    <option value={0} selected="mondaySelected">Monday</option>
+                    <option value={1} selected="tuesdaySelected">Tuesday</option>
+                    <option value={2} selected="wednesdaydaySelected">Wednesday</option>
+                    <option value={3} selected="thursdaydaySelected">Thursday</option>
+                    <option value={4} selected="fridaySelected">Friday</option>
                   </Form.Control>
                 </Form.Group>
               </Col>
@@ -441,7 +446,7 @@ class Events extends Component {
             <br />
             <Row className="justify-content-md-center">
               <Col>
-                <Button href="/#" className="CE_Button ladda-button" onClick={this.createUpdateEvent} data-style="zoom-in" data-spinner-color="#000" id="createEventButton">
+                <Button variant="light" className="eventButton ladda-button" onClick={this.createUpdateEvent} data-style="zoom-in" data-spinner-color="#000" id="createEventButton">
                   <span className="ladda-label" id="createUpdateButtonText"> </span>
                 </Button>
               </Col>
@@ -449,7 +454,7 @@ class Events extends Component {
             <br />
             <Row className="justify-content-md-center">
               <Col xs={12} md={6}>
-                <Button variant="light" hidden={this.props.location.state ? false : true} onClick={this.deleteEvent} className="rosterButton ladda-button" data-style="zoom-in" data-spinner-color="#000" id="deleteEventButton">
+                <Button variant="light" hidden={this.props.location.state ? false : true} onClick={this.deleteEvent} className="eventButton ladda-button" data-style="zoom-in" data-spinner-color="#000" id="deleteEventButton">
                   <span className="ladda-label">Delete Event</span>
                 </Button>
               </Col>

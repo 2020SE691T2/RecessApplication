@@ -22,6 +22,7 @@ import Calendar from './Components/Calendar'
 import { Helmet } from 'react-helmet'
 import Roster from './Components/Roster';
 import ViewAllRosters from './Components/ViewAllRosters';
+import ViewAllEvents from './Components/ViewAllEvents';
 
 const reducers = {
   toastr: toastrReducer
@@ -54,6 +55,7 @@ function App() {
           <Route exact path="/CreateRoster" component={Roster} />
           <Route exact path="/ViewRoster" component={Roster} />
           <Route exact path="/RosterList" component={ViewAllRosters} />
+          <Route exact path="/EventList" component={ViewAllEvents} />
         </Switch>
       </BrowserRouter>
       <Provider store={store}>

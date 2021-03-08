@@ -54,26 +54,7 @@
   margin: -5px -20px -5px -5px;
 }
 
-.CE_Button {
-	box-shadow: 0px 0px 0px 2px #bdbdbd;
-	background:linear-gradient(to bottom, #FFA500 5%, #FF8C00 100%);
-	background-color:#FFA500;
-	border-radius:10px;
-	border:1px solid#bdbdbd;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
+.eventButton {
+  font-size: 28px !important;
   font-family: Chalkduster, sans-serif;
-	font-size:36px;
-	padding:12px 37px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #f2670b;
-}
-.CE_Button:hover {
-	background:linear-gradient(to bottom, #FFA500 5%, #FF8C00 100%);
-	background-color:#FFA500;
-}
-.CE_Button:active {
-	position:relative;
-	top:1px;
 }

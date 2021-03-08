@@ -14,7 +14,7 @@ class Menubar extends React.Component {
                         <Nav.Link href="/">Home</Nav.Link>
                         <Nav.Link href="/About">About</Nav.Link>
                         <Nav.Link href="/Calendar" hidden={sessionStorage.getItem("accessToken") === null ? true : false}>Calendar</Nav.Link>
-                        <Nav.Link href="/CreateEvent" hidden={sessionStorage.getItem("role") !== "Teacher" ? true : false}>New Class</Nav.Link>
+                        <Nav.Link href="/EventList" hidden={sessionStorage.getItem("role") !== "Teacher" ? true : false}>Events</Nav.Link>
                         <Nav.Link href="/RosterList" hidden={sessionStorage.getItem("role") !== "Teacher" ? true : false}>Rosters</Nav.Link>
                     </Nav>
                     <Nav>
