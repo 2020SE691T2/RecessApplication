@@ -38,7 +38,7 @@ class Events extends Component {
     this.changeStart = this.changeStart.bind(this);
     this.changeEnd = this.changeEnd.bind(this);
     this.changeSection = this.changeSection.bind(this);
-    this.createEvent = this.createEvent.bind(this);
+    this.createUpdateEvent = this.createUpdateEvent.bind(this);
     this.deleteEvent = this.deleteEvent.bind(this);
     this.changeRoster = this.changeRoster.bind(this);
     this.populateRosterList = this.populateRosterList.bind(this);
@@ -123,7 +123,7 @@ class Events extends Component {
     return true;
   }
 
-  createEvent(event) {
+  createUpdateEvent(event) {
     event.preventDefault();
     this.laddaButton.start();
     if (!this.valid_input()) {
@@ -264,7 +264,7 @@ class Events extends Component {
       <div>
         <Menubar />
         <Container className="background_CE" align-content="center" fluid>
-          <Form onSubmit={this.createEvent}>
+          <Form onSubmit={this.createUpdateEvent}>
             <br />
             <Row className="justify-content-md-center">
               <Col xs={10}>
@@ -409,7 +409,7 @@ class Events extends Component {
             <br />
             <Row className="justify-content-md-center">
               <Col>
-                <Button href="/#" className="CE_Button ladda-button" onClick={this.createEvent} data-style="zoom-in" data-spinner-color="#000" id="createEventButton">
+                <Button href="/#" className="CE_Button ladda-button" onClick={this.createUpdateEvent} data-style="zoom-in" data-spinner-color="#000" id="createEventButton">
                   <span className="ladda-label">Click to Complete Event</span>
                 </Button>
               </Col>
