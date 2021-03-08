@@ -12,7 +12,6 @@ import LandingPage from "./Components/LandingPage";
 import CreateAccount from './Components/CreateAccount';
 import ForgotPassword from './Components/ForgotPassword';
 import ConfirmForgotPassword from './Components/ConfirmForgotPassword';
-import ViewEvent from './Components/ViewEvent';
 import CreateEvent from './Components/CreateEvent';
 import LogoutPage from "./Components/LogoutPage";
 import ChangePassword from "./Components/ChangePassword";
@@ -47,7 +46,7 @@ function App() {
           <Route exact path="/CreateAccount" component={CreateAccount} />
           <Route exact path="/ForgotPassword" component={ForgotPassword} />
           <Route exact path="/ConfirmForgotPassword" component={ConfirmForgotPassword} />
-          <Route exact path="/ViewEvent" component={ViewEvent} />
+          <Route exact path="/ViewEvent" component={CreateEvent} />
           <Route exact path="/CreateEvent" component={CreateEvent} />
           <Route exact path="/Logout" component={LogoutPage} />
           <Route exact path="/Calendar" component={Calendar} />
