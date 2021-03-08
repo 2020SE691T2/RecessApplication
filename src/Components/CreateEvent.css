@@ -7,6 +7,14 @@
   min-height: 100vh;
 }
 
+.eventTitle {
+  font-size: 30px;
+  background-repeat: no-repeat;
+  font-family: Chalkduster, sans-serif;
+  font-weight: bold;
+  color: white;
+}
+
 .textPlaceholder_CE {
   text-align: right;
   font-size: 30px;
