@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./CreateEvent.css";
+import "./Events.css";
 import Menubar from "./MenuBar"
 import Environment from "./Environment";
 // Bootstrap Components
@@ -14,7 +14,7 @@ import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 import * as Ladda from 'ladda';
 
 
-class CreateEvent extends Component {
+class Events extends Component {
 
   env;
   laddaButton;
@@ -428,4 +428,4 @@ class CreateEvent extends Component {
     );
   }
 }
-export default CreateEvent;
+export default Events;
