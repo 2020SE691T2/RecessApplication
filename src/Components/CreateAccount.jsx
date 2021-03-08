@@ -97,6 +97,10 @@ class CreateAccount extends Component {
     }
   }
 
+  isStaff() {
+    return ((this.state.role === "Teacher") || (this.state.role === "teacher")) ? true : false;
+  }
+
   createAccount(event) {
     event.preventDefault();
     this.laddaButton.start();
@@ -115,7 +119,7 @@ class CreateAccount extends Component {
         "dob": this.state.birthday,
         "role": this.state.role,
         "photo": this.state.profilePicture,
-        "is_staff": false,
+        "is_staff": this.isStaff(),
         "is_superuser": false
       });
       fetch(this.env.getRootUrl() + "/api-auth/register/", {
