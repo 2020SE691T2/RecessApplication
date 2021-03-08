@@ -44,7 +44,7 @@ class Events extends Component {
     this.populateRosterList = this.populateRosterList.bind(this);
     this.createDropdownItems = this.createDropdownItems.bind(this);
     this.populateExisting = this.populateExisting.bind(this);
-    this.createPageTitle = this.createPageTitle.bind(this);
+    this.setPageStrings = this.setPageStrings.bind(this);
 
     this.env = new Environment();
   }
@@ -88,12 +88,14 @@ class Events extends Component {
     return items;
   }
 
-  createPageTitle() {
+  setPageStrings() {
     if (this.props.location.state) {
       document.getElementById("pageTitle_event").innerHTML = "Edit Event";
+      document.getElementById("createUpdateButtonText").innerHTML = "Update Event";
     }
     else {
       document.getElementById("pageTitle_event").innerHTML = "Create New Event";
+      document.getElementById("createUpdateButtonText").innerHTML = "Create Event";
     }
   }
 
@@ -225,7 +227,7 @@ class Events extends Component {
         });
       }
     }
-    this.createPageTitle();
+    this.setPageStrings();
     this.populateRosterList();
     if (this.props.location.state) {
       this.populateExisting();
@@ -410,7 +412,7 @@ class Events extends Component {
             <Row className="justify-content-md-center">
               <Col>
                 <Button href="/#" className="CE_Button ladda-button" onClick={this.createUpdateEvent} data-style="zoom-in" data-spinner-color="#000" id="createEventButton">
-                  <span className="ladda-label">Click to Complete Event</span>
+                  <span className="ladda-label" id="createUpdateButtonText"> </span>
                 </Button>
               </Col>
             </Row >
