@@ -27,7 +27,7 @@ class Calendar extends Component {
         this.prepareEventComponent = this.prepareEventComponent.bind(this);
         this.sortDailyEvents = this.sortDailyEvents.bind(this);
         this.env = new Environment();
-
+        this.zoomLink = this.zoomLink.bind(this);
     }
 
     populatePageTitle() {
@@ -126,12 +126,16 @@ class Calendar extends Component {
             this.getEventsFromDatabase(date.getFullYear(), currentWeek);
         }
     }
+    
+    zoomLink(data) {
+        return sessionStorage.getItem("role").toUpperCase() === "teacher".toUpperCase() ? data.super_link : data.meeting_link;
+    }
 
     prepareEventComponent(data) {
         return (
             <CalendarEvent startTime={data.start_time}
                 endTime={data.end_time}
-                link={data.meeting_link}
+                link={this.zoomLink(data)}
                 className={data.event_name}
                 day={data.weekday} />
         )
