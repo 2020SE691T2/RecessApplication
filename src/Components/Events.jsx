@@ -29,12 +29,7 @@ class Events extends Component {
       startTime: '',
       endTime: '',
       section: '',
-      selectedRoster: '',
-      mondaySelected: false,
-      tuesdaySelected: false,
-      wednesdaySelected: false,
-      thursdaySelected: false,
-      fridaySelected: false
+      selectedRoster: ''
     };
 
     this.changeName = this.changeName.bind(this);
@@ -271,22 +266,7 @@ class Events extends Component {
   }
 
   setDaySelected(schedule) {
-    if (schedule.weekday === 0) {
-      this.setState({ mondaySelected: true });
-    }
-    else if (schedule.weekday === 1) {
-      this.setState({ tuesdaySelected: true });
-    }
-    else if (schedule.weekday === 2) {
-      this.setState({ wednesdaySelected: true });
-    }
-    else if (schedule.weekday === 3) {
-      this.setState({ thursdaySelected: true });
-    }
-    else if (schedule.weekday === 4) {
-      this.setState({ fridaySelected: true });
-    }
-    this.forceUpdate();
+
   }
 
   populateExisting() {
@@ -383,11 +363,11 @@ class Events extends Component {
                     onChange={this.changeDays}
                     style={{ height: 128 }}
                     required>
-                    <option value={0} selected={this.mondaySelected}>Monday</option>
-                    <option value={1} selected={this.tuesdaySelected}>Tuesday</option>
-                    <option value={2} selected={this.wednesdaySelected}>Wednesday</option>
-                    <option value={3} selected={this.thursdaySelected}>Thursday</option>
-                    <option value={4} selected={this.fridaySelected}>Friday</option>
+                    <option value={0}>Monday</option>
+                    <option value={1}>Tuesday</option>
+                    <option value={2}>Wednesday</option>
+                    <option value={3}>Thursday</option>
+                    <option value={4}>Friday</option>
                   </Form.Control>
                 </Form.Group>
               </Col>
