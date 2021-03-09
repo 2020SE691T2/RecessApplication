@@ -12,8 +12,7 @@ import LandingPage from "./Components/LandingPage";
 import CreateAccount from './Components/CreateAccount';
 import ForgotPassword from './Components/ForgotPassword';
 import ConfirmForgotPassword from './Components/ConfirmForgotPassword';
-import ViewEvent from './Components/ViewEvent';
-import CreateEvent from './Components/CreateEvent';
+import Events from './Components/Events';
 import LogoutPage from "./Components/LogoutPage";
 import ChangePassword from "./Components/ChangePassword";
 import { Provider } from 'react-redux'
@@ -23,6 +22,7 @@ import Calendar from './Components/Calendar'
 import { Helmet } from 'react-helmet'
 import Roster from './Components/Roster';
 import ViewAllRosters from './Components/ViewAllRosters';
+import ViewAllEvents from './Components/ViewAllEvents';
 
 const reducers = {
   toastr: toastrReducer
@@ -47,14 +47,15 @@ function App() {
           <Route exact path="/CreateAccount" component={CreateAccount} />
           <Route exact path="/ForgotPassword" component={ForgotPassword} />
           <Route exact path="/ConfirmForgotPassword" component={ConfirmForgotPassword} />
-          <Route exact path="/ViewEvent" component={ViewEvent} />
-          <Route exact path="/CreateEvent" component={CreateEvent} />
+          <Route exact path="/ViewEvent" component={Events} />
+          <Route exact path="/CreateEvent" component={Events} />
           <Route exact path="/Logout" component={LogoutPage} />
           <Route exact path="/Calendar" component={Calendar} />
           <Route exact path="/ChangePassword" component={ChangePassword} />
           <Route exact path="/CreateRoster" component={Roster} />
           <Route exact path="/ViewRoster" component={Roster} />
           <Route exact path="/RosterList" component={ViewAllRosters} />
+          <Route exact path="/EventList" component={ViewAllEvents} />
         </Switch>
       </BrowserRouter>
       <Provider store={store}>

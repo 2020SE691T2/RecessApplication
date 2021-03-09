@@ -74,6 +74,7 @@ class Roster extends Component {
       document.getElementById("pageTitle_roster").innerHTML = "Create New Roster";
     }
   }
+
   populateExisting() {
     fetch(this.env.getRootUrl() + "/roster/" + this.props.location.state.currentRosterId, {
       method: "GET",
@@ -425,6 +426,7 @@ class Roster extends Component {
               </Button>
             </Col>
           </Row>
+          <br />
           <Row className="justify-content-md-center">
             <Col xs={12} md={6}>
               <Button variant="light" hidden={this.props.location.state ? false : true} onClick={this.deleteRoster} className="rosterButton ladda-button" data-style="zoom-in" data-spinner-color="#000" id="deleteRosterButton">

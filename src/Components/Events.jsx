@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./CreateEvent.css";
+import "./Events.css";
 import Menubar from "./MenuBar"
 import Environment from "./Environment";
 // Bootstrap Components
@@ -7,7 +7,6 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import Image from 'react-bootstrap/Image';
 import Button from 'react-bootstrap/Button';
 import RefreshToken from "../RefreshToken";
 import { toastr } from 'react-redux-toastr'
@@ -15,7 +14,7 @@ import 'react-redux-toastr/lib/css/react-redux-toastr.min.css'
 import * as Ladda from 'ladda';
 
 
-class CreateEvent extends Component {
+class Events extends Component {
 
   env;
   laddaButton;
@@ -24,7 +23,6 @@ class CreateEvent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id: '',
       name: '',
       year: '',
       days: '',
@@ -34,7 +32,6 @@ class CreateEvent extends Component {
       selectedRoster: ''
     };
 
-    this.changeId = this.changeId.bind(this);
     this.changeName = this.changeName.bind(this);
     this.changeYear = this.changeYear.bind(this);
     this.changeDays = this.changeDays.bind(this);
@@ -42,15 +39,16 @@ class CreateEvent extends Component {
     this.changeEnd = this.changeEnd.bind(this);
     this.changeSection = this.changeSection.bind(this);
     this.createEvent = this.createEvent.bind(this);
+    this.updateEvent = this.updateEvent.bind(this);
+    this.deleteEvent = this.deleteEvent.bind(this);
     this.changeRoster = this.changeRoster.bind(this);
     this.populateRosterList = this.populateRosterList.bind(this);
     this.createRosterDropdownItems = this.createRosterDropdownItems.bind(this);
+    this.populateExisting = this.populateExisting.bind(this);
+    this.setPageStrings = this.setPageStrings.bind(this);
+    this.setDaySelected = this.setDaySelected.bind(this);
 
     this.env = new Environment();
-  }
-
-  changeId(event) {
-    this.setState({ "id": event.target.value });
   }
 
   changeName(event) {
@@ -92,31 +90,42 @@ class CreateEvent extends Component {
     return items;
   }
 
+  setPageStrings() {
+    if (this.props.location.state) {
+      document.getElementById("pageTitle_event").innerHTML = "Edit Event";
+      document.getElementById("createUpdateButtonText").innerHTML = "Update Event";
+    }
+    else {
+      document.getElementById("pageTitle_event").innerHTML = "Create New Event";
+      document.getElementById("createUpdateButtonText").innerHTML = "Create Event";
+    }
+  }
+
   createSchoolYearDropdownItems() {
     //define a date object variable that will take the current system date  
-    const todayDate = new Date(); 
-    const todayYear = todayDate.getFullYear() 
-    
+    const todayDate = new Date();
+    const todayYear = todayDate.getFullYear()
+
     //find the year of the current date  
-    const oneJan =  new Date(todayDate.getFullYear(), 0, 1);   
-    
+    const oneJan = new Date(todayDate.getFullYear(), 0, 1);
+
     // calculating number of days in given year before a given date   
-    const numberOfDays =  Math.floor((todayDate - oneJan) / (24 * 60 * 60 * 1000));   
-    
+    const numberOfDays = Math.floor((todayDate - oneJan) / (24 * 60 * 60 * 1000));
+
     // add 1 since to current date and returns value starting from 0   
-    const weekNum = Math.ceil(( todayDate.getDay() + 1 + numberOfDays) / 7);     
-    
+    const weekNum = Math.ceil((todayDate.getDay() + 1 + numberOfDays) / 7);
+
     // set the smallest year and adjust it if necessary
     var year0 = todayYear;
     if (weekNum < 30) {
-        year0 -= 1;
+      year0 -= 1;
     }
 
     let items = [];
     var itemYear = year0;
     for (var i = 0; i < 4; i++) {
-        items.push(<option value={itemYear}>{itemYear + "/" + (itemYear+1).toString().substr(2, 3)}</option>)
-        itemYear++;
+      items.push(<option value={itemYear}>{itemYear + "/" + (itemYear + 1).toString().substr(2, 3)}</option>)
+      itemYear++;
     }
     return items;
   }
@@ -142,11 +151,7 @@ class CreateEvent extends Component {
 
   valid_input() {
 
-    if (this.state.name === "" ||
-      this.state.year === "" ||
-      this.state.startTime === "" ||
-      this.state.endTime === "" ||
-      this.state.startTime >= this.state.endTime)
+    if (this.state.startTime >= this.state.endTime)
       return false;
     return true;
   }
@@ -176,12 +181,12 @@ class CreateEvent extends Component {
         }
       }).then((resp) => resp.json())
         .then((results) => {
+          this.laddaButton.stop();
           if (RefreshToken(results)) {
             if (results.event_id) {
               this.laddaButton.stop();
               this.props.history.push({
-                pathname: '/ViewEvent',
-                state: { eventId: results.event_id }
+                pathname: '/EventList'
               })
             }
           }
@@ -190,8 +195,78 @@ class CreateEvent extends Component {
             toastr.error('Error', "Failed to create event. Please enter all information.", "Error")
           }
         });
-      return false;
     }
+  }
+
+  updateEvent(event) {
+    event.preventDefault();
+    this.laddaButton.start();
+    if (!this.valid_input()) {
+      this.laddaButton.stop();
+      window.alert("Please fill out form completely!");
+    }
+    else {
+      var json =
+      {
+        "event_name": this.state.name,
+        "year": this.state.year,
+        "section": this.state.section,
+        "event_schedule": [],
+        "event_enrollment": [],
+      };
+      if (this.state.selectedRoster) {
+        json.event_enrollment.push({ "roster_id": this.state.selectedRoster });
+      }
+      this.state.days.forEach(weekday =>
+        json.event_schedule.push({
+          "weekday": weekday,
+          "start_time": this.state.startTime,
+          "end_time": this.state.endTime,
+        })
+      );
+      fetch(this.env.getRootUrl() + "/event_info/" + this.props.location.state.currentEventId, {
+        method: "PATCH",
+        body: JSON.stringify(json),
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+        }
+      }).then((resp) => resp.json())
+        .then((results) => {
+          if (RefreshToken(results)) {
+            if (results.event_id) {
+              this.laddaButton.stop();
+              this.props.history.push({
+                pathname: '/EventList'
+              })
+            }
+          }
+          else {
+            this.laddaButton.stop();
+            toastr.error('Error', "Failed to edit event.", "Error")
+          }
+        });
+    }
+  }
+
+  deleteEvent(event) {
+    event.preventDefault();
+    fetch(this.env.getRootUrl() + "/event_info/" + this.props.location.state.currentEventId, {
+      method: "DELETE",
+      headers: {
+        'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+      }
+    }).then((resp) => {
+      if (resp.status === 204) {
+        toastr.success('Deleted Class Event', "Successfully deleted the event.");
+        this.props.history.push({
+          pathname: '/EventList'
+        });
+      }
+      else {
+        toastr.error('Error', "Failed to delete event.", "Error")
+      }
+    });
   }
 
   componentDidMount() {
@@ -208,7 +283,46 @@ class CreateEvent extends Component {
         });
       }
     }
+    this.setPageStrings();
     this.populateRosterList();
+    if (this.props.location.state) {
+      this.populateExisting();
+    }
+  }
+
+  setDaySelected(schedules) {
+    let values = [];
+    schedules.forEach(schedule => (
+      values.push(schedule.weekday.toString())
+    ));
+    this.setState({ "days": values });
+  }
+
+  populateExisting() {
+    fetch(this.env.getRootUrl() + "/event_info/" + this.props.location.state.currentEventId, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+      }
+    }).then((resp) => resp.json())
+      .then((results) => {
+        if (RefreshToken(results)) {
+          //"days": this.state.days,
+          this.setState({ name: results.event_name });
+          this.setState({ year: results.year });
+          this.setDaySelected(results.event_schedule);
+          if (results.event_schedule[0]) {
+            this.setState({ startTime: results.event_schedule[0].start_time });
+            this.setState({ endTime: results.event_schedule[0].end_time });
+          }
+          if (results.event_enrollment[0]) {
+            this.setState({ selectedRoster: results.event_enrollment[0].roster_id });
+          }
+          this.setState({ section: results.section });
+          this.forceUpdate();
+        }
+      });
   }
 
   render() {
@@ -216,12 +330,14 @@ class CreateEvent extends Component {
       <div>
         <Menubar />
         <Container className="background_CE" align-content="center" fluid>
-          <Form onSubmit={this.createEvent}>
+          <Form onSubmit={this.props.location.state ? this.updateEvent : this.createEvent}>
+            <br />
             <Row className="justify-content-md-center">
-              <Col>
-                <a href="/"> <Image src="./Recess_logo.png" alt={'Recess Logo'} fluid /></a>
+              <Col xs={10}>
+                <h2 className="eventTitle" id="pageTitle_event"> </h2>
               </Col>
             </Row>
+            <br />
             <Row className="justify-content-md-center">
               <Col md={3} xs={12}>
                 <p className="textPlaceholder_CE">Class Name: </p>
@@ -235,6 +351,7 @@ class CreateEvent extends Component {
                     value={this.state.name}
                     onChange={this.changeName}
                     style={{ height: 64 }}
+                    required
                   />
                 </Form.Group>
               </Col>
@@ -250,7 +367,8 @@ class CreateEvent extends Component {
                     className="daySelect_CE"
                     name="year"
                     value={this.state.year}
-                    onChange={this.changeYear}>
+                    onChange={this.changeYear}
+                    required>
                     <option disabled selected value="" key={-1}>select</option>
                     {this.createSchoolYearDropdownItems()}
                   </Form.Control>
@@ -267,9 +385,10 @@ class CreateEvent extends Component {
                   <Form.Control as="select" multiple
                     className="daySelect_CE"
                     name="days"
-                    value={this.props.arrayOfOptionValues}
+                    value={this.state.days}
                     onChange={this.changeDays}
-                    style={{ height: 128 }}>
+                    style={{ height: 128 }}
+                    required>
                     <option value={0}>Monday</option>
                     <option value={1}>Tuesday</option>
                     <option value={2}>Wednesday</option>
@@ -293,6 +412,7 @@ class CreateEvent extends Component {
                     value={this.state.startTime}
                     onChange={this.changeStart}
                     style={{ height: 64 }}
+                    required
                   />
                 </Form.Group>
               </Col>
@@ -311,6 +431,7 @@ class CreateEvent extends Component {
                     value={this.state.endTime}
                     onChange={this.changeEnd}
                     style={{ height: 64 }}
+                    required
                   />
                 </Form.Group>
               </Col>
@@ -355,15 +476,23 @@ class CreateEvent extends Component {
             <br />
             <Row className="justify-content-md-center">
               <Col>
-                <Button href="/#" className="CE_Button ladda-button" onClick={this.createEvent} data-style="zoom-in" data-spinner-color="#000" id="createEventButton">
-                  <span className="ladda-label">Create New Event</span>
+                <Button variant="light" className="eventButton ladda-button" onClick={this.props.location.state ? this.updateEvent : this.createEvent} data-style="zoom-in" data-spinner-color="#000" id="createEventButton">
+                  <span className="ladda-label" id="createUpdateButtonText"> </span>
                 </Button>
               </Col>
             </Row >
+            <br />
+            <Row className="justify-content-md-center">
+              <Col xs={12} md={6}>
+                <Button variant="light" hidden={this.props.location.state ? false : true} onClick={this.deleteEvent} className="eventButton ladda-button" data-style="zoom-in" data-spinner-color="#000" id="deleteEventButton">
+                  <span className="ladda-label">Delete Event</span>
+                </Button>
+              </Col>
+            </Row>
           </Form >
         </Container >
       </div >
     );
   }
 }
-export default CreateEvent;
+export default Events;

@@ -1,9 +1,4 @@
-.viewSpace {
-  text-align: left;
-  margin-left: 10px;
-}
-
-.backgroundViewEvent {
+.backgroundEventsPage {
   background-image: url(/fpbackground.jpg);
   background-repeat: no-repeat;
   background-size:cover;
@@ -11,15 +6,7 @@
   min-height: 100vh;
 }
 
-.pageTitle {
-  font-size: 64pt;
-  background-repeat: no-repeat;
-  font-family: Chalkduster, sans-serif;
-  font-weight: bold;
-  color: white;
-}
-
-.rowStyle {
+.textLabelEventPage {
   font-size: 20px;
   background-repeat: no-repeat;
   font-family: Chalkduster, sans-serif;
@@ -27,12 +14,22 @@
   color: white;
 }
 
-.nav-link-color {
-  background-color: white;
-  border-radius: 5px;
+.createEventButton {
+  font-family: Chalkduster, sans-serif;
 }
 
-.viewEventButton {
+.updateEventButton {
   font-size: 28px !important;
   font-family: Chalkduster, sans-serif;
+}
+
+.eventTable {
+  font-family: Chalkduster, sans-serif;
+  color: #fff !important;
+  height: 100%;
+}
+
+.eventTableHolder {
+  overflow-y: scroll;
+  max-height: 60vh;
 }
