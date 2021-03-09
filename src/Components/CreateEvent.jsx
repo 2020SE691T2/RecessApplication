@@ -44,7 +44,7 @@ class CreateEvent extends Component {
     this.createEvent = this.createEvent.bind(this);
     this.changeRoster = this.changeRoster.bind(this);
     this.populateRosterList = this.populateRosterList.bind(this);
-    this.createDropdownItems = this.createDropdownItems.bind(this);
+    this.createRosterDropdownItems = this.createRosterDropdownItems.bind(this);
 
     this.env = new Environment();
   }
@@ -84,11 +84,40 @@ class CreateEvent extends Component {
     }
   }
 
-  createDropdownItems() {
+  createRosterDropdownItems() {
     let items = [];
     this.rosters.forEach(roster => (
       items.push(<option key={roster.roster_id} value={roster.roster_id}>{roster.roster_name}</option>)
     ));
+    return items;
+  }
+
+  createSchoolYearDropdownItems() {
+    //define a date object variable that will take the current system date  
+    const todayDate = new Date(); 
+    const todayYear = todayDate.getFullYear() 
+    
+    //find the year of the current date  
+    const oneJan =  new Date(todayDate.getFullYear(), 0, 1);   
+    
+    // calculating number of days in given year before a given date   
+    const numberOfDays =  Math.floor((todayDate - oneJan) / (24 * 60 * 60 * 1000));   
+    
+    // add 1 since to current date and returns value starting from 0   
+    const weekNum = Math.ceil(( todayDate.getDay() + 1 + numberOfDays) / 7);     
+    
+    // set the smallest year and adjust it if necessary
+    var year0 = todayYear;
+    if (weekNum < 30) {
+        year0 -= 1;
+    }
+
+    let items = [];
+    var itemYear = year0;
+    for (var i = 0; i < 4; i++) {
+        items.push(<option value={itemYear}>{itemYear + "/" + (itemYear+1).toString().substr(2, 3)}</option>)
+        itemYear++;
+    }
     return items;
   }
 
@@ -216,14 +245,15 @@ class CreateEvent extends Component {
                 <p className="textPlaceholder_CE">School Year: </p>
               </Col>
               <Col md={3} xs={12}>
-                <Form.Group controlId="yearFormGroup">
-                  <Form.Control
-                    className="textInput_CE"
-                    type="number" min="2019" max="2025"
+                <Form.Group controlId="yearSelectFormGroup">
+                  <Form.Control as="select"
+                    className="daySelect_CE"
+                    name="year"
                     value={this.state.year}
-                    onChange={this.changeYear}
-                    style={{ height: 64 }}
-                  />
+                    onChange={this.changeYear}>
+                    <option disabled selected value="" key={-1}>select</option>
+                    {this.createSchoolYearDropdownItems()}
+                  </Form.Control>
                 </Form.Group>
               </Col>
             </Row>
@@ -298,7 +328,7 @@ class CreateEvent extends Component {
                     value={this.state.selectedRoster}
                     onChange={this.changeRoster}>
                     <option disabled selected value="" key={-1}>select</option>
-                    {this.createDropdownItems()}
+                    {this.createRosterDropdownItems()}
                   </Form.Control>
                 </Form.Group>
               </Col>
