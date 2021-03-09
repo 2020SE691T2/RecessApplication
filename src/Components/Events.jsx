@@ -38,7 +38,8 @@ class Events extends Component {
     this.changeStart = this.changeStart.bind(this);
     this.changeEnd = this.changeEnd.bind(this);
     this.changeSection = this.changeSection.bind(this);
-    this.createUpdateEvent = this.createUpdateEvent.bind(this);
+    this.createEvent = this.createEvent.bind(this);
+    this.updateEvent = this.updateEvent.bind(this);
     this.deleteEvent = this.deleteEvent.bind(this);
     this.changeRoster = this.changeRoster.bind(this);
     this.populateRosterList = this.populateRosterList.bind(this);
@@ -155,89 +156,97 @@ class Events extends Component {
     return true;
   }
 
-  createUpdateEvent(event) {
+  createEvent(event) {
     event.preventDefault();
     this.laddaButton.start();
     if (!this.valid_input()) {
       this.laddaButton.stop();
       window.alert("Please fill out form completely!");
     } else {
-      var json = {};
-      if (this.props.location.state) { // this is the "update / delete" feature
-        json = {
-          "event_name": this.state.name,
-          "year": this.state.year,
-          "section": this.state.section,
-          "event_schedule": [],
-          "event_enrollment": [],
-        };
-        if (this.state.selectedRoster) {
-          json.event_enrollment.push({"roster_id" : this.state.selectedRoster});
+      var json = JSON.stringify({
+        "event_name": this.state.name,
+        "year": this.state.year,
+        "days": this.state.days,
+        "start": this.state.startTime,
+        "end": this.state.endTime,
+        "section": this.state.section,
+        "roster": this.state.selectedRoster
+      });
+      fetch(this.env.getRootUrl() + "/api/create-event/", {
+        method: "POST",
+        body: json,
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
         }
-        this.state.days.forEach(weekday => 
-          json.event_schedule.push({
-            "weekday": weekday,
-            "start_time": this.state.startTime,
-            "end_time": this.state.endTime,
-          })
-        );
-        fetch(this.env.getRootUrl() + "/event_info/" + this.props.location.state.currentEventId, {
-          method: "PATCH",
-          body: JSON.stringify(json),
-          headers: {
-            "Content-Type": "application/json",
-            'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
-          }
-        }).then((resp) => resp.json())
-          .then((results) => {
-            if (RefreshToken(results)) {
-              if (results.event_id) {
-                this.laddaButton.stop();
-                this.props.history.push({
-                  pathname: '/EventList'
-                })
-              }
-            }
-            else {
+      }).then((resp) => resp.json())
+        .then((results) => {
+          this.laddaButton.stop();
+          if (RefreshToken(results)) {
+            if (results.event_id) {
               this.laddaButton.stop();
-              toastr.error('Error', "Failed to edit event.", "Error")
+              this.props.history.push({
+                pathname: '/EventList'
+              })
             }
-          });
-      } else { // this is to create a NEW event 
-        json = JSON.stringify({
-          "event_name": this.state.name,
-          "year": this.state.year,
-          "days": this.state.days,
-          "start": this.state.startTime,
-          "end": this.state.endTime,
-          "section": this.state.section,
-          "roster": this.state.selectedRoster
-        });
-        fetch(this.env.getRootUrl() + "/api/create-event/", {
-          method: "POST",
-          body: json,
-          headers: {
-            "Content-Type": "application/json",
-            'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
           }
-        }).then((resp) => resp.json())
-          .then((results) => {
+          else {
             this.laddaButton.stop();
-            if (RefreshToken(results)) {
-              if (results.event_id) {
-                this.laddaButton.stop();
-                this.props.history.push({
-                  pathname: '/EventList'
-                })
-              }
-            }
-            else {
-              this.laddaButton.stop();
-              toastr.error('Error', "Failed to create event. Please enter all information.", "Error")
-            }
-          });
+            toastr.error('Error', "Failed to create event. Please enter all information.", "Error")
+          }
+        });
+    }
+  }
+
+  updateEvent(event) {
+    event.preventDefault();
+    this.laddaButton.start();
+    if (!this.valid_input()) {
+      this.laddaButton.stop();
+      window.alert("Please fill out form completely!");
+    }
+    else {
+      var json =
+      {
+        "event_name": this.state.name,
+        "year": this.state.year,
+        "section": this.state.section,
+        "event_schedule": [],
+        "event_enrollment": [],
+      };
+      if (this.state.selectedRoster) {
+        json.event_enrollment.push({ "roster_id": this.state.selectedRoster });
       }
-    } // else ends HERE
+      this.state.days.forEach(weekday =>
+        json.event_schedule.push({
+          "weekday": weekday,
+          "start_time": this.state.startTime,
+          "end_time": this.state.endTime,
+        })
+      );
+      fetch(this.env.getRootUrl() + "/event_info/" + this.props.location.state.currentEventId, {
+        method: "PATCH",
+        body: JSON.stringify(json),
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
+        }
+      }).then((resp) => resp.json())
+        .then((results) => {
+          if (RefreshToken(results)) {
+            if (results.event_id) {
+              this.laddaButton.stop();
+              this.props.history.push({
+                pathname: '/EventList'
+              })
+            }
+          }
+          else {
+            this.laddaButton.stop();
+            toastr.error('Error', "Failed to edit event.", "Error")
+          }
+        });
+    }
   }
 
   deleteEvent(event) {
@@ -321,7 +330,7 @@ class Events extends Component {
       <div>
         <Menubar />
         <Container className="background_CE" align-content="center" fluid>
-          <Form onSubmit={this.createUpdateEvent}>
+          <Form onSubmit={this.props.location.state ? this.updateEvent : this.createEvent}>
             <br />
             <Row className="justify-content-md-center">
               <Col xs={10}>
@@ -467,7 +476,7 @@ class Events extends Component {
             <br />
             <Row className="justify-content-md-center">
               <Col>
-                <Button variant="light" className="eventButton ladda-button" onClick={this.createUpdateEvent} data-style="zoom-in" data-spinner-color="#000" id="createEventButton">
+                <Button variant="light" className="eventButton ladda-button" onClick={this.props.location.state ? this.updateEvent : this.createEvent} data-style="zoom-in" data-spinner-color="#000" id="createEventButton">
                   <span className="ladda-label" id="createUpdateButtonText"> </span>
                 </Button>
               </Col>
