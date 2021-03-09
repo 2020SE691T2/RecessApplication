@@ -265,8 +265,12 @@ class Events extends Component {
     }
   }
 
-  setDaySelected(schedule) {
-
+  setDaySelected(schedules) {
+    let values = [];
+    schedules.forEach(schedule => (
+      values.push(schedule.weekday.toString())
+    ));
+    this.setState({ "days": values });
   }
 
   populateExisting() {
@@ -283,9 +287,7 @@ class Events extends Component {
           //"days": this.state.days,
           this.setState({ name: results.event_name });
           this.setState({ year: results.year });
-          results.event_schedule.forEach(schedule => (
-            this.setDaySelected(schedule)
-          ));
+          this.setDaySelected(results.event_schedule);
           if (results.event_schedule[0]) {
             this.setState({ startTime: results.event_schedule[0].start_time });
             this.setState({ endTime: results.event_schedule[0].end_time });
