@@ -32,8 +32,8 @@ class Events extends Component {
       selectedRoster: '',
       mondaySelected: false,
       tuesdaySelected: false,
-      wednesdaydaySelected: false,
-      thursdaydaySelected: false,
+      wednesdaySelected: false,
+      thursdaySelected: false,
       fridaySelected: false
     };
 
@@ -50,6 +50,7 @@ class Events extends Component {
     this.createRosterDropdownItems = this.createRosterDropdownItems.bind(this);
     this.populateExisting = this.populateExisting.bind(this);
     this.setPageStrings = this.setPageStrings.bind(this);
+    this.setDaySelected = this.setDaySelected.bind(this);
 
     this.env = new Environment();
   }
@@ -175,6 +176,7 @@ class Events extends Component {
         "section": this.state.section,
         "roster": this.state.selectedRoster
       });
+      console.log(json);
       if (this.props.location.state) {
         fetch(this.env.getRootUrl() + "/event_info/" + this.props.location.state.currentEventId, {
           method: "PATCH",
@@ -268,6 +270,25 @@ class Events extends Component {
     }
   }
 
+  setDaySelected(schedule) {
+    if (schedule.weekday === 0) {
+      this.setState({ mondaySelected: true });
+    }
+    else if (schedule.weekday === 1) {
+      this.setState({ tuesdaySelected: true });
+    }
+    else if (schedule.weekday === 2) {
+      this.setState({ wednesdaySelected: true });
+    }
+    else if (schedule.weekday === 3) {
+      this.setState({ thursdaySelected: true });
+    }
+    else if (schedule.weekday === 4) {
+      this.setState({ fridaySelected: true });
+    }
+    this.forceUpdate();
+  }
+
   populateExisting() {
     fetch(this.env.getRootUrl() + "/event_info/" + this.props.location.state.currentEventId, {
       method: "GET",
@@ -277,11 +298,14 @@ class Events extends Component {
       }
     }).then((resp) => resp.json())
       .then((results) => {
+        console.log(results);
         if (RefreshToken(results)) {
           //"days": this.state.days,
           this.setState({ name: results.event_name });
           this.setState({ year: results.year });
-          //this.setState({ days: results.event_schedule[0].weekday });
+          results.event_schedule.forEach(schedule => (
+            this.setDaySelected(schedule)
+          ));
           if (results.event_schedule[0]) {
             this.setState({ startTime: results.event_schedule[0].start_time });
             this.setState({ endTime: results.event_schedule[0].end_time });
@@ -359,11 +383,11 @@ class Events extends Component {
                     onChange={this.changeDays}
                     style={{ height: 128 }}
                     required>
-                    <option value={0} selected="mondaySelected">Monday</option>
-                    <option value={1} selected="tuesdaySelected">Tuesday</option>
-                    <option value={2} selected="wednesdaydaySelected">Wednesday</option>
-                    <option value={3} selected="thursdaydaySelected">Thursday</option>
-                    <option value={4} selected="fridaySelected">Friday</option>
+                    <option value={0} selected={this.mondaySelected}>Monday</option>
+                    <option value={1} selected={this.tuesdaySelected}>Tuesday</option>
+                    <option value={2} selected={this.wednesdaySelected}>Wednesday</option>
+                    <option value={3} selected={this.thursdaySelected}>Thursday</option>
+                    <option value={4} selected={this.fridaySelected}>Friday</option>
                   </Form.Control>
                 </Form.Group>
               </Col>
