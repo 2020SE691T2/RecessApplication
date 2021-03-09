@@ -162,20 +162,29 @@ class Events extends Component {
       this.laddaButton.stop();
       window.alert("Please fill out form completely!");
     } else {
-      var json = JSON.stringify({
-        "event_name": this.state.name,
-        "year": this.state.year,
-        "days": this.state.days,
-        "start": this.state.startTime,
-        "end": this.state.endTime,
-        "section": this.state.section,
-        "roster": this.state.selectedRoster
-      });
-      console.log(json);
-      if (this.props.location.state) {
+      var json = {};
+      if (this.props.location.state) { // this is the "update / delete" feature
+        json = {
+          "event_name": this.state.name,
+          "year": this.state.year,
+          "section": this.state.section,
+          "event_schedule": [],
+          "event_enrollment": [],
+        };
+        if (this.state.selectedRoster) {
+          json.event_enrollment.push({"roster_id" : this.state.selectedRoster});
+        }
+        this.state.days.forEach(weekday => 
+          json.event_schedule.push({
+            "weekday": weekday,
+            "start_time": this.state.startTime,
+            "end_time": this.state.endTime,
+          })
+        );
+        console.log(json); // REMOVE ME!
         fetch(this.env.getRootUrl() + "/event_info/" + this.props.location.state.currentEventId, {
           method: "PATCH",
-          body: json,
+          body: JSON.stringify(json),
           headers: {
             "Content-Type": "application/json",
             'Authorization': 'Bearer ' + sessionStorage.getItem("accessToken")
@@ -195,8 +204,16 @@ class Events extends Component {
               toastr.error('Error', "Failed to edit event.", "Error")
             }
           });
-      }
-      else {
+      } else { // this is to create a NEW event 
+        json = JSON.stringify({
+          "event_name": this.state.name,
+          "year": this.state.year,
+          "days": this.state.days,
+          "start": this.state.startTime,
+          "end": this.state.endTime,
+          "section": this.state.section,
+          "roster": this.state.selectedRoster
+        });
         fetch(this.env.getRootUrl() + "/api/create-event/", {
           method: "POST",
           body: json,
@@ -221,7 +238,7 @@ class Events extends Component {
             }
           });
       }
-    }
+    } // else ends HERE
   }
 
   deleteEvent(event) {
@@ -282,7 +299,6 @@ class Events extends Component {
       }
     }).then((resp) => resp.json())
       .then((results) => {
-        console.log(results);
         if (RefreshToken(results)) {
           //"days": this.state.days,
           this.setState({ name: results.event_name });
