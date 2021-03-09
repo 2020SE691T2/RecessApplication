@@ -181,7 +181,6 @@ class Events extends Component {
             "end_time": this.state.endTime,
           })
         );
-        console.log(json); // REMOVE ME!
         fetch(this.env.getRootUrl() + "/event_info/" + this.props.location.state.currentEventId, {
           method: "PATCH",
           body: JSON.stringify(json),
