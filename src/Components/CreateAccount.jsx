@@ -115,7 +115,6 @@ class CreateAccount extends Component {
         "last_name": this.state.lastName,
         "preferred_name": this.state.preferredName,
         "password": this.state.password,
-        "physical_id_num": "1",
         "dob": this.state.birthday,
         "role": this.state.role,
         "photo": this.state.profilePicture,
