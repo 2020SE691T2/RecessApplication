@@ -223,7 +223,7 @@ class ProfilePage extends Component {
                             <Col xs={12} lg={5}>
                                 <Form.Group controlId="emailFormGroup">
                                     <Form.Label className="textLabelProfilePage">Email Address:</Form.Label>
-                                    <Form.Control type="text" name="emailInput" disabled={this.state.disabled} value={this.state.email} onChange={this.editEmail} />
+                                    <Form.Control type="text" name="emailInput" disabled={this.state.disabled} value={this.state.email} readOnly />
                                 </Form.Group>
                             </Col>
                         </Row>
