@@ -37,7 +37,6 @@ class ProfilePage extends Component {
         this.editFirstName = this.editFirstName.bind(this);
         this.editLastName = this.editLastName.bind(this);
         this.editPreferredName = this.editPreferredName.bind(this);
-        this.editEmail = this.editEmail.bind(this);
         this.editDoB = this.editDoB.bind(this);
         this.editIdNum = this.editIdNum.bind(this);
         this.editProfilePicture = this.editProfilePicture.bind(this);
@@ -147,10 +146,6 @@ class ProfilePage extends Component {
         this.setState({ preferredName: event.target.value });
     }
 
-    editEmail(event) {
-        this.setState({ email: event.target.value });
-    }
-
     editDoB(event) {
         this.setState({ dob: event.target.value });
     }
@@ -223,7 +218,7 @@ class ProfilePage extends Component {
                             <Col xs={12} lg={5}>
                                 <Form.Group controlId="emailFormGroup">
                                     <Form.Label className="textLabelProfilePage">Email Address:</Form.Label>
-                                    <Form.Control type="text" name="emailInput" disabled={this.state.disabled} value={this.state.email} readOnly />
+                                    <Form.Control type="text" name="emailInput" value={this.state.email} readOnly />
                                 </Form.Group>
                             </Col>
                         </Row>
